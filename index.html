@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Card Vault — Pro Terminal | Live Counters + Animated Emoji BG</title>
+    <title>Card Vault — Pro Terminal | Live Counters + Filter</title>
     <style>
         * {
             margin: 0;
@@ -35,7 +35,6 @@
             overflow: hidden;
         }
 
-        /* Upar wale emoji (top to bottom animation) */
         .emoji-top {
             position: absolute;
             font-size: 2rem;
@@ -43,7 +42,6 @@
             opacity: 0.5;
         }
 
-        /* Niche wale emoji (bottom to top animation) */
         .emoji-bottom {
             position: absolute;
             font-size: 2rem;
@@ -52,28 +50,15 @@
         }
 
         @keyframes fallDown {
-            0% {
-                transform: translateY(-20vh) rotate(0deg);
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(120vh) rotate(360deg);
-                opacity: 0.2;
-            }
+            0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.6; }
+            100% { transform: translateY(120vh) rotate(360deg); opacity: 0.2; }
         }
 
         @keyframes riseUp {
-            0% {
-                transform: translateY(120vh) rotate(0deg);
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-20vh) rotate(-360deg);
-                opacity: 0.2;
-            }
+            0% { transform: translateY(120vh) rotate(0deg); opacity: 0.6; }
+            100% { transform: translateY(-20vh) rotate(-360deg); opacity: 0.2; }
         }
 
-        /* Upar wale emoji list */
         .emoji-top-1 { left: 5%; animation-duration: 6s; animation-delay: 0s; }
         .emoji-top-2 { left: 15%; animation-duration: 8s; animation-delay: 1s; }
         .emoji-top-3 { left: 25%; animation-duration: 7s; animation-delay: 2s; }
@@ -84,8 +69,10 @@
         .emoji-top-8 { left: 75%; animation-duration: 9.5s; animation-delay: 2.5s; }
         .emoji-top-9 { left: 85%; animation-duration: 6s; animation-delay: 3.5s; }
         .emoji-top-10 { left: 95%; animation-duration: 8s; animation-delay: 0.8s; }
+        .emoji-top-11 { left: 12%; animation-duration: 7.2s; animation-delay: 5s; }
+        .emoji-top-12 { left: 42%; animation-duration: 6.8s; animation-delay: 2.2s; }
+        .emoji-top-13 { left: 72%; animation-duration: 8.2s; animation-delay: 4.5s; }
 
-        /* Niche wale emoji */
         .emoji-bottom-1 { left: 8%; animation-duration: 7s; animation-delay: 0s; }
         .emoji-bottom-2 { left: 18%; animation-duration: 9s; animation-delay: 1.5s; }
         .emoji-bottom-3 { left: 28%; animation-duration: 6.5s; animation-delay: 2s; }
@@ -96,16 +83,10 @@
         .emoji-bottom-8 { left: 78%; animation-duration: 8.5s; animation-delay: 2.5s; }
         .emoji-bottom-9 { left: 88%; animation-duration: 7s; animation-delay: 1.8s; }
         .emoji-bottom-10 { left: 98%; animation-duration: 9s; animation-delay: 0.5s; }
+        .emoji-bottom-11 { left: 22%; animation-duration: 7.8s; animation-delay: 3.2s; }
+        .emoji-bottom-12 { left: 52%; animation-duration: 6.3s; animation-delay: 5.5s; }
+        .emoji-bottom-13 { left: 82%; animation-duration: 8.8s; animation-delay: 2.8s; }
 
-        /* Additional random positions for more density */
-        .emoji-top-11 { left: 12%; animation-duration: 7.2s; animation-delay: 5s; top: -10%; }
-        .emoji-top-12 { left: 42%; animation-duration: 6.8s; animation-delay: 2.2s; top: -5%; }
-        .emoji-top-13 { left: 72%; animation-duration: 8.2s; animation-delay: 4.5s; top: -15%; }
-        .emoji-bottom-11 { left: 22%; animation-duration: 7.8s; animation-delay: 3.2s; bottom: -10%; }
-        .emoji-bottom-12 { left: 52%; animation-duration: 6.3s; animation-delay: 5.5s; bottom: -5%; }
-        .emoji-bottom-13 { left: 82%; animation-duration: 8.8s; animation-delay: 2.8s; bottom: -15%; }
-
-        /* vault panel - z-index higher than background */
         .vault {
             max-width: 880px;
             width: 100%;
@@ -137,7 +118,6 @@
             color: transparent;
             letter-spacing: -0.3px;
             font-style: italic;
-            text-shadow: 0 0 5px rgba(0,160,255,0.2);
         }
 
         .vx-badge {
@@ -149,7 +129,6 @@
             border-radius: 1rem;
             border: 1px solid #ffa559;
             font-style: italic;
-            letter-spacing: 1px;
         }
 
         .meta-strip {
@@ -165,41 +144,10 @@
             margin-bottom: 1.4rem;
         }
 
-        .uid {
-            color: #7eb6ff;
-            font-weight: 700;
-            font-style: italic;
-            background: #0e1528;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-        }
-
-        .secure-account {
-            color: #ffd966;
-            font-weight: 700;
-            font-style: italic;
-            background: #2a2416;
-            padding: 0.2rem 0.9rem;
-            border-radius: 20px;
-            border-left: 3px solid #ffcd7e;
-        }
-
-        .unverified-reg {
-            color: #ffaa66;
-            font-style: italic;
-            background: #1f1b12;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-        }
-
-        .node {
-            color: #b3d4ff;
-            font-style: italic;
-            font-weight: 500;
-            background: #0c1324;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-        }
+        .uid { color: #7eb6ff; font-weight: 700; font-style: italic; background: #0e1528; padding: 0.2rem 0.7rem; border-radius: 20px; }
+        .secure-account { color: #ffd966; font-weight: 700; font-style: italic; background: #2a2416; padding: 0.2rem 0.9rem; border-radius: 20px; border-left: 3px solid #ffcd7e; }
+        .unverified-reg { color: #ffaa66; font-style: italic; background: #1f1b12; padding: 0.2rem 0.8rem; border-radius: 20px; }
+        .node { color: #b3d4ff; font-style: italic; font-weight: 500; background: #0c1324; padding: 0.2rem 0.8rem; border-radius: 20px; }
 
         .top-users-bar {
             display: flex;
@@ -218,31 +166,9 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .users-mini-label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            color: #9eb2d4;
-            letter-spacing: 1px;
-            font-style: italic;
-        }
-
-        .users-mini-number {
-            font-size: 1.2rem;
-            font-weight: 800;
-            background: linear-gradient(145deg, #ffffff, #bdd4ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1;
-        }
-
-        .users-mini-online {
-            font-size: 0.5rem;
-            background: #1f3a2c;
-            color: #6aff9e;
-            padding: 0.15rem 0.4rem;
-            border-radius: 2rem;
-        }
+        .users-mini-label { font-size: 0.6rem; text-transform: uppercase; color: #9eb2d4; letter-spacing: 1px; font-style: italic; }
+        .users-mini-number { font-size: 1.2rem; font-weight: 800; background: linear-gradient(145deg, #ffffff, #bdd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .users-mini-online { font-size: 0.5rem; background: #1f3a2c; color: #6aff9e; padding: 0.15rem 0.4rem; border-radius: 2rem; }
 
         .filter-bar {
             display: flex;
@@ -261,16 +187,11 @@
             transition: 0.2s;
             padding: 0.2rem 0;
         }
-
         .filter-item.all { color: #ffffff; text-shadow: 0 0 3px #ffffff80; }
         .filter-item.visa { color: #5fb2ff; }
         .filter-item.master { color: #ff9f4a; }
         .filter-item.rupay { color: #6fcf97; }
-
-        .filter-item.active {
-            border-bottom: 3px solid;
-            transform: translateY(-1px);
-        }
+        .filter-item.active { border-bottom: 3px solid; transform: translateY(-1px); }
         .filter-item.all.active { border-color: #ffffff; }
         .filter-item.visa.active { border-color: #5fb2ff; text-shadow: 0 0 4px #5fb2ff; }
         .filter-item.master.active { border-color: #ff9f4a; text-shadow: 0 0 3px #ff9f4a; }
@@ -282,7 +203,6 @@
             gap: 2rem;
             margin: 0.5rem 0 2rem 0;
             align-items: center;
-            justify-content: flex-start;
             flex-wrap: wrap;
         }
 
@@ -290,224 +210,43 @@
             background: #0b1120;
             border-radius: 1.2rem;
             padding: 0.5rem 1.4rem;
-            border-left: 4px solid;
+            border-left: 4px solid #ffaa4a;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             min-width: 200px;
         }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; color: #9eb2d4; letter-spacing: 1px; font-style: italic; }
+        .stat-number { font-size: 1.9rem; font-weight: 800; background: linear-gradient(145deg, #ffffff, #bdd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .online-badge { font-size: 0.6rem; background: #1f3a2c; color: #6aff9e; padding: 0.2rem 0.5rem; border-radius: 2rem; display: inline-block; margin-left: 0.5rem; vertical-align: middle; font-style: normal; }
 
-        .stat-card.traffic { border-left-color: #ffaa4a; }
-
-        .stat-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #9eb2d4;
-            letter-spacing: 1px;
-            font-style: italic;
-        }
-
-        .stat-number {
-            font-size: 1.9rem;
-            font-weight: 800;
-            background: linear-gradient(145deg, #ffffff, #bdd4ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1.2;
-        }
-
-        .online-badge {
-            font-size: 0.6rem;
-            background: #1f3a2c;
-            color: #6aff9e;
-            padding: 0.2rem 0.5rem;
-            border-radius: 2rem;
-            display: inline-block;
-            margin-left: 0.5rem;
-            vertical-align: middle;
-            font-style: normal;
-        }
-
-        .cards-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.6rem;
-        }
-
+        .cards-container { display: flex; flex-direction: column; gap: 1.6rem; }
         .card-item {
             background: linear-gradient(125deg, #121a2a, #0c1120);
             border-radius: 1.4rem;
             border: 1px solid #3c4f74;
             padding: 1.2rem 1.5rem 1.3rem 1.5rem;
-            transition: 0.15s;
             box-shadow: 0 8px 18px rgba(0,0,0,0.3);
         }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.6rem;
-        }
-
-        .network-badge {
-            background: #13253d;
-            padding: 0.2rem 0.9rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: #b2dbff;
-            letter-spacing: 0.5px;
-        }
-
-        .bank-name {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #f2f6ff;
-            margin-left: 0.6rem;
-            font-style: italic;
-            text-shadow: 0 0 2px #5f9eff;
-        }
-
-        .card-number {
-            font-family: 'SF Mono', monospace;
-            font-size: 1rem;
-            letter-spacing: 1.2px;
-            background: #030a18;
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 1rem;
-            color: #e5f0ff;
-            border: 0.5px solid #43688f;
-            margin: 0.6rem 0 0.5rem 0;
-            font-weight: 500;
-        }
-
-        .details {
-            display: flex;
-            gap: 2rem;
-            margin: 0.4rem 0 0.3rem 0;
-            font-size: 0.8rem;
-            color: #bdd6ff;
-            font-style: italic;
-        }
-
-        .details span {
-            color: #ffcb8e;
-            margin-right: 0.3rem;
-            font-style: normal;
-            font-weight: 600;
-        }
-
-        .balance {
-            font-weight: 800;
-            font-size: 0.9rem;
-            color: #c6ffa3;
-            background: #0c1a28;
-            display: inline-block;
-            padding: 0.2rem 0.8rem;
-            border-radius: 1rem;
-            margin: 0.3rem 0;
-            font-style: italic;
-        }
-
-        .stock-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0.9rem 0 0.7rem 0;
-            padding-top: 0.4rem;
-            border-top: 1px dashed #395075;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #a2b9df;
-            font-weight: 600;
-        }
-
-        .stock-status {
-            font-weight: 800;
-            padding: 0.2rem 1rem;
-            border-radius: 2rem;
-        }
-
-        .stock-out {
-            color: #ffa084;
-            background: #2e1a17;
-            border-left: 3px solid #ff6f52;
-        }
-
-        .stock-limited {
-            color: #ffc978;
-            background: #2f2519;
-            border-left: 3px solid #ffad4a;
-        }
-
-        .stock-instock {
-            color: #8bffa5;
-            background: #1a2f22;
-            border-left: 3px solid #6aff9e;
-        }
-
-        .action-area {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            margin-top: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .price {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FCE898, #D4FFB0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-style: italic;
-            text-align: center;
-        }
-
-        .buy-btn {
-            background: linear-gradient(95deg, #136e94, #0a4462);
-            border: none;
-            padding: 0.75rem 2.2rem;
-            border-radius: 2.5rem;
-            font-weight: 800;
-            font-size: 1rem;
-            font-family: monospace;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 0.5px solid #5db4e0;
-            box-shadow: 0 2px 8px #0a446280;
-            min-width: 120px;
-        }
-
-        .buy-btn:disabled {
-            background: #2a3346;
-            border-color: #6a7c9e;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .filter-status {
-            margin-top: 1.2rem;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #88b4f0;
-            font-style: italic;
-            background: #0c1324;
-            padding: 0.4rem;
-            border-radius: 2rem;
-            font-family: monospace;
-            border: 0.5px solid #41587e;
-        }
+        .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem; }
+        .network-badge { background: #13253d; padding: 0.2rem 0.9rem; border-radius: 30px; font-size: 0.7rem; font-weight: 800; color: #b2dbff; }
+        .bank-name { font-size: 1.2rem; font-weight: 800; color: #f2f6ff; margin-left: 0.6rem; font-style: italic; }
+        .card-number { font-family: 'SF Mono', monospace; font-size: 1rem; letter-spacing: 1.2px; background: #030a18; display: inline-block; padding: 0.3rem 1rem; border-radius: 1rem; color: #e5f0ff; border: 0.5px solid #43688f; margin: 0.6rem 0 0.5rem 0; }
+        .details { display: flex; gap: 2rem; margin: 0.4rem 0 0.3rem 0; font-size: 0.8rem; color: #bdd6ff; font-style: italic; }
+        .details span { color: #ffcb8e; margin-right: 0.3rem; font-style: normal; font-weight: 600; }
+        .balance { font-weight: 800; font-size: 0.9rem; color: #c6ffa3; background: #0c1a28; display: inline-block; padding: 0.2rem 0.8rem; border-radius: 1rem; margin: 0.3rem 0; font-style: italic; }
+        .stock-line { display: flex; justify-content: space-between; align-items: center; margin: 0.9rem 0 0.7rem 0; padding-top: 0.4rem; border-top: 1px dashed #395075; font-size: 0.7rem; text-transform: uppercase; color: #a2b9df; font-weight: 600; }
+        .stock-status { font-weight: 800; padding: 0.2rem 1rem; border-radius: 2rem; }
+        .stock-out { color: #ffa084; background: #2e1a17; border-left: 3px solid #ff6f52; }
+        .stock-limited { color: #ffc978; background: #2f2519; border-left: 3px solid #ffad4a; }
+        .stock-instock { color: #8bffa5; background: #1a2f22; border-left: 3px solid #6aff9e; }
+        .action-area { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 0.8rem; flex-wrap: wrap; }
+        .price { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FCE898, #D4FFB0); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; }
+        .buy-btn { background: linear-gradient(95deg, #136e94, #0a4462); border: none; padding: 0.75rem 2.2rem; border-radius: 2.5rem; font-weight: 800; font-size: 1rem; font-family: monospace; color: white; cursor: pointer; transition: 0.2s; border: 0.5px solid #5db4e0; min-width: 120px; }
+        .buy-btn:disabled { background: #2a3346; border-color: #6a7c9e; cursor: not-allowed; opacity: 0.6; }
+        .filter-status { margin-top: 1.2rem; text-align: center; font-size: 0.7rem; color: #88b4f0; font-style: italic; background: #0c1324; padding: 0.4rem; border-radius: 2rem; font-family: monospace; border: 0.5px solid #41587e; }
 
         @media (max-width: 700px) {
             .vault { padding: 1rem; }
             .filter-bar { gap: 1rem; }
-            .stats-row { flex-direction: row; gap: 1rem; }
-            .stat-card { min-width: 160px; }
             .buy-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; min-width: 100px; }
             .price { font-size: 1.4rem; }
             .emoji-top, .emoji-bottom { font-size: 1.2rem; }
@@ -515,36 +254,18 @@
     </style>
 </head>
 <body>
-    <!-- Animated Emoji Background -->
     <div class="emoji-bg">
-        <!-- Upar wale emoji (neeche ja rahe hain) 🫧🍂❄️🌈🏞️🍓🛸✈️ -->
-        <div class="emoji-top emoji-top-1">🫧</div>
-        <div class="emoji-top emoji-top-2">🍂</div>
-        <div class="emoji-top emoji-top-3">❄️</div>
-        <div class="emoji-top emoji-top-4">🌈</div>
-        <div class="emoji-top emoji-top-5">🏞️</div>
-        <div class="emoji-top emoji-top-6">🍓</div>
-        <div class="emoji-top emoji-top-7">🛸</div>
-        <div class="emoji-top emoji-top-8">✈️</div>
-        <div class="emoji-top emoji-top-9">🫧</div>
-        <div class="emoji-top emoji-top-10">🍂</div>
-        <div class="emoji-top emoji-top-11">❄️</div>
-        <div class="emoji-top emoji-top-12">🌈</div>
+        <!-- Upar wale emoji (neeche ja rahe) 🫧🍂❄️🌈🏞️🍓🛸✈️ -->
+        <div class="emoji-top emoji-top-1">🫧</div><div class="emoji-top emoji-top-2">🍂</div><div class="emoji-top emoji-top-3">❄️</div>
+        <div class="emoji-top emoji-top-4">🌈</div><div class="emoji-top emoji-top-5">🏞️</div><div class="emoji-top emoji-top-6">🍓</div>
+        <div class="emoji-top emoji-top-7">🛸</div><div class="emoji-top emoji-top-8">✈️</div><div class="emoji-top emoji-top-9">🫧</div>
+        <div class="emoji-top emoji-top-10">🍂</div><div class="emoji-top emoji-top-11">❄️</div><div class="emoji-top emoji-top-12">🌈</div>
         <div class="emoji-top emoji-top-13">🏞️</div>
-
-        <!-- Niche wale emoji (upar aa rahe hain) 🪙㊗️🏁🧿🧬🌠🌌🪩 -->
-        <div class="emoji-bottom emoji-bottom-1">🪙</div>
-        <div class="emoji-bottom emoji-bottom-2">㊗️</div>
-        <div class="emoji-bottom emoji-bottom-3">🏁</div>
-        <div class="emoji-bottom emoji-bottom-4">🧿</div>
-        <div class="emoji-bottom emoji-bottom-5">🧬</div>
-        <div class="emoji-bottom emoji-bottom-6">🌠</div>
-        <div class="emoji-bottom emoji-bottom-7">🌌</div>
-        <div class="emoji-bottom emoji-bottom-8">🪩</div>
-        <div class="emoji-bottom emoji-bottom-9">🪙</div>
-        <div class="emoji-bottom emoji-bottom-10">㊗️</div>
-        <div class="emoji-bottom emoji-bottom-11">🏁</div>
-        <div class="emoji-bottom emoji-bottom-12">🧿</div>
+        <!-- Niche wale emoji (upar aa rahe) 🪙㊗️🏁🧿🧬🌠🌌🪩 -->
+        <div class="emoji-bottom emoji-bottom-1">🪙</div><div class="emoji-bottom emoji-bottom-2">㊗️</div><div class="emoji-bottom emoji-bottom-3">🏁</div>
+        <div class="emoji-bottom emoji-bottom-4">🧿</div><div class="emoji-bottom emoji-bottom-5">🧬</div><div class="emoji-bottom emoji-bottom-6">🌠</div>
+        <div class="emoji-bottom emoji-bottom-7">🌌</div><div class="emoji-bottom emoji-bottom-8">🪩</div><div class="emoji-bottom emoji-bottom-9">🪙</div>
+        <div class="emoji-bottom emoji-bottom-10">㊗️</div><div class="emoji-bottom emoji-bottom-11">🏁</div><div class="emoji-bottom emoji-bottom-12">🧿</div>
         <div class="emoji-bottom emoji-bottom-13">🧬</div>
     </div>
 
@@ -564,7 +285,7 @@
         <div class="top-users-bar">
             <div class="users-mini">
                 <span class="users-mini-label">TERMINAL USERS</span>
-                <span class="users-mini-number" id="terminalUsersMini">143</span>
+                <span class="users-mini-number" id="terminalUsersMini">0</span>
                 <span class="users-mini-online">● LIVE</span>
             </div>
         </div>
@@ -584,112 +305,44 @@
         </div>
 
         <div class="cards-container">
-            <!-- CARD 1: SBI GOLD (VISA) -->
+            <!-- VISA - SBI GOLD -->
             <div class="card-item" data-network="visa">
-                <div class="card-header">
-                    <div>
-                        <span class="network-badge">VISA</span>
-                        <span class="bank-name">SBI GOLD</span>
-                    </div>
-                    <div>💳</div>
-                </div>
-                <div>
-                    <span class="card-number">5224 | 6388 | 2281 | 4758</span>
-                </div>
-                <div class="details">
-                    <div><span>EXP:</span> 08/29</div>
-                    <div><span>CVV:</span> ***</div>
-                </div>
+                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">SBI GOLD</span></div><div>💳</div></div>
+                <div><span class="card-number">5224 | 6388 | 2281 | 4758</span></div>
+                <div class="details"><div><span>EXP:</span> 08/29</div><div><span>CVV:</span> ***</div></div>
                 <div class="balance">BAL: ₹2,500</div>
-                <div class="stock-line">
-                    <span>STOCK PROTOCOL</span>
-                    <span class="stock-status stock-out">OUT OF STOCK</span>
-                </div>
-                <div class="action-area">
-                    <div class="price">₹223</div>
-                    <button class="buy-btn" disabled>SOLD OUT</button>
-                </div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
+                <div class="action-area"><div class="price">₹223</div><button class="buy-btn" disabled>SOLD OUT</button></div>
             </div>
 
-            <!-- CARD 2: HDFC PREMIUM (VISA) -->
+            <!-- VISA - HDFC PREMIUM -->
             <div class="card-item" data-network="visa">
-                <div class="card-header">
-                    <div>
-                        <span class="network-badge">VISA</span>
-                        <span class="bank-name">HDFC PREMIUM</span>
-                    </div>
-                    <div>💎</div>
-                </div>
-                <div>
-                    <span class="card-number">4532 | 6388 | 2281 | 5506</span>
-                </div>
-                <div class="details">
-                    <div><span>EXP:</span> 12/30</div>
-                    <div><span>CVV:</span> *****</div>
-                </div>
+                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">HDFC PREMIUM</span></div><div>💎</div></div>
+                <div><span class="card-number">4532 | 6388 | 2281 | 5506</span></div>
+                <div class="details"><div><span>EXP:</span> 12/30</div><div><span>CVV:</span> *****</div></div>
                 <div class="balance">BAL: ₹2,520</div>
-                <div class="stock-line">
-                    <span>STOCK PROTOCOL</span>
-                    <span class="stock-status stock-limited" id="hdfcStockLabel">ONLY 8 LEFT</span>
-                </div>
-                <div class="action-area">
-                    <div class="price">₹155</div>
-                    <button class="buy-btn" id="hdfcBuyButton">BUY NOW</button>
-                </div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-limited" id="hdfcStockLabel">ONLY 8 LEFT</span></div>
+                <div class="action-area"><div class="price">₹155</div><button class="buy-btn" id="hdfcBuyButton">BUY NOW</button></div>
             </div>
 
-            <!-- CARD 3: ICICI PLATINUM (MASTERCARD) -->
+            <!-- MASTERCARD - ICICI PLATINUM -->
             <div class="card-item" data-network="mastercard">
-                <div class="card-header">
-                    <div>
-                        <span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span>
-                        <span class="bank-name">ICICI PLATINUM</span>
-                    </div>
-                    <div>💠</div>
-                </div>
-                <div>
-                    <span class="card-number">5423 | 7890 | 1234 | 5678</span>
-                </div>
-                <div class="details">
-                    <div><span>EXP:</span> 03/28</div>
-                    <div><span>CVV:</span> ****</div>
-                </div>
+                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">ICICI PLATINUM</span></div><div>💠</div></div>
+                <div><span class="card-number">5423 | 7890 | 1234 | 5678</span></div>
+                <div class="details"><div><span>EXP:</span> 03/28</div><div><span>CVV:</span> ****</div></div>
                 <div class="balance">BAL: ₹3,750</div>
-                <div class="stock-line">
-                    <span>STOCK PROTOCOL</span>
-                    <span class="stock-status stock-instock">IN STOCK</span>
-                </div>
-                <div class="action-area">
-                    <div class="price">₹299</div>
-                    <button class="buy-btn" id="mastercardBuyButton">BUY NOW</button>
-                </div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
+                <div class="action-area"><div class="price">₹299</div><button class="buy-btn" id="mastercardBuyButton">BUY NOW</button></div>
             </div>
 
-            <!-- CARD 4: YES BANK ELITE (RUPAY) -->
+            <!-- RUPAY - YES BANK ELITE -->
             <div class="card-item" data-network="rupay">
-                <div class="card-header">
-                    <div>
-                        <span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span>
-                        <span class="bank-name">YES BANK ELITE</span>
-                    </div>
-                    <div>🪙</div>
-                </div>
-                <div>
-                    <span class="card-number">6072 | 8899 | 3344 | 7788</span>
-                </div>
-                <div class="details">
-                    <div><span>EXP:</span> 06/27</div>
-                    <div><span>CVV:</span> ******</div>
-                </div>
+                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">YES BANK ELITE</span></div><div>🪙</div></div>
+                <div><span class="card-number">6072 | 8899 | 3344 | 7788</span></div>
+                <div class="details"><div><span>EXP:</span> 06/27</div><div><span>CVV:</span> ******</div></div>
                 <div class="balance">BAL: ₹4,200</div>
-                <div class="stock-line">
-                    <span>STOCK PROTOCOL</span>
-                    <span class="stock-status stock-instock">IN STOCK</span>
-                </div>
-                <div class="action-area">
-                    <div class="price">₹199</div>
-                    <button class="buy-btn" id="rupayBuyButton">BUY NOW</button>
-                </div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
+                <div class="action-area"><div class="price">₹199</div><button class="buy-btn" id="rupayBuyButton">BUY NOW</button></div>
             </div>
         </div>
 
@@ -698,7 +351,7 @@
 
     <script>
         // ============================================================
-        // 1. REAL-TIME ONLINE COUNTERS (TERMINAL USERS + 3D TRAFFIC)
+        // REAL-TIME ONLINE USERS + AUTO TRAFFIC (aage piche update)
         // ============================================================
         (function() {
             let sessionId = localStorage.getItem('cv_session_id');
@@ -751,26 +404,26 @@
                     }
                     localStorage.removeItem('cv_last_heartbeat_' + sid);
                 }
-                if (changed) {
-                    saveActiveUsers();
-                }
+                if (changed) saveActiveUsers();
             }
 
             let baseTraffic = 12450;
             let trafficCounter = baseTraffic;
-            const terminalMiniSpan = document.getElementById('terminalUsersMini');
+            const terminalSpan = document.getElementById('terminalUsersMini');
             const trafficSpan = document.getElementById('trafficCount');
             
             function updateDisplays() {
                 const userCount = activeUsers.size;
-                if (terminalMiniSpan) {
-                    terminalMiniSpan.innerText = userCount;
-                    terminalMiniSpan.style.transform = 'scale(1.05)';
-                    setTimeout(() => { if(terminalMiniSpan) terminalMiniSpan.style.transform = ''; }, 200);
+                if (terminalSpan) {
+                    terminalSpan.innerText = userCount;
+                    terminalSpan.style.transform = 'scale(1.05)';
+                    setTimeout(() => { if(terminalSpan) terminalSpan.style.transform = ''; }, 200);
                 }
-                const increment = Math.floor(Math.random() * (userCount + 2)) + 1;
-                trafficCounter = trafficCounter + increment;
-                if (trafficCounter > 99999) trafficCounter = baseTraffic + Math.floor(Math.random() * 5000);
+                // Traffic auto update aage piche
+                const change = Math.floor(Math.random() * 15) - 5; // -5 se +10 tak
+                trafficCounter = trafficCounter + change;
+                if (trafficCounter < baseTraffic - 500) trafficCounter = baseTraffic - 200;
+                if (trafficCounter > baseTraffic + 5000) trafficCounter = baseTraffic + 3000;
                 if (trafficSpan) {
                     let displayVal = trafficCounter;
                     if (displayVal > 10000) {
@@ -789,7 +442,7 @@
             setInterval(() => {
                 cleanupInactiveSessions();
                 updateDisplays();
-            }, 5000);
+            }, 4000);
             
             window.addEventListener('storage', (e) => {
                 if (e.key === 'cv_active_users') {
@@ -812,8 +465,9 @@
                 }
             });
             
+            // Random new visitors
             setInterval(() => {
-                if (Math.random() < 0.25) {
+                if (Math.random() < 0.3) {
                     const fakeId = 'temp_' + Date.now() + '_' + Math.random();
                     if (!activeUsers.has(fakeId)) {
                         activeUsers.add(fakeId);
@@ -825,15 +479,12 @@
                                 saveActiveUsers();
                                 updateDisplays();
                             }
-                        }, 30000 + Math.random() * 10000);
+                        }, 30000 + Math.random() * 15000);
                     }
                 }
-            }, 12000);
+            }, 10000);
             
-            setInterval(() => {
-                updateDisplays();
-            }, 4000);
-            
+            setInterval(() => updateDisplays(), 3500);
             updateDisplays();
             
             const trafficIndicator = document.getElementById('trafficIndicator');
@@ -841,24 +492,76 @@
                 setInterval(() => {
                     trafficIndicator.style.opacity = '0.7';
                     setTimeout(() => { if(trafficIndicator) trafficIndicator.style.opacity = '1'; }, 500);
-                }, 2300);
+                }, 2000);
             }
         })();
 
         // ============================================================
-        // 2. STOCK MANAGEMENT (Demo mode - no actual stock decrease)
+        // FILTER: ALL, VISA, MASTERCARD, RUPAY (sirf wahi card dikhe)
         // ============================================================
-        let hdfcStock = 8;
-        let iciciStock = 15;
-        let rupayStock = 10;
-        const hdfcStockSpan = document.getElementById('hdfcStockLabel');
-        const buyHdfc = document.getElementById('hdfcBuyButton');
-        const buyMastercard = document.getElementById('mastercardBuyButton');
-        const buyRupay = document.getElementById('rupayBuyButton');
+        const filters = document.querySelectorAll('.filter-item');
+        const allCards = document.querySelectorAll('.card-item');
         const filterMsgDiv = document.getElementById('filterStatusMsg');
+        
+        function filterCards(type) {
+            allCards.forEach(card => {
+                const network = card.getAttribute('data-network');
+                if (type === 'all') {
+                    card.style.display = '';
+                } else if (type === 'visa' && network === 'visa') {
+                    card.style.display = '';
+                } else if (type === 'mastercard' && network === 'mastercard') {
+                    card.style.display = '';
+                } else if (type === 'rupay' && network === 'rupay') {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        filters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                filters.forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+                let filterType = this.getAttribute('data-filter');
+                filterCards(filterType);
+                if (filterType === 'all') filterMsgDiv.innerHTML = '◆ ACTIVE: ALL CARDS (VISA + MASTERCARD + RUPAY) ◆';
+                else if (filterType === 'visa') filterMsgDiv.innerHTML = '◆ ACTIVE: VISA CARDS (SBI GOLD, HDFC PREMIUM) ◆';
+                else if (filterType === 'mastercard') filterMsgDiv.innerHTML = '◆ ACTIVE: MASTERCARD (ICICI PLATINUM) ◆';
+                else if (filterType === 'rupay') filterMsgDiv.innerHTML = '◆ ACTIVE: RUPAY (YES BANK ELITE) ◆';
+            });
+        });
 
-        function showMessage(msg, isError = false) {
-            let oldToast = document.querySelector('.custom-toast-card');
-            if(oldToast) oldToast.remove();
+        // ============================================================
+        // DEMO MODE - No stock decrease
+        // ============================================================
+        function showMessage(msg) {
             let toast = document.createElement('div');
-            toast.class
+            toast.innerText = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '25px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#0e2c3a';
+            toast.style.border = '1px solid #3bc9ff';
+            toast.style.color = '#fff';
+            toast.style.padding = '0.5rem 1.3rem';
+            toast.style.borderRadius = '2rem';
+            toast.style.fontSize = '0.75rem';
+            toast.style.zIndex = '9999';
+            toast.style.backdropFilter = 'blur(8px)';
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2000);
+        }
+
+        document.getElementById('hdfcBuyButton')?.addEventListener('click', () => showMessage('⚠️ Demo: HDFC stock remains 8'));
+        document.getElementById('mastercardBuyButton')?.addEventListener('click', () => showMessage('⚠️ Demo: ICICI stock remains 15'));
+        document.getElementById('rupayBuyButton')?.addEventListener('click', () => showMessage('⚠️ Demo: YES BANK stock remains 10'));
+        
+        // Force HDFC stock label
+        const hdfcSpan = document.getElementById('hdfcStockLabel');
+        if (hdfcSpan) setInterval(() => { if (hdfcSpan.innerText !== 'ONLY 8 LEFT') hdfcSpan.innerText = 'ONLY 8 LEFT'; }, 1000);
+    </script>
+</body>
+</html>
