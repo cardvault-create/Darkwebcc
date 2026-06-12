@@ -34,25 +34,25 @@
 
         .particle {
             position: absolute;
-            background: radial-gradient(circle, rgba(66,212,255,0.2) 0%, rgba(66,212,255,0) 70%);
+            background: radial-gradient(circle, rgba(66,212,255,0.15) 0%, rgba(66,212,255,0) 70%);
             border-radius: 50%;
             animation: floatParticle linear infinite;
         }
 
         @keyframes floatParticle {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
             100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Floating emoji animation */
+        /* Floating Emoji Animation */
         .floating-emoji {
             position: absolute;
             font-size: 1.5rem;
             animation: floatEmoji linear infinite;
-            opacity: 0.15;
-            filter: blur(0.8px);
+            opacity: 0.12;
+            filter: blur(0.5px);
             pointer-events: none;
         }
 
@@ -107,52 +107,138 @@
             font-weight: 600;
             color: #ffc48a;
             font-size: 0.9rem;
+            animation: glowPulse 2s infinite;
         }
 
-        /* Glass Meta Strip */
-        .glass-meta {
-            background: rgba(10, 15, 28, 0.6);
-            backdrop-filter: blur(16px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(66, 212, 255, 0.15);
-            padding: 0.8rem 1.8rem;
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 0px rgba(255,165,89,0); }
+            50% { box-shadow: 0 0 15px rgba(255,165,89,0.2); }
+            100% { box-shadow: 0 0 0px rgba(255,165,89,0); }
+        }
+
+        /* Premium Glass Meta Strip - Boxed Items */
+        .glass-meta-premium {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
-            margin-bottom: 1.8rem;
+            margin-bottom: 2rem;
         }
 
-        .uid-premium {
-            font-family: 'SF Mono', monospace;
-            font-weight: 600;
-            color: #7eb6ff;
-            background: rgba(0,0,0,0.3);
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.85rem;
-            border: 0.5px solid rgba(126,182,255,0.3);
-        }
-
-        .badge-group {
-            display: flex;
+        /* Premium UID Box */
+        .uid-premium-box {
+            background: linear-gradient(135deg, rgba(10, 20, 40, 0.8), rgba(5, 10, 25, 0.9));
+            backdrop-filter: blur(16px);
+            border-radius: 1.2rem;
+            border: 1px solid rgba(66, 212, 255, 0.3);
+            padding: 0.8rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
             gap: 0.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 0 0.5px rgba(66,212,255,0.2) inset;
+            transition: all 0.3s ease;
+            animation: borderGlow 3s infinite;
+        }
+
+        .uid-premium-box:hover {
+            transform: translateY(-2px);
+            border-color: rgba(66, 212, 255, 0.6);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.4), 0 0 15px rgba(66,212,255,0.15);
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: rgba(66, 212, 255, 0.2); }
+            50% { border-color: rgba(66, 212, 255, 0.5); }
+            100% { border-color: rgba(66, 212, 255, 0.2); }
+        }
+
+        .uid-icon {
+            font-size: 1.2rem;
+            filter: drop-shadow(0 0 5px #5fb2ff);
+        }
+
+        .uid-label {
+            font-size: 0.7rem;
+            color: #8aa9cc;
+            letter-spacing: 1px;
+        }
+
+        .uid-value {
+            font-family: 'SF Mono', monospace;
+            font-weight: 700;
+            color: #7eb6ff;
+            font-size: 1rem;
+            background: rgba(0,0,0,0.4);
+            padding: 0.2rem 0.8rem;
+            border-radius: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Badge Group - Premium Boxes */
+        .badge-group-premium {
+            display: flex;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
-        .badge {
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
-            font-weight: 600;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(4px);
+        .premium-badge {
+            background: linear-gradient(135deg, rgba(15, 25, 45, 0.85), rgba(8, 15, 28, 0.95));
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 0.6rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.25s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
         }
 
-        .badge-secure { color: #ffd966; border: 0.5px solid rgba(255,217,102,0.3); }
-        .badge-unverified { color: #ffaa66; border: 0.5px solid rgba(255,170,102,0.3); }
-        .badge-node { color: #b3d4ff; border: 0.5px solid rgba(179,212,255,0.3); }
+        .premium-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .premium-badge:hover::before {
+            left: 100%;
+        }
+
+        .premium-badge:hover {
+            transform: translateY(-2px);
+            border-color: rgba(66, 212, 255, 0.3);
+        }
+
+        .badge-icon {
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 3px currentColor);
+        }
+
+        .badge-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-secure { border-left: 2px solid #ffd966; }
+        .badge-secure .badge-icon { color: #ffd966; }
+        .badge-secure .badge-text { color: #ffd966; text-shadow: 0 0 5px rgba(255,217,102,0.2); }
+
+        .badge-unverified { border-left: 2px solid #ffaa66; }
+        .badge-unverified .badge-icon { color: #ffaa66; }
+        .badge-unverified .badge-text { color: #ffaa66; text-shadow: 0 0 5px rgba(255,170,102,0.2); }
+
+        .badge-node { border-left: 2px solid #7eb6ff; }
+        .badge-node .badge-icon { color: #7eb6ff; }
+        .badge-node .badge-text { color: #7eb6ff; text-shadow: 0 0 5px rgba(126,182,255,0.2); }
 
         /* Stats Row Premium */
         .stats-premium {
@@ -164,33 +250,51 @@
             gap: 1rem;
         }
 
-        .users-card {
-            background: linear-gradient(135deg, rgba(66,197,255,0.08), rgba(66,197,255,0.02));
+        .users-card-premium {
+            background: linear-gradient(135deg, rgba(66,197,255,0.1), rgba(66,197,255,0.02));
             backdrop-filter: blur(12px);
             border-radius: 1.2rem;
-            padding: 0.5rem 1.3rem;
+            padding: 0.6rem 1.5rem;
             border-left: 3px solid #42c5ff;
             display: flex;
             align-items: baseline;
             gap: 0.8rem;
+            transition: all 0.3s ease;
         }
-        .users-card-label { font-size: 0.65rem; text-transform: uppercase; color: #8aa9cc; letter-spacing: 1.5px; font-weight: 500; }
-        .users-card-number { font-size: 1.6rem; font-weight: 700; background: linear-gradient(135deg, #fff, #42c5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-        .traffic-card {
-            background: linear-gradient(135deg, rgba(255,170,74,0.08), rgba(255,170,74,0.02));
+        .users-card-premium:hover {
+            transform: translateX(3px);
+            box-shadow: 0 0 20px rgba(66,197,255,0.1);
+        }
+
+        .traffic-card-premium {
+            background: linear-gradient(135deg, rgba(255,170,74,0.1), rgba(255,170,74,0.02));
             backdrop-filter: blur(12px);
             border-radius: 1.2rem;
-            padding: 0.5rem 1.3rem;
+            padding: 0.6rem 1.5rem;
             border-left: 3px solid #ffaa4a;
             display: flex;
             align-items: baseline;
             gap: 0.8rem;
+            transition: all 0.3s ease;
         }
-        .traffic-card-label { font-size: 0.65rem; text-transform: uppercase; color: #ffaa4a; letter-spacing: 1.5px; font-weight: 500; }
-        .traffic-card-number { font-size: 1.6rem; font-weight: 700; background: linear-gradient(135deg, #fff, #ffaa4a); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-        /* Premium Filter Bar */
+        .traffic-card-premium:hover {
+            transform: translateX(3px);
+            box-shadow: 0 0 20px rgba(255,170,74,0.1);
+        }
+
+        .stat-label-premium { font-size: 0.65rem; text-transform: uppercase; color: #8aa9cc; letter-spacing: 1.5px; font-weight: 500; }
+        .stat-number-premium { font-size: 1.6rem; font-weight: 700; background: linear-gradient(135deg, #fff, #42c5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .stat-number-traffic { font-size: 1.6rem; font-weight: 700; background: linear-gradient(135deg, #fff, #ffaa4a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .live-dot { font-size: 0.6rem; color: #6aff9e; animation: blink 1.5s infinite; }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Filter Bar */
         .filter-premium {
             display: flex;
             gap: 2.5rem;
@@ -198,6 +302,7 @@
             border-bottom: 1px solid rgba(66, 212, 255, 0.15);
             padding-bottom: 0.8rem;
         }
+
         .filter-premium-item {
             font-weight: 600;
             font-size: 0.9rem;
@@ -207,9 +312,8 @@
             position: relative;
             color: #6a88a8;
         }
-        .filter-premium-item.active {
-            color: #ffffff;
-        }
+
+        .filter-premium-item.active { color: #ffffff; }
         .filter-premium-item.active::after {
             content: '';
             position: absolute;
@@ -224,14 +328,9 @@
         .filter-premium-item.master.active { color: #ff9f4a; }
         .filter-premium-item.rupay.active { color: #6fcf97; }
 
-        /* Premium Cards Grid */
-        .cards-premium {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
+        /* Premium Cards */
+        .cards-premium { display: flex; flex-direction: column; gap: 1.2rem; }
 
-        /* Ultra Premium Card Design */
         .card-premium {
             background: linear-gradient(135deg, rgba(18, 26, 45, 0.85), rgba(10, 15, 28, 0.95));
             backdrop-filter: blur(20px);
@@ -254,125 +353,27 @@
             transition: left 0.6s ease;
         }
 
-        .card-premium:hover::before {
-            left: 100%;
-        }
-
+        .card-premium:hover::before { left: 100%; }
         .card-premium:hover {
             transform: translateY(-4px);
             border-color: rgba(66, 212, 255, 0.5);
-            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(66,212,255,0.2) inset;
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.5);
         }
 
-        .card-header-premium {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .network-group {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .network-chip {
-            padding: 0.25rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            background: rgba(19, 37, 61, 0.8);
-            color: #b2dbff;
-        }
-
-        .bank-name-premium {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.3px;
-        }
-
-        .card-number-premium {
-            font-family: 'SF Mono', 'Courier New', monospace;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            background: rgba(0,0,0,0.3);
-            display: inline-block;
-            padding: 0.4rem 1.2rem;
-            border-radius: 1rem;
-            color: #e5f0ff;
-            border: 0.5px solid rgba(67, 104, 143, 0.5);
-            margin: 0.7rem 0;
-            font-weight: 500;
-        }
-
-        .details-premium {
-            display: flex;
-            gap: 2rem;
-            margin: 0.5rem 0;
-            font-size: 0.8rem;
-            color: #8aa9cc;
-        }
-
-        .details-premium span {
-            color: #ffcb8e;
-            margin-right: 0.3rem;
-            font-weight: 600;
-        }
-
-        .balance-premium {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #b9ffa3;
-            background: rgba(12, 26, 40, 0.5);
-            display: inline-block;
-            padding: 0.25rem 1rem;
-            border-radius: 1rem;
-            margin: 0.4rem 0;
-        }
-
-        .stock-premium {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 1rem 0 0.8rem;
-            padding-top: 0.6rem;
-            border-top: 1px dashed rgba(57, 80, 117, 0.4);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #7e9bc2;
-            font-weight: 600;
-        }
-
-        .stock-badge {
-            padding: 0.25rem 1rem;
-            border-radius: 2rem;
-            font-weight: 700;
-            font-size: 0.7rem;
-        }
-
+        .card-header-premium { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .network-group { display: flex; align-items: center; gap: 0.6rem; }
+        .network-chip { padding: 0.25rem 1rem; border-radius: 2rem; font-size: 0.7rem; font-weight: 700; background: rgba(19, 37, 61, 0.8); color: #b2dbff; }
+        .bank-name-premium { font-size: 1.3rem; font-weight: 700; color: #ffffff; letter-spacing: -0.3px; }
+        .card-number-premium { font-family: 'SF Mono', monospace; font-size: 1rem; letter-spacing: 2px; background: rgba(0,0,0,0.3); display: inline-block; padding: 0.4rem 1.2rem; border-radius: 1rem; color: #e5f0ff; border: 0.5px solid rgba(67, 104, 143, 0.5); margin: 0.7rem 0; }
+        .details-premium { display: flex; gap: 2rem; margin: 0.5rem 0; font-size: 0.8rem; color: #8aa9cc; }
+        .details-premium span { color: #ffcb8e; margin-right: 0.3rem; font-weight: 600; }
+        .balance-premium { font-weight: 700; font-size: 0.95rem; color: #b9ffa3; background: rgba(12, 26, 40, 0.5); display: inline-block; padding: 0.25rem 1rem; border-radius: 1rem; margin: 0.4rem 0; }
+        .stock-premium { display: flex; justify-content: space-between; align-items: center; margin: 1rem 0 0.8rem; padding-top: 0.6rem; border-top: 1px dashed rgba(57, 80, 117, 0.4); font-size: 0.7rem; text-transform: uppercase; color: #7e9bc2; font-weight: 600; }
+        .stock-badge { padding: 0.25rem 1rem; border-radius: 2rem; font-weight: 700; font-size: 0.7rem; }
         .stock-out { background: rgba(46, 26, 23, 0.7); color: #ffa084; border-left: 2px solid #ff6f52; }
         .stock-in { background: rgba(26, 47, 34, 0.7); color: #8bffa5; border-left: 2px solid #6aff9e; }
-
-        .action-premium {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-
-        .price-premium {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FCE898, #D4FFB0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
+        .action-premium { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1rem; }
+        .price-premium { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FCE898, #D4FFB0); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .btn-premium {
             background: linear-gradient(105deg, #136e94, #0a4462);
             border: none;
@@ -388,28 +389,16 @@
             min-width: 130px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-
-        .btn-premium:hover:not(:disabled) {
-            transform: scale(1.02);
-            background: linear-gradient(105deg, #1a7ea8, #0e5577);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            border-color: #5db4e0;
-        }
-
-        .btn-premium:disabled {
-            background: #2a3346;
-            border-color: #6a7c9e;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
+        .btn-premium:hover:not(:disabled) { transform: scale(1.02); background: linear-gradient(105deg, #1a7ea8, #0e5577); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+        .btn-premium:disabled { background: #2a3346; border-color: #6a7c9e; cursor: not-allowed; opacity: 0.6; }
 
         @media (max-width: 700px) {
             .vault { padding: 1rem; }
+            .glass-meta-premium { flex-direction: column; align-items: stretch; }
             .filter-premium { gap: 1.2rem; }
             .btn-premium { padding: 0.5rem 1.2rem; font-size: 0.75rem; min-width: 100px; }
             .price-premium { font-size: 1.4rem; }
             .card-premium { padding: 1rem; }
-            .card-number-premium { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -426,28 +415,49 @@
             <div class="vx-badge-premium">⚡ VX | PRO</div>
         </div>
 
-        <div class="glass-meta">
-            <div class="uid-premium" id="dynamicUID">UID-549953</div>
-            <div class="badge-group">
-                <span class="badge badge-secure">🔒 SECURE ACCOUNT</span>
-                <span class="badge badge-unverified">⚠️ UNVERIFIED REGISTRY</span>
-                <span class="badge badge-node">🌐 NODE: GLOBAL-01</span>
+        <!-- Premium Glass Meta Strip with Boxed Items -->
+        <div class="glass-meta-premium">
+            <!-- UID Premium Box -->
+            <div class="uid-premium-box">
+                <span class="uid-icon">🆔</span>
+                <div>
+                    <div class="uid-label">UNIQUE IDENTIFIER</div>
+                    <div class="uid-value" id="dynamicUID">UID-549953</div>
+                </div>
+            </div>
+
+            <!-- Badge Group -->
+            <div class="badge-group-premium">
+                <div class="premium-badge badge-secure">
+                    <span class="badge-icon">🔒</span>
+                    <span class="badge-text">SECURE ACCOUNT</span>
+                </div>
+                <div class="premium-badge badge-unverified">
+                    <span class="badge-icon">⚠️</span>
+                    <span class="badge-text">UNVERIFIED REGISTRY</span>
+                </div>
+                <div class="premium-badge badge-node">
+                    <span class="badge-icon">🌐</span>
+                    <span class="badge-text">NODE: GLOBAL-01</span>
+                </div>
             </div>
         </div>
 
+        <!-- Stats Row -->
         <div class="stats-premium">
-            <div class="users-card">
-                <span class="users-card-label">TERMINAL USERS</span>
-                <span class="users-card-number" id="terminalUsersMini">0</span>
-                <span style="font-size:0.6rem; color:#6aff9e;">● LIVE</span>
+            <div class="users-card-premium">
+                <span class="stat-label-premium">TERMINAL USERS</span>
+                <span class="stat-number-premium" id="terminalUsersMini">0</span>
+                <span class="live-dot">● LIVE</span>
             </div>
-            <div class="traffic-card">
-                <span class="traffic-card-label">3D NETWORK TRAFFIC</span>
-                <span class="traffic-card-number" id="trafficCount">12,450+</span>
-                <span style="font-size:0.6rem; color:#6aff9e;">● SYNC</span>
+            <div class="traffic-card-premium">
+                <span class="stat-label-premium">3D NETWORK TRAFFIC</span>
+                <span class="stat-number-traffic" id="trafficCount">12,450+</span>
+                <span class="live-dot">● SYNC</span>
             </div>
         </div>
 
+        <!-- Filter Bar -->
         <div class="filter-premium">
             <span class="filter-premium-item all active" data-filter="all">ALL</span>
             <span class="filter-premium-item visa" data-filter="visa">VISA</span>
@@ -455,12 +465,13 @@
             <span class="filter-premium-item rupay" data-filter="rupay">RUPAY</span>
         </div>
 
+        <!-- Cards Container -->
         <div class="cards-premium" id="cardsContainer"></div>
     </div>
 
     <script>
         // ============================================================
-        // ANIMATED BACKGROUND - PARTICLES & EMOJIS
+        // ANIMATED BACKGROUND
         // ============================================================
         function createParticles() {
             const container = document.getElementById('particlesBg');
@@ -473,23 +484,22 @@
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.animationDuration = Math.random() * 8 + 5 + 's';
                 particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.opacity = Math.random() * 0.3;
                 container.appendChild(particle);
             }
         }
 
         function createFloatingEmojis() {
             const container = document.getElementById('floatingEmojis');
-            const emojis = ['🫧', '🍂', '❄️', '🌈', '🏞️', '🍓', '🛸', '✈️', '🪙', '㊗️', '🏁', '🧿', '🧬', '🌠', '🌌', '🪩'];
-            for (let i = 0; i < 40; i++) {
+            const emojis = ['🫧', '🍂', '❄️', '🌈', '🏞️', '🍓', '🛸', '✈️', '🪙', '㊗️', '🏁', '🧿', '🧬', '🌠', '🌌', '🪩', '🔒', '⚠️', '🌐', '💎', '✨', '⭐', '💫', '🌟'];
+            for (let i = 0; i < 50; i++) {
                 const emoji = document.createElement('div');
                 emoji.className = 'floating-emoji';
                 emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
                 emoji.style.left = Math.random() * 100 + '%';
-                emoji.style.fontSize = Math.random() * 1.5 + 0.8 + 'rem';
-                emoji.style.animationDuration = Math.random() * 12 + 8 + 's';
-                emoji.style.animationDelay = Math.random() * 15 + 's';
-                emoji.style.opacity = Math.random() * 0.2 + 0.05;
+                emoji.style.fontSize = Math.random() * 1.8 + 0.8 + 'rem';
+                emoji.style.animationDuration = Math.random() * 14 + 8 + 's';
+                emoji.style.animationDelay = Math.random() * 18 + 's';
+                emoji.style.opacity = Math.random() * 0.15 + 0.05;
                 container.appendChild(emoji);
             }
         }
@@ -498,7 +508,7 @@
         createFloatingEmojis();
 
         // ============================================================
-        // CARD DATA
+        // CARD DATA - 24 Cards (8 per network)
         // ============================================================
         const cardNames = [
             "SBI GOLD", "HDFC PREMIUM", "ICICI PLATINUM", "AXIS REWARDS",
@@ -541,9 +551,9 @@
         ];
 
         const networks = [
-            { name: "VISA", key: "visa", badgeStyle: "", icon: "💳", chipStyle: "" },
-            { name: "MASTERCARD", key: "mastercard", badgeStyle: "background:#2f2a1a; color:#ffbc6e;", icon: "💠", chipStyle: "background:#2f2a1a; color:#ffbc6e;" },
-            { name: "RUPAY", key: "rupay", badgeStyle: "background:#1a3a2a; color:#8bffa5;", icon: "🪙", chipStyle: "background:#1a3a2a; color:#8bffa5;" }
+            { name: "VISA", key: "visa", badgeStyle: "", icon: "💳" },
+            { name: "MASTERCARD", key: "mastercard", badgeStyle: "background:#2f2a1a; color:#ffbc6e;", icon: "💠" },
+            { name: "RUPAY", key: "rupay", badgeStyle: "background:#1a3a2a; color:#8bffa5;", icon: "🪙" }
         ];
 
         const cardsData = [visaCards, masterCards, rupayCards];
@@ -602,14 +612,17 @@
         generateAllCards();
 
         // ============================================================
-        // UNIQUE UID
+        // UNIQUE UID PER NEW USER
         // ============================================================
         function generateUniqueUID() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let result = 'UID-';
-            for (let i = 0; i < 8; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+            for (let i = 0; i < 8; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
             return result;
         }
+
         let storedUID = localStorage.getItem('user_unique_uid');
         if (!storedUID) {
             storedUID = generateUniqueUID();
@@ -618,7 +631,7 @@
         document.getElementById('dynamicUID').innerText = storedUID;
 
         // ============================================================
-        // REAL-TIME USERS & TRAFFIC
+        // REAL-TIME ONLINE USERS & TRAFFIC
         // ============================================================
         (function() {
             let sessionId = localStorage.getItem('cv_session_id');
@@ -626,6 +639,7 @@
                 sessionId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
                 localStorage.setItem('cv_session_id', sessionId);
             }
+
             let activeUsers = new Set();
             
             function loadActiveUsers() {
@@ -639,7 +653,11 @@
                 }
                 return activeUsers.size;
             }
-            function saveActiveUsers() { localStorage.setItem('cv_active_users', JSON.stringify(Array.from(activeUsers))); }
+
+            function saveActiveUsers() { 
+                localStorage.setItem('cv_active_users', JSON.stringify(Array.from(activeUsers))); 
+            }
+
             function cleanupInactiveSessions() {
                 const now = Date.now();
                 localStorage.setItem('cv_last_heartbeat_' + sessionId, now.toString());
@@ -656,9 +674,11 @@
                     }
                 }
             }
+
             let trafficCounter = 12450;
             const terminalSpan = document.getElementById('terminalUsersMini');
             const trafficSpan = document.getElementById('trafficCount');
+            
             function updateDisplays() {
                 const userCount = activeUsers.size;
                 if (terminalSpan) terminalSpan.innerText = userCount;
@@ -666,35 +686,58 @@
                 trafficCounter = Math.max(12000, Math.min(18000, trafficCounter + change));
                 if (trafficSpan) trafficSpan.innerText = trafficCounter.toLocaleString() + '+';
             }
+            
             loadActiveUsers();
             cleanupInactiveSessions();
-            setInterval(() => { cleanupInactiveSessions(); updateDisplays(); }, 4000);
+            
+            setInterval(() => { 
+                cleanupInactiveSessions(); 
+                updateDisplays(); 
+            }, 4000);
+            
             window.addEventListener('storage', (e) => {
                 if (e.key === 'cv_active_users') {
-                    try { activeUsers = new Set(JSON.parse(e.newValue)); if (!activeUsers.has(sessionId)) { activeUsers.add(sessionId); saveActiveUsers(); } updateDisplays(); } catch(e) {}
+                    try { 
+                        activeUsers = new Set(JSON.parse(e.newValue)); 
+                        if (!activeUsers.has(sessionId)) { 
+                            activeUsers.add(sessionId); 
+                            saveActiveUsers(); 
+                        } 
+                        updateDisplays(); 
+                    } catch(e) {}
                 }
             });
+            
             setInterval(() => {
                 if (Math.random() < 0.3) {
                     const fakeId = 'temp_' + Date.now() + '_' + Math.random();
                     activeUsers.add(fakeId);
                     saveActiveUsers();
                     updateDisplays();
-                    setTimeout(() => { if (activeUsers.has(fakeId)) { activeUsers.delete(fakeId); saveActiveUsers(); updateDisplays(); } }, 30000);
+                    setTimeout(() => { 
+                        if (activeUsers.has(fakeId)) { 
+                            activeUsers.delete(fakeId); 
+                            saveActiveUsers(); 
+                            updateDisplays(); 
+                        } 
+                    }, 30000);
                 }
             }, 10000);
+            
             updateDisplays();
         })();
 
         // ============================================================
-        // UPI PAYMENT
+        // UPI PAYMENT INTEGRATION
         // ============================================================
         const UPI_ID = "unabntelegrampalka@okhdfcbank";
+        
         function initiateUPIPayment(amount, cardName) {
             const upiURI = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=Card%20Vault%20Store&am=${amount}&cu=INR&tn=Card%20Purchase%20-%20${cardName}`;
             window.location.href = upiURI;
             setTimeout(() => showToast(`💰 Please complete payment of ₹${amount} for ${cardName}`, false), 500);
         }
+        
         function showToast(msg, isError = false) {
             let oldToast = document.querySelector('.custom-toast');
             if(oldToast) oldToast.remove();
@@ -719,6 +762,7 @@
             document.body.appendChild(toast);
             setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 3000); }, 3000);
         }
+        
         setTimeout(() => {
             document.querySelectorAll('.upi-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -733,9 +777,10 @@
         }, 100);
 
         // ============================================================
-        // FILTER
+        // FILTER FUNCTIONALITY
         // ============================================================
         const filters = document.querySelectorAll('.filter-premium-item');
+        
         function filterCards(type) {
             document.querySelectorAll('.card-premium').forEach(card => {
                 const network = card.getAttribute('data-network');
@@ -744,6 +789,7 @@
                 else card.style.display = 'none';
             });
         }
+        
         filters.forEach(filter => {
             filter.addEventListener('click', function() {
                 filters.forEach(f => f.classList.remove('active'));
@@ -751,6 +797,8 @@
                 filterCards(this.getAttribute('data-filter'));
             });
         });
+        
+        console.log("✅ Ultra Premium UI | 24 Cards | Unique UID | Premium Boxed Badges");
     </script>
 </body>
 </html>
