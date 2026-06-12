@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Card Vault — Live UPI Payment | All Cards Buy Now</title>
+    <title>Card Vault — Multi Cards | Sold Out + Live UPI</title>
     <style>
         * {
             margin: 0;
@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated Emoji Background */
         .emoji-bg {
             position: fixed;
             top: 0;
@@ -144,7 +143,15 @@
             margin-bottom: 1.4rem;
         }
 
-        .uid { color: #7eb6ff; font-weight: 700; font-style: italic; background: #0e1528; padding: 0.2rem 0.7rem; border-radius: 20px; }
+        .uid {
+            color: #7eb6ff;
+            font-weight: 700;
+            font-style: italic;
+            background: #0e1528;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-family: monospace;
+        }
         .secure-account { color: #ffd966; font-weight: 700; font-style: italic; background: #2a2416; padding: 0.2rem 0.9rem; border-radius: 20px; border-left: 3px solid #ffcd7e; }
         .unverified-reg { color: #ffaa66; font-style: italic; background: #1f1b12; padding: 0.2rem 0.8rem; border-radius: 20px; }
         .node { color: #b3d4ff; font-style: italic; font-weight: 500; background: #0c1324; padding: 0.2rem 0.8rem; border-radius: 20px; }
@@ -235,6 +242,7 @@
         .balance { font-weight: 800; font-size: 0.9rem; color: #c6ffa3; background: #0c1a28; display: inline-block; padding: 0.2rem 0.8rem; border-radius: 1rem; margin: 0.3rem 0; font-style: italic; }
         .stock-line { display: flex; justify-content: space-between; align-items: center; margin: 0.9rem 0 0.7rem 0; padding-top: 0.4rem; border-top: 1px dashed #395075; font-size: 0.7rem; text-transform: uppercase; color: #a2b9df; font-weight: 600; }
         .stock-status { font-weight: 800; padding: 0.2rem 1rem; border-radius: 2rem; }
+        .stock-out { color: #ffa084; background: #2e1a17; border-left: 3px solid #ff6f52; }
         .stock-instock { color: #8bffa5; background: #1a2f22; border-left: 3px solid #6aff9e; }
         .action-area { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 0.8rem; flex-wrap: wrap; }
         .price { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FCE898, #D4FFB0); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; }
@@ -253,6 +261,7 @@
             min-width: 120px;
         }
         .buy-btn:hover { transform: scale(1.02); background: linear-gradient(95deg, #1a7ea8, #0e5577); }
+        .buy-btn:disabled { background: #2a3346; border-color: #6a7c9e; cursor: not-allowed; opacity: 0.6; }
 
         @media (max-width: 700px) {
             .vault { padding: 1rem; }
@@ -284,7 +293,7 @@
         </div>
 
         <div class="meta-strip">
-            <span class="uid">UID-549953</span>
+            <span class="uid" id="dynamicUID">UID-549953</span>
             <span class="secure-account">SECURE ACCOUNT</span>
             <span class="unverified-reg">UNVERIFIED REGISTRY</span>
             <span class="node">NODE: GLOBAL-01</span>
@@ -313,61 +322,109 @@
         </div>
 
         <div class="cards-container">
-            <!-- CARD 1: AXIS REWARDS (VISA) - BUY NOW (SOLD OUT HATA DIYA) -->
-            <div class="card-item" data-network="visa" data-price="223" data-name="AXIS REWARDS">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">AXIS REWARDS</span></div><div>💳</div></div>
-                <div><span class="card-number">4987 | 1234 | 5678 | 9012</span></div>
-                <div class="details"><div><span>EXP:</span> 05/28</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹1,850</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹223</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- CARD 2: SBI GOLD (VISA) - BUY NOW -->
-            <div class="card-item" data-network="visa" data-price="223" data-name="SBI GOLD">
+            <!-- CARD 1: VISA - SBI GOLD (SOLD OUT) - ₹263, BAL ₹2550 -->
+            <div class="card-item" data-network="visa">
                 <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">SBI GOLD</span></div><div>💳</div></div>
                 <div><span class="card-number">5224 | 6388 | 2281 | 4758</span></div>
                 <div class="details"><div><span>EXP:</span> 08/29</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹2,500</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹223</div><button class="buy-btn upi-btn">BUY NOW</button></div>
+                <div class="balance">BAL: ₹2,550</div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
+                <div class="action-area"><div class="price">₹263</div><button class="buy-btn" disabled>SOLD OUT</button></div>
             </div>
 
-            <!-- CARD 3: HDFC PREMIUM (VISA) - BUY NOW - ₹155 -->
-            <div class="card-item" data-network="visa" data-price="155" data-name="HDFC PREMIUM">
+            <!-- CARD 2: VISA - HDFC PREMIUM (BUY NOW) - ₹299, BAL ₹2978 -->
+            <div class="card-item" data-network="visa" data-price="299" data-name="HDFC PREMIUM">
                 <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">HDFC PREMIUM</span></div><div>💎</div></div>
-                <div><span class="card-number">4532 | 6388 | 2281 | 5506</span></div>
-                <div class="details"><div><span>EXP:</span> 12/30</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹2,520</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹155</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- CARD 4: ICICI PLATINUM (MASTERCARD) - BUY NOW - ₹299, CVV *** -->
-            <div class="card-item" data-network="mastercard" data-price="299" data-name="ICICI PLATINUM">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">ICICI PLATINUM</span></div><div>💠</div></div>
-                <div><span class="card-number">5423 | 7890 | 1234 | 5678</span></div>
-                <div class="details"><div><span>EXP:</span> 03/28</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹3,750</div>
+                <div><span class="card-number">4987 | 1234 | 5678 | 9012</span></div>
+                <div class="details"><div><span>EXP:</span> 11/27</div><div><span>CVV:</span> ***</div></div>
+                <div class="balance">BAL: ₹2,978</div>
                 <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
                 <div class="action-area"><div class="price">₹299</div><button class="buy-btn upi-btn">BUY NOW</button></div>
             </div>
 
-            <!-- CARD 5: YES BANK ELITE (RUPAY) - BUY NOW - ₹199, CVV *** -->
-            <div class="card-item" data-network="rupay" data-price="199" data-name="YES BANK ELITE">
+            <!-- CARD 3: MASTERCARD - ICICI PLATINUM (SOLD OUT) - ₹393, BAL ₹6989 -->
+            <div class="card-item" data-network="mastercard">
+                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">ICICI PLATINUM</span></div><div>💠</div></div>
+                <div><span class="card-number">5423 | 7890 | 1234 | 5678</span></div>
+                <div class="details"><div><span>EXP:</span> 03/28</div><div><span>CVV:</span> ***</div></div>
+                <div class="balance">BAL: ₹6,989</div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
+                <div class="action-area"><div class="price">₹393</div><button class="buy-btn" disabled>SOLD OUT</button></div>
+            </div>
+
+            <!-- CARD 4: MASTERCARD - AXIS REWARDS (BUY NOW) - ₹585, BAL ₹9850 -->
+            <div class="card-item" data-network="mastercard" data-price="585" data-name="AXIS REWARDS">
+                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">AXIS REWARDS</span></div><div>🎯</div></div>
+                <div><span class="card-number">5588 | 7766 | 4433 | 2211</span></div>
+                <div class="details"><div><span>EXP:</span> 05/26</div><div><span>CVV:</span> ***</div></div>
+                <div class="balance">BAL: ₹9,850</div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
+                <div class="action-area"><div class="price">₹585</div><button class="buy-btn upi-btn">BUY NOW</button></div>
+            </div>
+
+            <!-- CARD 5: RUPAY - YES BANK ELITE (SOLD OUT) - ₹856, BAL ₹14450 -->
+            <div class="card-item" data-network="rupay">
                 <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">YES BANK ELITE</span></div><div>🪙</div></div>
                 <div><span class="card-number">6072 | 8899 | 3344 | 7788</span></div>
                 <div class="details"><div><span>EXP:</span> 06/27</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹4,200</div>
+                <div class="balance">BAL: ₹14,450</div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
+                <div class="action-area"><div class="price">₹856</div><button class="buy-btn" disabled>SOLD OUT</button></div>
+            </div>
+
+            <!-- CARD 6: RUPAY - KOTAK SIGNATURE (BUY NOW) - ₹1150, BAL ₹22590 -->
+            <div class="card-item" data-network="rupay" data-price="1150" data-name="KOTAK SIGNATURE">
+                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">KOTAK SIGNATURE</span></div><div>🔷</div></div>
+                <div><span class="card-number">6072 | 1122 | 3344 | 5566</span></div>
+                <div class="details"><div><span>EXP:</span> 09/28</div><div><span>CVV:</span> ***</div></div>
+                <div class="balance">BAL: ₹22,590</div>
                 <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹199</div><button class="buy-btn upi-btn">BUY NOW</button></div>
+                <div class="action-area"><div class="price">₹1,150</div><button class="buy-btn upi-btn">BUY NOW</button></div>
+            </div>
+
+            <!-- CARD 7: VISA - SOLD OUT CARD - ₹1780, BAL ₹38990 -->
+            <div class="card-item" data-network="visa">
+                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">INDUSIND LEGEND</span></div><div>👑</div></div>
+                <div><span class="card-number">4789 | 1234 | 9876 | 5432</span></div>
+                <div class="details"><div><span>EXP:</span> 01/30</div><div><span>CVV:</span> ***</div></div>
+                <div class="balance">BAL: ₹38,990</div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
+                <div class="action-area"><div class="price">₹1,780</div><button class="buy-btn" disabled>SOLD OUT</button></div>
+            </div>
+
+            <!-- CARD 8: MASTERCARD - BUY NOW - ₹2000, BAL ₹60000 -->
+            <div class="card-item" data-network="mastercard" data-price="2000" data-name="CITI PREMIER">
+                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">CITI PREMIER</span></div><div>💫</div></div>
+                <div><span class="card-number">5123 | 4567 | 8901 | 2345</span></div>
+                <div class="details"><div><span>EXP:</span> 12/31</div><div><span>CVV:</span> ***</div></div>
+                <div class="balance">BAL: ₹60,000</div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
+                <div class="action-area"><div class="price">₹2,000</div><button class="buy-btn upi-btn">BUY NOW</button></div>
             </div>
         </div>
-
-        <!-- NICHE KA TEXT HATA DIYA - KUCH NAHI HAI YAHAN -->
     </div>
 
     <script>
+        // ============================================================
+        // HAR NAYE USER KE LIYE ALAG UID NUMBER
+        // ============================================================
+        function generateUniqueUID() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = 'UID-';
+            for (let i = 0; i < 8; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // Check if UID already exists in localStorage for this session
+        let storedUID = localStorage.getItem('user_unique_uid');
+        if (!storedUID) {
+            storedUID = generateUniqueUID();
+            localStorage.setItem('user_unique_uid', storedUID);
+        }
+        document.getElementById('dynamicUID').innerText = storedUID;
+
         // ============================================================
         // REAL-TIME ONLINE USERS + AUTO TRAFFIC
         // ============================================================
@@ -513,7 +570,7 @@
         })();
 
         // ============================================================
-        // REAL UPI PAYMENT INTEGRATION
+        // REAL UPI PAYMENT INTEGRATION (For BUY NOW buttons)
         // UPI ID: unabntelegrampalka@okhdfcbank
         // ============================================================
         
@@ -564,7 +621,7 @@
             }, 3000);
         }
         
-        // Attach click handlers to all BUY NOW buttons
+        // Attach click handlers to BUY NOW buttons
         const buyButtons = document.querySelectorAll('.upi-btn');
         buyButtons.forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -617,8 +674,9 @@
             });
         });
         
-        console.log("✓ Sold out hata diya | Sab cards BUY NOW | Niche ka text hata diya | UPI: unabntelegrampalka@okhdfcbank");
-        console.log("✓ Cards: AXIS ₹223, SBI ₹223, HDFC ₹155, ICICI ₹299, YES ₹199 | CVV: ***");
+        console.log("✓ New UID system active — har user ka alag UID");
+        console.log("✓ 8 cards added — Sold Out + Buy Now (UPI payment)");
+        console.log("✓ All cards have unique number, expiry, CVV");
     </script>
 </body>
 </html>
