@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Card Vault — Pro Terminal | Live Counters</title>
+    <title>Card Vault — Pro Terminal | Live Counters + Animated Emoji BG</title>
     <style>
         * {
             margin: 0;
@@ -19,8 +19,93 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
+        /* Animated Emoji Background */
+        .emoji-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        /* Upar wale emoji (top to bottom animation) */
+        .emoji-top {
+            position: absolute;
+            font-size: 2rem;
+            animation: fallDown linear infinite;
+            opacity: 0.5;
+        }
+
+        /* Niche wale emoji (bottom to top animation) */
+        .emoji-bottom {
+            position: absolute;
+            font-size: 2rem;
+            animation: riseUp linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes fallDown {
+            0% {
+                transform: translateY(-20vh) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(120vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes riseUp {
+            0% {
+                transform: translateY(120vh) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(-360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* Upar wale emoji list */
+        .emoji-top-1 { left: 5%; animation-duration: 6s; animation-delay: 0s; }
+        .emoji-top-2 { left: 15%; animation-duration: 8s; animation-delay: 1s; }
+        .emoji-top-3 { left: 25%; animation-duration: 7s; animation-delay: 2s; }
+        .emoji-top-4 { left: 35%; animation-duration: 9s; animation-delay: 0.5s; }
+        .emoji-top-5 { left: 45%; animation-duration: 6.5s; animation-delay: 3s; }
+        .emoji-top-6 { left: 55%; animation-duration: 8.5s; animation-delay: 1.5s; }
+        .emoji-top-7 { left: 65%; animation-duration: 7.5s; animation-delay: 4s; }
+        .emoji-top-8 { left: 75%; animation-duration: 9.5s; animation-delay: 2.5s; }
+        .emoji-top-9 { left: 85%; animation-duration: 6s; animation-delay: 3.5s; }
+        .emoji-top-10 { left: 95%; animation-duration: 8s; animation-delay: 0.8s; }
+
+        /* Niche wale emoji */
+        .emoji-bottom-1 { left: 8%; animation-duration: 7s; animation-delay: 0s; }
+        .emoji-bottom-2 { left: 18%; animation-duration: 9s; animation-delay: 1.5s; }
+        .emoji-bottom-3 { left: 28%; animation-duration: 6.5s; animation-delay: 2s; }
+        .emoji-bottom-4 { left: 38%; animation-duration: 8s; animation-delay: 0.3s; }
+        .emoji-bottom-5 { left: 48%; animation-duration: 7.5s; animation-delay: 3s; }
+        .emoji-bottom-6 { left: 58%; animation-duration: 9.5s; animation-delay: 1s; }
+        .emoji-bottom-7 { left: 68%; animation-duration: 6s; animation-delay: 4s; }
+        .emoji-bottom-8 { left: 78%; animation-duration: 8.5s; animation-delay: 2.5s; }
+        .emoji-bottom-9 { left: 88%; animation-duration: 7s; animation-delay: 1.8s; }
+        .emoji-bottom-10 { left: 98%; animation-duration: 9s; animation-delay: 0.5s; }
+
+        /* Additional random positions for more density */
+        .emoji-top-11 { left: 12%; animation-duration: 7.2s; animation-delay: 5s; top: -10%; }
+        .emoji-top-12 { left: 42%; animation-duration: 6.8s; animation-delay: 2.2s; top: -5%; }
+        .emoji-top-13 { left: 72%; animation-duration: 8.2s; animation-delay: 4.5s; top: -15%; }
+        .emoji-bottom-11 { left: 22%; animation-duration: 7.8s; animation-delay: 3.2s; bottom: -10%; }
+        .emoji-bottom-12 { left: 52%; animation-duration: 6.3s; animation-delay: 5.5s; bottom: -5%; }
+        .emoji-bottom-13 { left: 82%; animation-duration: 8.8s; animation-delay: 2.8s; bottom: -15%; }
+
+        /* vault panel - z-index higher than background */
         .vault {
             max-width: 880px;
             width: 100%;
@@ -30,6 +115,9 @@
             border: 1px solid #3c4b6e;
             padding: 2rem 2rem 2rem 2rem;
             box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(2px);
         }
 
         .vault-header {
@@ -359,18 +447,17 @@
             border-left: 3px solid #6aff9e;
         }
 
-        /* BUTTON BADE KAR DIYE - ACTION AREA */
         .action-area {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1.8rem;
+            gap: 2rem;
             margin-top: 0.8rem;
             flex-wrap: wrap;
         }
 
         .price {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: linear-gradient(135deg, #FCE898, #D4FFB0);
             -webkit-background-clip: text;
@@ -380,21 +467,20 @@
             text-align: center;
         }
 
-        /* BADE BUTTONS */
         .buy-btn {
             background: linear-gradient(95deg, #136e94, #0a4462);
             border: none;
-            padding: 0.7rem 2rem;
+            padding: 0.75rem 2.2rem;
             border-radius: 2.5rem;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-family: monospace;
             color: white;
             cursor: pointer;
             transition: 0.2s;
             border: 0.5px solid #5db4e0;
             box-shadow: 0 2px 8px #0a446280;
-            min-width: 110px;
+            min-width: 120px;
         }
 
         .buy-btn:disabled {
@@ -422,392 +508,357 @@
             .filter-bar { gap: 1rem; }
             .stats-row { flex-direction: row; gap: 1rem; }
             .stat-card { min-width: 160px; }
-            .buy-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; min-width: 90px; }
-            .price { font-size: 1.3rem; }
+            .buy-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; min-width: 100px; }
+            .price { font-size: 1.4rem; }
+            .emoji-top, .emoji-bottom { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
-<div class="vault">
-    <div class="vault-header">
-        <div class="vault-title">CARD VAULT</div>
-        <div class="vx-badge">VX</div>
+    <!-- Animated Emoji Background -->
+    <div class="emoji-bg">
+        <!-- Upar wale emoji (neeche ja rahe hain) 🫧🍂❄️🌈🏞️🍓🛸✈️ -->
+        <div class="emoji-top emoji-top-1">🫧</div>
+        <div class="emoji-top emoji-top-2">🍂</div>
+        <div class="emoji-top emoji-top-3">❄️</div>
+        <div class="emoji-top emoji-top-4">🌈</div>
+        <div class="emoji-top emoji-top-5">🏞️</div>
+        <div class="emoji-top emoji-top-6">🍓</div>
+        <div class="emoji-top emoji-top-7">🛸</div>
+        <div class="emoji-top emoji-top-8">✈️</div>
+        <div class="emoji-top emoji-top-9">🫧</div>
+        <div class="emoji-top emoji-top-10">🍂</div>
+        <div class="emoji-top emoji-top-11">❄️</div>
+        <div class="emoji-top emoji-top-12">🌈</div>
+        <div class="emoji-top emoji-top-13">🏞️</div>
+
+        <!-- Niche wale emoji (upar aa rahe hain) 🪙㊗️🏁🧿🧬🌠🌌🪩 -->
+        <div class="emoji-bottom emoji-bottom-1">🪙</div>
+        <div class="emoji-bottom emoji-bottom-2">㊗️</div>
+        <div class="emoji-bottom emoji-bottom-3">🏁</div>
+        <div class="emoji-bottom emoji-bottom-4">🧿</div>
+        <div class="emoji-bottom emoji-bottom-5">🧬</div>
+        <div class="emoji-bottom emoji-bottom-6">🌠</div>
+        <div class="emoji-bottom emoji-bottom-7">🌌</div>
+        <div class="emoji-bottom emoji-bottom-8">🪩</div>
+        <div class="emoji-bottom emoji-bottom-9">🪙</div>
+        <div class="emoji-bottom emoji-bottom-10">㊗️</div>
+        <div class="emoji-bottom emoji-bottom-11">🏁</div>
+        <div class="emoji-bottom emoji-bottom-12">🧿</div>
+        <div class="emoji-bottom emoji-bottom-13">🧬</div>
     </div>
 
-    <div class="meta-strip">
-        <span class="uid">UID-549953</span>
-        <span class="secure-account">SECURE ACCOUNT</span>
-        <span class="unverified-reg">UNVERIFIED REGISTRY</span>
-        <span class="node">NODE: GLOBAL-01</span>
-    </div>
-
-    <div class="top-users-bar">
-        <div class="users-mini">
-            <span class="users-mini-label">TERMINAL USERS</span>
-            <span class="users-mini-number" id="terminalUsersMini">143</span>
-            <span class="users-mini-online">● LIVE</span>
+    <div class="vault">
+        <div class="vault-header">
+            <div class="vault-title">CARD VAULT</div>
+            <div class="vx-badge">VX</div>
         </div>
-    </div>
 
-    <div class="filter-bar">
-        <span class="filter-item all active" data-filter="all">ALL</span>
-        <span class="filter-item visa" data-filter="visa">VISA</span>
-        <span class="filter-item master" data-filter="mastercard">MASTERCARD</span>
-        <span class="filter-item rupay" data-filter="rupay">RUPAY</span>
-    </div>
-
-    <div class="stats-row">
-        <div class="stat-card traffic">
-            <div class="stat-label">3D NETWORK TRAFFIC <span class="online-badge" id="trafficIndicator">● SYNC</span></div>
-            <div class="stat-number" id="trafficCount">12,450+</div>
+        <div class="meta-strip">
+            <span class="uid">UID-549953</span>
+            <span class="secure-account">SECURE ACCOUNT</span>
+            <span class="unverified-reg">UNVERIFIED REGISTRY</span>
+            <span class="node">NODE: GLOBAL-01</span>
         </div>
-    </div>
 
-    <div class="cards-container">
-        <!-- CARD 1: SBI GOLD (VISA) -->
-        <div class="card-item" data-network="visa">
-            <div class="card-header">
-                <div>
-                    <span class="network-badge">VISA</span>
-                    <span class="bank-name">SBI GOLD</span>
+        <div class="top-users-bar">
+            <div class="users-mini">
+                <span class="users-mini-label">TERMINAL USERS</span>
+                <span class="users-mini-number" id="terminalUsersMini">143</span>
+                <span class="users-mini-online">● LIVE</span>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <span class="filter-item all active" data-filter="all">ALL</span>
+            <span class="filter-item visa" data-filter="visa">VISA</span>
+            <span class="filter-item master" data-filter="mastercard">MASTERCARD</span>
+            <span class="filter-item rupay" data-filter="rupay">RUPAY</span>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card traffic">
+                <div class="stat-label">3D NETWORK TRAFFIC <span class="online-badge" id="trafficIndicator">● SYNC</span></div>
+                <div class="stat-number" id="trafficCount">12,450+</div>
+            </div>
+        </div>
+
+        <div class="cards-container">
+            <!-- CARD 1: SBI GOLD (VISA) -->
+            <div class="card-item" data-network="visa">
+                <div class="card-header">
+                    <div>
+                        <span class="network-badge">VISA</span>
+                        <span class="bank-name">SBI GOLD</span>
+                    </div>
+                    <div>💳</div>
                 </div>
-                <div>💳</div>
+                <div>
+                    <span class="card-number">5224 | 6388 | 2281 | 4758</span>
+                </div>
+                <div class="details">
+                    <div><span>EXP:</span> 08/29</div>
+                    <div><span>CVV:</span> ***</div>
+                </div>
+                <div class="balance">BAL: ₹2,500</div>
+                <div class="stock-line">
+                    <span>STOCK PROTOCOL</span>
+                    <span class="stock-status stock-out">OUT OF STOCK</span>
+                </div>
+                <div class="action-area">
+                    <div class="price">₹223</div>
+                    <button class="buy-btn" disabled>SOLD OUT</button>
+                </div>
             </div>
-            <div>
-                <span class="card-number">5224 | 6388 | 2281 | 4758</span>
+
+            <!-- CARD 2: HDFC PREMIUM (VISA) -->
+            <div class="card-item" data-network="visa">
+                <div class="card-header">
+                    <div>
+                        <span class="network-badge">VISA</span>
+                        <span class="bank-name">HDFC PREMIUM</span>
+                    </div>
+                    <div>💎</div>
+                </div>
+                <div>
+                    <span class="card-number">4532 | 6388 | 2281 | 5506</span>
+                </div>
+                <div class="details">
+                    <div><span>EXP:</span> 12/30</div>
+                    <div><span>CVV:</span> *****</div>
+                </div>
+                <div class="balance">BAL: ₹2,520</div>
+                <div class="stock-line">
+                    <span>STOCK PROTOCOL</span>
+                    <span class="stock-status stock-limited" id="hdfcStockLabel">ONLY 8 LEFT</span>
+                </div>
+                <div class="action-area">
+                    <div class="price">₹155</div>
+                    <button class="buy-btn" id="hdfcBuyButton">BUY NOW</button>
+                </div>
             </div>
-            <div class="details">
-                <div><span>EXP:</span> 08/29</div>
-                <div><span>CVV:</span> ***</div>
+
+            <!-- CARD 3: ICICI PLATINUM (MASTERCARD) -->
+            <div class="card-item" data-network="mastercard">
+                <div class="card-header">
+                    <div>
+                        <span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span>
+                        <span class="bank-name">ICICI PLATINUM</span>
+                    </div>
+                    <div>💠</div>
+                </div>
+                <div>
+                    <span class="card-number">5423 | 7890 | 1234 | 5678</span>
+                </div>
+                <div class="details">
+                    <div><span>EXP:</span> 03/28</div>
+                    <div><span>CVV:</span> ****</div>
+                </div>
+                <div class="balance">BAL: ₹3,750</div>
+                <div class="stock-line">
+                    <span>STOCK PROTOCOL</span>
+                    <span class="stock-status stock-instock">IN STOCK</span>
+                </div>
+                <div class="action-area">
+                    <div class="price">₹299</div>
+                    <button class="buy-btn" id="mastercardBuyButton">BUY NOW</button>
+                </div>
             </div>
-            <div class="balance">BAL: ₹2,500</div>
-            <div class="stock-line">
-                <span>STOCK PROTOCOL</span>
-                <span class="stock-status stock-out">OUT OF STOCK</span>
-            </div>
-            <div class="action-area">
-                <div class="price">₹223</div>
-                <button class="buy-btn" disabled>SOLD OUT</button>
+
+            <!-- CARD 4: YES BANK ELITE (RUPAY) -->
+            <div class="card-item" data-network="rupay">
+                <div class="card-header">
+                    <div>
+                        <span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span>
+                        <span class="bank-name">YES BANK ELITE</span>
+                    </div>
+                    <div>🪙</div>
+                </div>
+                <div>
+                    <span class="card-number">6072 | 8899 | 3344 | 7788</span>
+                </div>
+                <div class="details">
+                    <div><span>EXP:</span> 06/27</div>
+                    <div><span>CVV:</span> ******</div>
+                </div>
+                <div class="balance">BAL: ₹4,200</div>
+                <div class="stock-line">
+                    <span>STOCK PROTOCOL</span>
+                    <span class="stock-status stock-instock">IN STOCK</span>
+                </div>
+                <div class="action-area">
+                    <div class="price">₹199</div>
+                    <button class="buy-btn" id="rupayBuyButton">BUY NOW</button>
+                </div>
             </div>
         </div>
 
-        <!-- CARD 2: HDFC PREMIUM (VISA) -->
-        <div class="card-item" data-network="visa">
-            <div class="card-header">
-                <div>
-                    <span class="network-badge">VISA</span>
-                    <span class="bank-name">HDFC PREMIUM</span>
-                </div>
-                <div>💎</div>
-            </div>
-            <div>
-                <span class="card-number">4532 | 6388 | 2281 | 5506</span>
-            </div>
-            <div class="details">
-                <div><span>EXP:</span> 12/30</div>
-                <div><span>CVV:</span> *****</div>
-            </div>
-            <div class="balance">BAL: ₹2,520</div>
-            <div class="stock-line">
-                <span>STOCK PROTOCOL</span>
-                <span class="stock-status stock-limited" id="hdfcStockLabel">ONLY 8 LEFT</span>
-            </div>
-            <div class="action-area">
-                <div class="price">₹155</div>
-                <button class="buy-btn" id="hdfcBuyButton">BUY NOW</button>
-            </div>
-        </div>
-
-        <!-- CARD 3: ICICI PLATINUM (MASTERCARD) -->
-        <div class="card-item" data-network="mastercard">
-            <div class="card-header">
-                <div>
-                    <span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span>
-                    <span class="bank-name">ICICI PLATINUM</span>
-                </div>
-                <div>💠</div>
-            </div>
-            <div>
-                <span class="card-number">5423 | 7890 | 1234 | 5678</span>
-            </div>
-            <div class="details">
-                <div><span>EXP:</span> 03/28</div>
-                <div><span>CVV:</span> ****</div>
-            </div>
-            <div class="balance">BAL: ₹3,750</div>
-            <div class="stock-line">
-                <span>STOCK PROTOCOL</span>
-                <span class="stock-status stock-instock">IN STOCK</span>
-            </div>
-            <div class="action-area">
-                <div class="price">₹299</div>
-                <button class="buy-btn" id="mastercardBuyButton">BUY NOW</button>
-            </div>
-        </div>
+        <div class="filter-status" id="filterStatusMsg">◆ ACTIVE: ALL CARDS (VISA + MASTERCARD + RUPAY) ◆</div>
     </div>
 
-    <div class="filter-status" id="filterStatusMsg">◆ ACTIVE: ALL CARDS (VISA + MASTERCARD) ◆</div>
-</div>
+    <script>
+        // ============================================================
+        // 1. REAL-TIME ONLINE COUNTERS (TERMINAL USERS + 3D TRAFFIC)
+        // ============================================================
+        (function() {
+            let sessionId = localStorage.getItem('cv_session_id');
+            if (!sessionId) {
+                sessionId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+                localStorage.setItem('cv_session_id', sessionId);
+            }
 
-<script>
-    // ============================================================
-    // 1. REAL-TIME ONLINE COUNTERS (TERMINAL USERS + 3D TRAFFIC)
-    // ============================================================
-    (function() {
-        let sessionId = localStorage.getItem('cv_session_id');
-        if (!sessionId) {
-            sessionId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
-            localStorage.setItem('cv_session_id', sessionId);
-        }
-
-        let activeUsers = new Set();
-        
-        function loadActiveUsers() {
-            const stored = localStorage.getItem('cv_active_users');
-            if (stored) {
-                try {
-                    const arr = JSON.parse(stored);
-                    activeUsers = new Set(arr);
-                } catch(e) {}
-            }
-            if (!activeUsers.has(sessionId)) {
-                activeUsers.add(sessionId);
-                saveActiveUsers();
-            }
-            return activeUsers.size;
-        }
-
-        function saveActiveUsers() {
-            const arr = Array.from(activeUsers);
-            localStorage.setItem('cv_active_users', JSON.stringify(arr));
-        }
-
-        function cleanupInactiveSessions() {
-            const now = Date.now();
-            localStorage.setItem('cv_last_heartbeat_' + sessionId, now.toString());
-            const allKeys = Object.keys(localStorage);
-            const staleSessions = [];
-            for (let key of allKeys) {
-                if (key.startsWith('cv_last_heartbeat_')) {
-                    const sid = key.replace('cv_last_heartbeat_', '');
-                    const lastTime = localStorage.getItem(key);
-                    if (lastTime && (now - parseInt(lastTime)) > 35000) {
-                        staleSessions.push(sid);
-                    }
-                }
-            }
-            let changed = false;
-            for (let sid of staleSessions) {
-                if (activeUsers.has(sid)) {
-                    activeUsers.delete(sid);
-                    changed = true;
-                }
-                localStorage.removeItem('cv_last_heartbeat_' + sid);
-            }
-            if (changed) {
-                saveActiveUsers();
-            }
-        }
-
-        let baseTraffic = 12450;
-        let trafficCounter = baseTraffic;
-        const terminalMiniSpan = document.getElementById('terminalUsersMini');
-        const trafficSpan = document.getElementById('trafficCount');
-        
-        function updateDisplays() {
-            const userCount = activeUsers.size;
-            if (terminalMiniSpan) {
-                terminalMiniSpan.innerText = userCount;
-                terminalMiniSpan.style.transform = 'scale(1.05)';
-                setTimeout(() => { if(terminalMiniSpan) terminalMiniSpan.style.transform = ''; }, 200);
-            }
-            const increment = Math.floor(Math.random() * (userCount + 2)) + 1;
-            trafficCounter = trafficCounter + increment;
-            if (trafficCounter > 99999) trafficCounter = baseTraffic + Math.floor(Math.random() * 5000);
-            if (trafficSpan) {
-                let displayVal = trafficCounter;
-                if (displayVal > 10000) {
-                    trafficSpan.innerText = displayVal.toLocaleString() + '+';
-                } else {
-                    trafficSpan.innerText = displayVal;
-                }
-                trafficSpan.style.transform = 'scale(1.02)';
-                setTimeout(() => { if(trafficSpan) trafficSpan.style.transform = ''; }, 200);
-            }
-        }
-        
-        loadActiveUsers();
-        cleanupInactiveSessions();
-        
-        setInterval(() => {
-            cleanupInactiveSessions();
-            updateDisplays();
-        }, 5000);
-        
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'cv_active_users') {
-                const newData = e.newValue;
-                if (newData) {
+            let activeUsers = new Set();
+            
+            function loadActiveUsers() {
+                const stored = localStorage.getItem('cv_active_users');
+                if (stored) {
                     try {
-                        const arr = JSON.parse(newData);
+                        const arr = JSON.parse(stored);
                         activeUsers = new Set(arr);
-                        if (!activeUsers.has(sessionId)) {
-                            activeUsers.add(sessionId);
-                            saveActiveUsers();
-                        }
-                        updateDisplays();
                     } catch(e) {}
                 }
-            }
-            if (e.key && e.key.startsWith('cv_last_heartbeat_')) {
-                cleanupInactiveSessions();
-                updateDisplays();
-            }
-        });
-        
-        setInterval(() => {
-            if (Math.random() < 0.25) {
-                const fakeId = 'temp_' + Date.now() + '_' + Math.random();
-                if (!activeUsers.has(fakeId)) {
-                    activeUsers.add(fakeId);
+                if (!activeUsers.has(sessionId)) {
+                    activeUsers.add(sessionId);
                     saveActiveUsers();
-                    updateDisplays();
-                    setTimeout(() => {
-                        if (activeUsers.has(fakeId)) {
-                            activeUsers.delete(fakeId);
-                            saveActiveUsers();
-                            updateDisplays();
+                }
+                return activeUsers.size;
+            }
+
+            function saveActiveUsers() {
+                const arr = Array.from(activeUsers);
+                localStorage.setItem('cv_active_users', JSON.stringify(arr));
+            }
+
+            function cleanupInactiveSessions() {
+                const now = Date.now();
+                localStorage.setItem('cv_last_heartbeat_' + sessionId, now.toString());
+                const allKeys = Object.keys(localStorage);
+                const staleSessions = [];
+                for (let key of allKeys) {
+                    if (key.startsWith('cv_last_heartbeat_')) {
+                        const sid = key.replace('cv_last_heartbeat_', '');
+                        const lastTime = localStorage.getItem(key);
+                        if (lastTime && (now - parseInt(lastTime)) > 35000) {
+                            staleSessions.push(sid);
                         }
-                    }, 30000 + Math.random() * 10000);
+                    }
+                }
+                let changed = false;
+                for (let sid of staleSessions) {
+                    if (activeUsers.has(sid)) {
+                        activeUsers.delete(sid);
+                        changed = true;
+                    }
+                    localStorage.removeItem('cv_last_heartbeat_' + sid);
+                }
+                if (changed) {
+                    saveActiveUsers();
                 }
             }
-        }, 12000);
-        
-        setInterval(() => {
-            updateDisplays();
-        }, 4000);
-        
-        updateDisplays();
-        
-        const trafficIndicator = document.getElementById('trafficIndicator');
-        if (trafficIndicator) {
+
+            let baseTraffic = 12450;
+            let trafficCounter = baseTraffic;
+            const terminalMiniSpan = document.getElementById('terminalUsersMini');
+            const trafficSpan = document.getElementById('trafficCount');
+            
+            function updateDisplays() {
+                const userCount = activeUsers.size;
+                if (terminalMiniSpan) {
+                    terminalMiniSpan.innerText = userCount;
+                    terminalMiniSpan.style.transform = 'scale(1.05)';
+                    setTimeout(() => { if(terminalMiniSpan) terminalMiniSpan.style.transform = ''; }, 200);
+                }
+                const increment = Math.floor(Math.random() * (userCount + 2)) + 1;
+                trafficCounter = trafficCounter + increment;
+                if (trafficCounter > 99999) trafficCounter = baseTraffic + Math.floor(Math.random() * 5000);
+                if (trafficSpan) {
+                    let displayVal = trafficCounter;
+                    if (displayVal > 10000) {
+                        trafficSpan.innerText = displayVal.toLocaleString() + '+';
+                    } else {
+                        trafficSpan.innerText = displayVal;
+                    }
+                    trafficSpan.style.transform = 'scale(1.02)';
+                    setTimeout(() => { if(trafficSpan) trafficSpan.style.transform = ''; }, 200);
+                }
+            }
+            
+            loadActiveUsers();
+            cleanupInactiveSessions();
+            
             setInterval(() => {
-                trafficIndicator.style.opacity = '0.7';
-                setTimeout(() => { if(trafficIndicator) trafficIndicator.style.opacity = '1'; }, 500);
-            }, 2300);
-        }
-    })();
-
-    // ============================================================
-    // 2. STOCK MANAGEMENT (HDFC: 8, ICICI: IN STOCK)
-    // ============================================================
-    let hdfcStock = 8;
-    let iciciStock = 15;
-    const hdfcStockSpan = document.getElementById('hdfcStockLabel');
-    const buyHdfc = document.getElementById('hdfcBuyButton');
-    const buyMastercard = document.getElementById('mastercardBuyButton');
-    const filterMsgDiv = document.getElementById('filterStatusMsg');
-
-    function showMessage(msg, isError = false) {
-        let oldToast = document.querySelector('.custom-toast-card');
-        if(oldToast) oldToast.remove();
-        let toast = document.createElement('div');
-        toast.className = 'custom-toast-card';
-        toast.innerText = msg;
-        toast.style.position = 'fixed';
-        toast.style.bottom = '25px';
-        toast.style.left = '50%';
-        toast.style.transform = 'translateX(-50%)';
-        toast.style.backgroundColor = isError ? '#2c1b19' : '#0e2c3a';
-        toast.style.border = `1px solid ${isError ? '#ff8b72' : '#3bc9ff'}`;
-        toast.style.color = '#fff';
-        toast.style.padding = '0.5rem 1.3rem';
-        toast.style.borderRadius = '2rem';
-        toast.style.fontFamily = 'monospace';
-        toast.style.fontSize = '0.75rem';
-        toast.style.fontWeight = 'bold';
-        toast.style.zIndex = '9999';
-        toast.style.backdropFilter = 'blur(8px)';
-        toast.style.whiteSpace = 'nowrap';
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 400);
-        }, 2600);
-    }
-
-    // HDFC Buy button (stock remains 8 - demo mode)
-    if (buyHdfc) {
-        buyHdfc.addEventListener('click', (e) => {
-            e.preventDefault();
-            showMessage(`⚠️ Demo mode: HDFC stock remains ${hdfcStock} (no change)`, false);
-            if (hdfcStockSpan) {
-                hdfcStockSpan.innerText = `ONLY ${hdfcStock} LEFT`;
+                cleanupInactiveSessions();
+                updateDisplays();
+            }, 5000);
+            
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'cv_active_users') {
+                    const newData = e.newValue;
+                    if (newData) {
+                        try {
+                            const arr = JSON.parse(newData);
+                            activeUsers = new Set(arr);
+                            if (!activeUsers.has(sessionId)) {
+                                activeUsers.add(sessionId);
+                                saveActiveUsers();
+                            }
+                            updateDisplays();
+                        } catch(e) {}
+                    }
+                }
+                if (e.key && e.key.startsWith('cv_last_heartbeat_')) {
+                    cleanupInactiveSessions();
+                    updateDisplays();
+                }
+            });
+            
+            setInterval(() => {
+                if (Math.random() < 0.25) {
+                    const fakeId = 'temp_' + Date.now() + '_' + Math.random();
+                    if (!activeUsers.has(fakeId)) {
+                        activeUsers.add(fakeId);
+                        saveActiveUsers();
+                        updateDisplays();
+                        setTimeout(() => {
+                            if (activeUsers.has(fakeId)) {
+                                activeUsers.delete(fakeId);
+                                saveActiveUsers();
+                                updateDisplays();
+                            }
+                        }, 30000 + Math.random() * 10000);
+                    }
+                }
+            }, 12000);
+            
+            setInterval(() => {
+                updateDisplays();
+            }, 4000);
+            
+            updateDisplays();
+            
+            const trafficIndicator = document.getElementById('trafficIndicator');
+            if (trafficIndicator) {
+                setInterval(() => {
+                    trafficIndicator.style.opacity = '0.7';
+                    setTimeout(() => { if(trafficIndicator) trafficIndicator.style.opacity = '1'; }, 500);
+                }, 2300);
             }
-        });
-    }
+        })();
 
-    // MASTERCARD Buy button (stock remains IN STOCK - demo mode)
-    if (buyMastercard) {
-        buyMastercard.addEventListener('click', (e) => {
-            e.preventDefault();
-            showMessage(`⚠️ Demo mode: ICICI PLATINUM stock remains ${iciciStock} (no change)`, false);
-        });
-    }
+        // ============================================================
+        // 2. STOCK MANAGEMENT (Demo mode - no actual stock decrease)
+        // ============================================================
+        let hdfcStock = 8;
+        let iciciStock = 15;
+        let rupayStock = 10;
+        const hdfcStockSpan = document.getElementById('hdfcStockLabel');
+        const buyHdfc = document.getElementById('hdfcBuyButton');
+        const buyMastercard = document.getElementById('mastercardBuyButton');
+        const buyRupay = document.getElementById('rupayBuyButton');
+        const filterMsgDiv = document.getElementById('filterStatusMsg');
 
-    // Force HDFC stock label to always show ONLY 8 LEFT
-    setInterval(() => {
-        if (hdfcStockSpan && hdfcStockSpan.innerText !== 'ONLY 8 LEFT' && hdfcStock === 8) {
-            hdfcStockSpan.innerText = 'ONLY 8 LEFT';
-        }
-    }, 1000);
-
-    // ============================================================
-    // 3. FILTER FUNCTIONALITY
-    // ============================================================
-    const filters = document.querySelectorAll('.filter-item');
-    const allCards = document.querySelectorAll('.card-item');
-    
-    function filterCards(type) {
-        allCards.forEach(card => {
-            const network = card.getAttribute('data-network');
-            if (type === 'all') {
-                card.style.display = '';
-            } else if (type === 'visa' && network === 'visa') {
-                card.style.display = '';
-            } else if (type === 'mastercard' && network === 'mastercard') {
-                card.style.display = '';
-            } else if (type === 'rupay' && network === 'rupay') {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-    
-    filters.forEach(filter => {
-        filter.addEventListener('click', function() {
-            filters.forEach(f => f.classList.remove('active'));
-            this.classList.add('active');
-            let filterType = this.getAttribute('data-filter');
-            filterCards(filterType);
-            if (filterType === 'all') {
-                filterMsgDiv.innerHTML = '◆ ACTIVE: ALL CARDS (VISA + MASTERCARD) ◆';
-                showMessage('🏦 Showing all cards', false);
-            } else if (filterType === 'visa') {
-                filterMsgDiv.innerHTML = '◆ ACTIVE: VISA CARDS (SBI GOLD, HDFC PREMIUM) ◆';
-                showMessage('💳 VISA cards: SBI GOLD & HDFC PREMIUM', false);
-            } else if (filterType === 'mastercard') {
-                filterMsgDiv.innerHTML = '◆ ACTIVE: MASTERCARD (ICICI PLATINUM) ◆';
-                showMessage('💠 MASTERCARD: ICICI PLATINUM', false);
-            } else if (filterType === 'rupay') {
-                filterMsgDiv.innerHTML = '◆ ACTIVE: RUPAY — no cards yet ◆';
-                showMessage('🔸 No RuPay cards available', false);
-            }
-        });
-    });
-    
-    console.log('✓ Buy Now / Sold Out buttons bade kar diye, price ka text balance kar diya');
-</script>
-</body>
-</html>
+        function showMessage(msg, isError = false) {
+            let oldToast = document.querySelector('.custom-toast-card');
+            if(oldToast) oldToast.remove();
+            let toast = document.createElement('div');
+            toast.class
