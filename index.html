@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Card Vault — VISA | MASTERCARD | RUPAY — All Cards</title>
+    <title>Card Vault — Premium Edition | 24 Cards</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
 
         body {
-            background: #0a0e17;
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Courier New', monospace;
+            background: radial-gradient(circle at 10% 20%, #0a0c18, #020408);
+            font-family: 'Inter', 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Courier New', monospace;
             padding: 2rem 1.2rem;
             display: flex;
             justify-content: center;
@@ -23,6 +23,7 @@
             overflow-x: hidden;
         }
 
+        /* Premium Animated Emoji Background */
         .emoji-bg {
             position: fixed;
             top: 0;
@@ -38,24 +39,26 @@
             position: absolute;
             font-size: 2rem;
             animation: fallDown linear infinite;
-            opacity: 0.5;
+            opacity: 0.3;
+            filter: blur(0.5px);
         }
 
         .emoji-bottom {
             position: absolute;
             font-size: 2rem;
             animation: riseUp linear infinite;
-            opacity: 0.5;
+            opacity: 0.3;
+            filter: blur(0.5px);
         }
 
         @keyframes fallDown {
-            0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.6; }
-            100% { transform: translateY(120vh) rotate(360deg); opacity: 0.2; }
+            0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.4; }
+            100% { transform: translateY(120vh) rotate(360deg); opacity: 0.1; }
         }
 
         @keyframes riseUp {
-            0% { transform: translateY(120vh) rotate(0deg); opacity: 0.6; }
-            100% { transform: translateY(-20vh) rotate(-360deg); opacity: 0.2; }
+            0% { transform: translateY(120vh) rotate(0deg); opacity: 0.4; }
+            100% { transform: translateY(-20vh) rotate(-360deg); opacity: 0.1; }
         }
 
         .emoji-top-1 { left: 5%; animation-duration: 6s; animation-delay: 0s; }
@@ -86,48 +89,51 @@
         .emoji-bottom-12 { left: 52%; animation-duration: 6.3s; animation-delay: 5.5s; }
         .emoji-bottom-13 { left: 82%; animation-duration: 8.8s; animation-delay: 2.8s; }
 
+        /* Premium Vault Container */
         .vault {
-            max-width: 880px;
+            max-width: 1000px;
             width: 100%;
             margin: 0 auto;
-            background: #0f1422;
-            border-radius: 1.8rem;
-            border: 1px solid #3c4b6e;
+            background: rgba(15, 20, 34, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(66, 212, 255, 0.25);
             padding: 2rem 2rem 2rem 2rem;
-            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(66, 212, 255, 0.1) inset;
             position: relative;
             z-index: 1;
-            backdrop-filter: blur(2px);
         }
 
         .vault-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .vault-title {
-            font-size: 1.9rem;
+            font-size: 2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #FFFFFF, #9bc5ff, #74d4ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.5px;
             font-style: italic;
+            text-shadow: 0 0 10px rgba(66, 212, 255, 0.3);
         }
 
         .vx-badge {
             font-size: 1.3rem;
             font-weight: 800;
             color: #f0b27a;
-            background: rgba(255, 140, 50, 0.15);
-            padding: 0.2rem 0.7rem;
+            background: rgba(255, 140, 50, 0.2);
+            padding: 0.3rem 0.9rem;
             border-radius: 1rem;
             border: 1px solid #ffa559;
             font-style: italic;
+            backdrop-filter: blur(4px);
         }
 
         .meta-strip {
@@ -135,26 +141,29 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 0.8rem;
-            background: #080d1c;
-            padding: 0.7rem 1.2rem;
-            border-radius: 1rem;
-            border: 0.5px solid #3d4c70;
-            margin-bottom: 1.4rem;
+            gap: 1rem;
+            background: rgba(8, 13, 28, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 1.2rem;
+            border: 0.5px solid rgba(61, 76, 112, 0.5);
+            margin-bottom: 1.5rem;
         }
 
         .uid {
             color: #7eb6ff;
             font-weight: 700;
             font-style: italic;
-            background: #0e1528;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
+            background: rgba(14, 21, 40, 0.8);
+            padding: 0.3rem 0.9rem;
+            border-radius: 2rem;
             font-family: monospace;
+            letter-spacing: 0.5px;
+            border: 0.5px solid rgba(126, 182, 255, 0.3);
         }
-        .secure-account { color: #ffd966; font-weight: 700; font-style: italic; background: #2a2416; padding: 0.2rem 0.9rem; border-radius: 20px; border-left: 3px solid #ffcd7e; }
-        .unverified-reg { color: #ffaa66; font-style: italic; background: #1f1b12; padding: 0.2rem 0.8rem; border-radius: 20px; }
-        .node { color: #b3d4ff; font-style: italic; font-weight: 500; background: #0c1324; padding: 0.2rem 0.8rem; border-radius: 20px; }
+        .secure-account { color: #ffd966; font-weight: 700; font-style: italic; background: rgba(42, 36, 22, 0.8); padding: 0.3rem 1rem; border-radius: 2rem; border-left: 3px solid #ffcd7e; backdrop-filter: blur(4px); }
+        .unverified-reg { color: #ffaa66; font-style: italic; background: rgba(31, 27, 18, 0.8); padding: 0.3rem 0.9rem; border-radius: 2rem; backdrop-filter: blur(4px); }
+        .node { color: #b3d4ff; font-style: italic; font-weight: 500; background: rgba(12, 19, 36, 0.8); padding: 0.3rem 0.9rem; border-radius: 2rem; }
 
         .top-users-bar {
             display: flex;
@@ -163,26 +172,27 @@
         }
 
         .users-mini {
-            background: #0b1120;
+            background: rgba(11, 17, 32, 0.7);
+            backdrop-filter: blur(8px);
             border-radius: 2rem;
-            padding: 0.3rem 1.2rem;
+            padding: 0.4rem 1.3rem;
             border-left: 3px solid #42c5ff;
             display: inline-flex;
             align-items: baseline;
-            gap: 0.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            gap: 0.6rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        .users-mini-label { font-size: 0.6rem; text-transform: uppercase; color: #9eb2d4; letter-spacing: 1px; font-style: italic; }
-        .users-mini-number { font-size: 1.2rem; font-weight: 800; background: linear-gradient(145deg, #ffffff, #bdd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .users-mini-online { font-size: 0.5rem; background: #1f3a2c; color: #6aff9e; padding: 0.15rem 0.4rem; border-radius: 2rem; }
+        .users-mini-label { font-size: 0.65rem; text-transform: uppercase; color: #9eb2d4; letter-spacing: 1.5px; font-style: italic; font-weight: 500; }
+        .users-mini-number { font-size: 1.3rem; font-weight: 800; background: linear-gradient(145deg, #ffffff, #bdd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .users-mini-online { font-size: 0.5rem; background: #1f3a2c; color: #6aff9e; padding: 0.2rem 0.5rem; border-radius: 2rem; }
 
         .filter-bar {
             display: flex;
             gap: 2rem;
-            margin: 0.5rem 0 1.2rem 0;
-            border-bottom: 1px solid #33415c;
-            padding-bottom: 0.6rem;
+            margin: 0.5rem 0 1.5rem 0;
+            border-bottom: 1px solid rgba(51, 65, 92, 0.5);
+            padding-bottom: 0.7rem;
         }
 
         .filter-item {
@@ -199,10 +209,10 @@
         .filter-item.master { color: #ff9f4a; }
         .filter-item.rupay { color: #6fcf97; }
         .filter-item.active { border-bottom: 3px solid; transform: translateY(-1px); }
-        .filter-item.all.active { border-color: #ffffff; }
-        .filter-item.visa.active { border-color: #5fb2ff; text-shadow: 0 0 4px #5fb2ff; }
-        .filter-item.master.active { border-color: #ff9f4a; text-shadow: 0 0 3px #ff9f4a; }
-        .filter-item.rupay.active { border-color: #6fcf97; text-shadow: 0 0 3px #6fcf97; }
+        .filter-item.all.active { border-color: #ffffff; text-shadow: 0 0 5px #ffffff; }
+        .filter-item.visa.active { border-color: #5fb2ff; text-shadow: 0 0 5px #5fb2ff; }
+        .filter-item.master.active { border-color: #ff9f4a; text-shadow: 0 0 5px #ff9f4a; }
+        .filter-item.rupay.active { border-color: #6fcf97; text-shadow: 0 0 5px #6fcf97; }
 
         .stats-row {
             display: flex;
@@ -214,38 +224,46 @@
         }
 
         .stat-card {
-            background: #0b1120;
-            border-radius: 1.2rem;
-            padding: 0.5rem 1.4rem;
+            background: rgba(11, 17, 32, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 1.3rem;
+            padding: 0.6rem 1.6rem;
             border-left: 4px solid #ffaa4a;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            min-width: 220px;
         }
-        .stat-label { font-size: 0.7rem; text-transform: uppercase; color: #9eb2d4; letter-spacing: 1px; font-style: italic; }
-        .stat-number { font-size: 1.9rem; font-weight: 800; background: linear-gradient(145deg, #ffffff, #bdd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .online-badge { font-size: 0.6rem; background: #1f3a2c; color: #6aff9e; padding: 0.2rem 0.5rem; border-radius: 2rem; display: inline-block; margin-left: 0.5rem; vertical-align: middle; font-style: normal; }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; color: #9eb2d4; letter-spacing: 1.5px; font-style: italic; font-weight: 500; }
+        .stat-number { font-size: 2rem; font-weight: 800; background: linear-gradient(145deg, #ffffff, #bdd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .online-badge { font-size: 0.6rem; background: #1f3a2c; color: #6aff9e; padding: 0.2rem 0.6rem; border-radius: 2rem; display: inline-block; margin-left: 0.6rem; vertical-align: middle; font-style: normal; }
 
-        .cards-container { display: flex; flex-direction: column; gap: 1.6rem; }
+        .cards-container { display: flex; flex-direction: column; gap: 1.5rem; }
         .card-item {
-            background: linear-gradient(125deg, #121a2a, #0c1120);
-            border-radius: 1.4rem;
-            border: 1px solid #3c4f74;
-            padding: 1.2rem 1.5rem 1.3rem 1.5rem;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, rgba(18, 26, 42, 0.9), rgba(12, 17, 32, 0.95));
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(60, 79, 116, 0.5);
+            padding: 1.3rem 1.6rem 1.4rem 1.6rem;
+            box-shadow: 0 12px 25px -10px rgba(0,0,0,0.4);
+            transition: all 0.25s ease;
         }
-        .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem; }
-        .network-badge { background: #13253d; padding: 0.2rem 0.9rem; border-radius: 30px; font-size: 0.7rem; font-weight: 800; color: #b2dbff; }
-        .bank-name { font-size: 1.2rem; font-weight: 800; color: #f2f6ff; margin-left: 0.6rem; font-style: italic; }
-        .card-number { font-family: 'SF Mono', monospace; font-size: 1rem; letter-spacing: 1.2px; background: #030a18; display: inline-block; padding: 0.3rem 1rem; border-radius: 1rem; color: #e5f0ff; border: 0.5px solid #43688f; margin: 0.6rem 0 0.5rem 0; }
-        .details { display: flex; gap: 2rem; margin: 0.4rem 0 0.3rem 0; font-size: 0.8rem; color: #bdd6ff; font-style: italic; }
-        .details span { color: #ffcb8e; margin-right: 0.3rem; font-style: normal; font-weight: 600; }
-        .balance { font-weight: 800; font-size: 0.9rem; color: #c6ffa3; background: #0c1a28; display: inline-block; padding: 0.2rem 0.8rem; border-radius: 1rem; margin: 0.3rem 0; font-style: italic; }
-        .stock-line { display: flex; justify-content: space-between; align-items: center; margin: 0.9rem 0 0.7rem 0; padding-top: 0.4rem; border-top: 1px dashed #395075; font-size: 0.7rem; text-transform: uppercase; color: #a2b9df; font-weight: 600; }
-        .stock-status { font-weight: 800; padding: 0.2rem 1rem; border-radius: 2rem; }
-        .stock-out { color: #ffa084; background: #2e1a17; border-left: 3px solid #ff6f52; }
-        .stock-instock { color: #8bffa5; background: #1a2f22; border-left: 3px solid #6aff9e; }
-        .action-area { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 0.8rem; flex-wrap: wrap; }
-        .price { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FCE898, #D4FFB0); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; }
+        .card-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(66, 212, 255, 0.5);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5);
+        }
+        .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.8rem; }
+        .network-badge { background: rgba(19, 37, 61, 0.8); padding: 0.25rem 1rem; border-radius: 2rem; font-size: 0.7rem; font-weight: 800; color: #b2dbff; letter-spacing: 0.5px; backdrop-filter: blur(2px); }
+        .bank-name { font-size: 1.25rem; font-weight: 800; color: #f2f6ff; margin-left: 0.7rem; font-style: italic; text-shadow: 0 0 3px rgba(95, 158, 255, 0.3); }
+        .card-number { font-family: 'SF Mono', 'Courier New', monospace; font-size: 1rem; letter-spacing: 1.5px; background: rgba(3, 10, 24, 0.7); display: inline-block; padding: 0.35rem 1rem; border-radius: 1rem; color: #e5f0ff; border: 0.5px solid #43688f; margin: 0.7rem 0 0.6rem 0; font-weight: 500; backdrop-filter: blur(2px); }
+        .details { display: flex; gap: 2rem; margin: 0.5rem 0 0.4rem 0; font-size: 0.8rem; color: #bdd6ff; font-style: italic; }
+        .details span { color: #ffcb8e; margin-right: 0.4rem; font-style: normal; font-weight: 600; }
+        .balance { font-weight: 800; font-size: 0.95rem; color: #c6ffa3; background: rgba(12, 26, 40, 0.6); display: inline-block; padding: 0.25rem 0.9rem; border-radius: 1rem; margin: 0.4rem 0; font-style: italic; backdrop-filter: blur(2px); }
+        .stock-line { display: flex; justify-content: space-between; align-items: center; margin: 1rem 0 0.8rem 0; padding-top: 0.5rem; border-top: 1px dashed rgba(57, 80, 117, 0.5); font-size: 0.7rem; text-transform: uppercase; color: #a2b9df; font-weight: 600; letter-spacing: 0.5px; }
+        .stock-status { font-weight: 800; padding: 0.25rem 1.1rem; border-radius: 2rem; backdrop-filter: blur(2px); }
+        .stock-out { color: #ffa084; background: rgba(46, 26, 23, 0.7); border-left: 3px solid #ff6f52; }
+        .stock-instock { color: #8bffa5; background: rgba(26, 47, 34, 0.7); border-left: 3px solid #6aff9e; }
+        .action-area { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+        .price { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FCE898, #D4FFB0); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; text-shadow: 0 0 5px rgba(255, 220, 100, 0.3); }
         .buy-btn {
             background: linear-gradient(95deg, #136e94, #0a4462);
             border: none;
@@ -256,19 +274,21 @@
             font-family: monospace;
             color: white;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.25s ease;
             border: 0.5px solid #5db4e0;
-            min-width: 120px;
+            min-width: 130px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-        .buy-btn:hover { transform: scale(1.02); background: linear-gradient(95deg, #1a7ea8, #0e5577); }
-        .buy-btn:disabled { background: #2a3346; border-color: #6a7c9e; cursor: not-allowed; opacity: 0.6; }
+        .buy-btn:hover { transform: scale(1.03); background: linear-gradient(95deg, #1a7ea8, #0e5577); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+        .buy-btn:disabled { background: #2a3346; border-color: #6a7c9e; cursor: not-allowed; opacity: 0.6; transform: none; }
 
         @media (max-width: 700px) {
-            .vault { padding: 1rem; }
-            .filter-bar { gap: 1rem; }
+            .vault { padding: 1.2rem; }
+            .filter-bar { gap: 1.2rem; }
             .buy-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; min-width: 100px; }
             .price { font-size: 1.4rem; }
             .emoji-top, .emoji-bottom { font-size: 1.2rem; }
+            .card-number { font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -321,255 +341,122 @@
             </div>
         </div>
 
-        <div class="cards-container">
-            <!-- ==================== VISA CARDS ==================== -->
-            <!-- VISA 1: SBI GOLD - SOLD OUT -->
-            <div class="card-item" data-network="visa">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">SBI GOLD</span></div><div>💳</div></div>
-                <div><span class="card-number">5224 | 6388 | 2281 | 4758</span></div>
-                <div class="details"><div><span>EXP:</span> 08/29</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹2,550</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
-                <div class="action-area"><div class="price">₹263</div><button class="buy-btn" disabled>SOLD OUT</button></div>
-            </div>
-
-            <!-- VISA 2: HDFC PREMIUM -->
-            <div class="card-item" data-network="visa" data-price="299" data-name="HDFC PREMIUM">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">HDFC PREMIUM</span></div><div>💎</div></div>
-                <div><span class="card-number">4987 | 1234 | 5678 | 9012</span></div>
-                <div class="details"><div><span>EXP:</span> 11/27</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹2,978</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹299</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- VISA 3: ICICI PLATINUM -->
-            <div class="card-item" data-network="visa" data-price="393" data-name="ICICI PLATINUM">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">ICICI PLATINUM</span></div><div>💠</div></div>
-                <div><span class="card-number">5423 | 7890 | 1234 | 5678</span></div>
-                <div class="details"><div><span>EXP:</span> 03/28</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹6,989</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹393</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- VISA 4: AXIS REWARDS -->
-            <div class="card-item" data-network="visa" data-price="585" data-name="AXIS REWARDS">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">AXIS REWARDS</span></div><div>🎯</div></div>
-                <div><span class="card-number">5588 | 7766 | 4433 | 2211</span></div>
-                <div class="details"><div><span>EXP:</span> 05/26</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹9,850</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹585</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- VISA 5: YES BANK ELITE -->
-            <div class="card-item" data-network="visa" data-price="856" data-name="YES BANK ELITE">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">YES BANK ELITE</span></div><div>🪙</div></div>
-                <div><span class="card-number">6072 | 8899 | 3344 | 7788</span></div>
-                <div class="details"><div><span>EXP:</span> 06/27</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹14,450</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹856</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- VISA 6: KOTAK SIGNATURE -->
-            <div class="card-item" data-network="visa" data-price="1150" data-name="KOTAK SIGNATURE">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">KOTAK SIGNATURE</span></div><div>🔷</div></div>
-                <div><span class="card-number">6072 | 1122 | 3344 | 5566</span></div>
-                <div class="details"><div><span>EXP:</span> 09/28</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹22,590</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹1,150</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- VISA 7: INDUSIND LEGEND -->
-            <div class="card-item" data-network="visa" data-price="1780" data-name="INDUSIND LEGEND">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">INDUSIND LEGEND</span></div><div>👑</div></div>
-                <div><span class="card-number">4789 | 1234 | 9876 | 5432</span></div>
-                <div class="details"><div><span>EXP:</span> 01/30</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹38,990</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹1,780</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- VISA 8: CITI PREMIER -->
-            <div class="card-item" data-network="visa" data-price="2000" data-name="CITI PREMIER">
-                <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">CITI PREMIER</span></div><div>💫</div></div>
-                <div><span class="card-number">5123 | 4567 | 8901 | 2345</span></div>
-                <div class="details"><div><span>EXP:</span> 12/31</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹60,000</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹2,000</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- ==================== MASTERCARD CARDS ==================== -->
-            <!-- MASTERCARD 1: SBI GOLD - SOLD OUT -->
-            <div class="card-item" data-network="mastercard">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">SBI GOLD</span></div><div>💳</div></div>
-                <div><span class="card-number">5321 | 9876 | 5432 | 1098</span></div>
-                <div class="details"><div><span>EXP:</span> 10/30</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹2,550</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
-                <div class="action-area"><div class="price">₹263</div><button class="buy-btn" disabled>SOLD OUT</button></div>
-            </div>
-
-            <!-- MASTERCARD 2: HDFC PREMIUM -->
-            <div class="card-item" data-network="mastercard" data-price="299" data-name="HDFC PREMIUM">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">HDFC PREMIUM</span></div><div>💎</div></div>
-                <div><span class="card-number">5456 | 7890 | 1234 | 5678</span></div>
-                <div class="details"><div><span>EXP:</span> 02/28</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹2,978</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹299</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- MASTERCARD 3: ICICI PLATINUM -->
-            <div class="card-item" data-network="mastercard" data-price="393" data-name="ICICI PLATINUM">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">ICICI PLATINUM</span></div><div>💠</div></div>
-                <div><span class="card-number">5567 | 8901 | 2345 | 6789</span></div>
-                <div class="details"><div><span>EXP:</span> 07/29</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹6,989</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹393</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- MASTERCARD 4: AXIS REWARDS -->
-            <div class="card-item" data-network="mastercard" data-price="585" data-name="AXIS REWARDS">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">AXIS REWARDS</span></div><div>🎯</div></div>
-                <div><span class="card-number">5678 | 9012 | 3456 | 7890</span></div>
-                <div class="details"><div><span>EXP:</span> 12/26</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹9,850</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹585</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- MASTERCARD 5: YES BANK ELITE -->
-            <div class="card-item" data-network="mastercard" data-price="856" data-name="YES BANK ELITE">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">YES BANK ELITE</span></div><div>🪙</div></div>
-                <div><span class="card-number">5789 | 0123 | 4567 | 8901</span></div>
-                <div class="details"><div><span>EXP:</span> 04/27</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹14,450</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹856</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- MASTERCARD 6: KOTAK SIGNATURE -->
-            <div class="card-item" data-network="mastercard" data-price="1150" data-name="KOTAK SIGNATURE">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">KOTAK SIGNATURE</span></div><div>🔷</div></div>
-                <div><span class="card-number">5890 | 1234 | 5678 | 9012</span></div>
-                <div class="details"><div><span>EXP:</span> 08/28</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹22,590</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹1,150</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- MASTERCARD 7: INDUSIND LEGEND -->
-            <div class="card-item" data-network="mastercard" data-price="1780" data-name="INDUSIND LEGEND">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">INDUSIND LEGEND</span></div><div>👑</div></div>
-                <div><span class="card-number">5901 | 2345 | 6789 | 0123</span></div>
-                <div class="details"><div><span>EXP:</span> 11/30</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹38,990</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹1,780</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- MASTERCARD 8: CITI PREMIER -->
-            <div class="card-item" data-network="mastercard" data-price="2000" data-name="CITI PREMIER">
-                <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">CITI PREMIER</span></div><div>💫</div></div>
-                <div><span class="card-number">6012 | 3456 | 7890 | 1234</span></div>
-                <div class="details"><div><span>EXP:</span> 09/31</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹60,000</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹2,000</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- ==================== RUPAY CARDS ==================== -->
-            <!-- RUPAY 1: SBI GOLD - SOLD OUT -->
-            <div class="card-item" data-network="rupay">
-                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">SBI GOLD</span></div><div>💳</div></div>
-                <div><span class="card-number">6123 | 4567 | 8901 | 2345</span></div>
-                <div class="details"><div><span>EXP:</span> 03/29</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹2,550</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
-                <div class="action-area"><div class="price">₹263</div><button class="buy-btn" disabled>SOLD OUT</button></div>
-            </div>
-
-            <!-- RUPAY 2: HDFC PREMIUM -->
-            <div class="card-item" data-network="rupay" data-price="299" data-name="HDFC PREMIUM">
-                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">HDFC PREMIUM</span></div><div>💎</div></div>
-                <div><span class="card-number">6234 | 5678 | 9012 | 3456</span></div>
-                <div class="details"><div><span>EXP:</span> 06/28</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹2,978</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹299</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- RUPAY 3: ICICI PLATINUM -->
-            <div class="card-item" data-network="rupay" data-price="393" data-name="ICICI PLATINUM">
-                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">ICICI PLATINUM</span></div><div>💠</div></div>
-                <div><span class="card-number">6345 | 6789 | 0123 | 4567</span></div>
-                <div class="details"><div><span>EXP:</span> 09/27</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹6,989</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹393</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- RUPAY 4: AXIS REWARDS -->
-            <div class="card-item" data-network="rupay" data-price="585" data-name="AXIS REWARDS">
-                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">AXIS REWARDS</span></div><div>🎯</div></div>
-                <div><span class="card-number">6456 | 7890 | 1234 | 5678</span></div>
-                <div class="details"><div><span>EXP:</span> 01/26</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹9,850</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹585</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- RUPAY 5: YES BANK ELITE -->
-            <div class="card-item" data-network="rupay" data-price="856" data-name="YES BANK ELITE">
-                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">YES BANK ELITE</span></div><div>🪙</div></div>
-                <div><span class="card-number">6567 | 8901 | 2345 | 6789</span></div>
-                <div class="details"><div><span>EXP:</span> 10/27</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹14,450</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹856</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- RUPAY 6: KOTAK SIGNATURE -->
-            <div class="card-item" data-network="rupay" data-price="1150" data-name="KOTAK SIGNATURE">
-                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">KOTAK SIGNATURE</span></div><div>🔷</div></div>
-                <div><span class="card-number">6678 | 9012 | 3456 | 7890</span></div>
-                <div class="details"><div><span>EXP:</span> 05/28</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹22,590</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹1,150</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- RUPAY 7: INDUSIND LEGEND -->
-            <div class="card-item" data-network="rupay" data-price="1780" data-name="INDUSIND LEGEND">
-                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">INDUSIND LEGEND</span></div><div>👑</div></div>
-                <div><span class="card-number">6789 | 0123 | 4567 | 8901</span></div>
-                <div class="details"><div><span>EXP:</span> 02/30</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹38,990</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹1,780</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-
-            <!-- RUPAY 8: CITI PREMIER -->
-            <div class="card-item" data-network="rupay" data-price="2000" data-name="CITI PREMIER">
-                <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">CITI PREMIER</span></div><div>💫</div></div>
-                <div><span class="card-number">6890 | 1234 | 5678 | 9012</span></div>
-                <div class="details"><div><span>EXP:</span> 07/31</div><div><span>CVV:</span> ***</div></div>
-                <div class="balance">BAL: ₹60,000</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
-                <div class="action-area"><div class="price">₹2,000</div><button class="buy-btn upi-btn">BUY NOW</button></div>
-            </div>
-        </div>
+        <div class="cards-container" id="cardsContainer"></div>
     </div>
 
     <script>
         // ============================================================
-        // HAR NAYE USER KE LIYE ALAG UID NUMBER
+        // CARD DATA - 8 cards per network = 24 total
+        // ============================================================
+        const cardNames = [
+            "SBI GOLD", "HDFC PREMIUM", "ICICI PLATINUM", "AXIS REWARDS",
+            "YES BANK ELITE", "KOTAK SIGNATURE", "INDUSIND LEGEND", "CITI PREMIER"
+        ];
+        
+        const prices = [263, 299, 393, 585, 856, 1150, 1780, 2000];
+        const balances = [2550, 2978, 6989, 9850, 14450, 22590, 38990, 60000];
+        
+        // VISA cards
+        const visaCards = [
+            { number: "5224 | 6388 | 2281 | 4758", exp: "08/29", cvv: "***" },
+            { number: "4987 | 1234 | 5678 | 9012", exp: "11/27", cvv: "***" },
+            { number: "5423 | 7890 | 1234 | 5678", exp: "03/28", cvv: "***" },
+            { number: "5588 | 7766 | 4433 | 2211", exp: "05/26", cvv: "***" },
+            { number: "6072 | 8899 | 3344 | 7788", exp: "06/27", cvv: "***" },
+            { number: "6072 | 1122 | 3344 | 5566", exp: "09/28", cvv: "***" },
+            { number: "4789 | 1234 | 9876 | 5432", exp: "01/30", cvv: "***" },
+            { number: "5123 | 4567 | 8901 | 2345", exp: "12/31", cvv: "***" }
+        ];
+        
+        // MASTERCARD cards
+        const masterCards = [
+            { number: "5321 | 9876 | 5432 | 1098", exp: "10/30", cvv: "***" },
+            { number: "5456 | 7890 | 1234 | 5678", exp: "02/28", cvv: "***" },
+            { number: "5567 | 8901 | 2345 | 6789", exp: "07/29", cvv: "***" },
+            { number: "5678 | 9012 | 3456 | 7890", exp: "12/26", cvv: "***" },
+            { number: "5789 | 0123 | 4567 | 8901", exp: "04/27", cvv: "***" },
+            { number: "5890 | 1234 | 5678 | 9012", exp: "08/28", cvv: "***" },
+            { number: "5901 | 2345 | 6789 | 0123", exp: "11/30", cvv: "***" },
+            { number: "6012 | 3456 | 7890 | 1234", exp: "09/31", cvv: "***" }
+        ];
+        
+        // RUPAY cards
+        const rupayCards = [
+            { number: "6123 | 4567 | 8901 | 2345", exp: "03/29", cvv: "***" },
+            { number: "6234 | 5678 | 9012 | 3456", exp: "06/28", cvv: "***" },
+            { number: "6345 | 6789 | 0123 | 4567", exp: "09/27", cvv: "***" },
+            { number: "6456 | 7890 | 1234 | 5678", exp: "01/26", cvv: "***" },
+            { number: "6567 | 8901 | 2345 | 6789", exp: "10/27", cvv: "***" },
+            { number: "6678 | 9012 | 3456 | 7890", exp: "05/28", cvv: "***" },
+            { number: "6789 | 0123 | 4567 | 8901", exp: "02/30", cvv: "***" },
+            { number: "6890 | 1234 | 5678 | 9012", exp: "07/31", cvv: "***" }
+        ];
+        
+        const networks = [
+            { name: "VISA", key: "visa", badgeStyle: "", icon: "💳", color: "#5fb2ff" },
+            { name: "MASTERCARD", key: "mastercard", badgeStyle: "background:#2f2a1a; color:#ffbc6e;", icon: "💠", color: "#ff9f4a" },
+            { name: "RUPAY", key: "rupay", badgeStyle: "background:#1a3a2a; color:#8bffa5;", icon: "🪙", color: "#6fcf97" }
+        ];
+        
+        const cardsData = [visaCards, masterCards, rupayCards];
+        
+        function generateAllCards() {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+            
+            for (let netIdx = 0; netIdx < networks.length; netIdx++) {
+                const network = networks[netIdx];
+                const cardDetails = cardsData[netIdx];
+                
+                for (let i = 0; i < cardNames.length; i++) {
+                    const isFirstCard = (i === 0);
+                    const isSoldOut = isFirstCard;
+                    const price = prices[i];
+                    const balance = balances[i];
+                    const cardName = cardNames[i];
+                    const cardInfo = cardDetails[i];
+                    
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = 'card-item';
+                    cardDiv.setAttribute('data-network', network.key);
+                    if (!isSoldOut) {
+                        cardDiv.setAttribute('data-price', price);
+                        cardDiv.setAttribute('data-name', cardName);
+                    }
+                    
+                    cardDiv.innerHTML = `
+                        <div class="card-header">
+                            <div>
+                                <span class="network-badge" style="${network.badgeStyle}">${network.name}</span>
+                                <span class="bank-name">${cardName}</span>
+                            </div>
+                            <div>${network.icon}</div>
+                        </div>
+                        <div><span class="card-number">${cardInfo.number}</span></div>
+                        <div class="details">
+                            <div><span>EXP:</span> ${cardInfo.exp}</div>
+                            <div><span>CVV:</span> ***</div>
+                        </div>
+                        <div class="balance">BAL: ₹${balance.toLocaleString()}</div>
+                        <div class="stock-line">
+                            <span>STOCK PROTOCOL</span>
+                            <span class="stock-status ${isSoldOut ? 'stock-out' : 'stock-instock'}">${isSoldOut ? 'OUT OF STOCK' : 'IN STOCK'}</span>
+                        </div>
+                        <div class="action-area">
+                            <div class="price">₹${price}</div>
+                            <button class="buy-btn ${!isSoldOut ? 'upi-btn' : ''}" ${isSoldOut ? 'disabled' : ''}>${isSoldOut ? 'SOLD OUT' : 'BUY NOW'}</button>
+                        </div>
+                    `;
+                    
+                    container.appendChild(cardDiv);
+                }
+            }
+        }
+        
+        generateAllCards();
+        
+        // ============================================================
+        // UNIQUE UID PER USER
         // ============================================================
         function generateUniqueUID() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -732,10 +619,8 @@
         })();
 
         // ============================================================
-        // REAL UPI PAYMENT INTEGRATION
-        // UPI ID: unabntelegrampalka@okhdfcbank
+        // UPI PAYMENT INTEGRATION
         // ============================================================
-        
         const UPI_ID = "unabntelegrampalka@okhdfcbank";
         const UPI_NAME = "Card Vault Store";
         const UPI_NOTE = "Card Purchase";
@@ -745,11 +630,8 @@
                 showToast("❌ Invalid amount", true);
                 return;
             }
-            
             const upiURI = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent(UPI_NOTE + " - " + cardName)}`;
-            
             window.location.href = upiURI;
-            
             setTimeout(() => {
                 showToast(`💰 Please complete payment of ₹${amount} for ${cardName} in your UPI app`, false);
             }, 500);
@@ -783,34 +665,34 @@
             }, 3000);
         }
         
-        // Attach click handlers to BUY NOW buttons
-        const buyButtons = document.querySelectorAll('.upi-btn');
-        buyButtons.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const cardItem = this.closest('.card-item');
-                if (!cardItem) return;
-                
-                const priceAttr = cardItem.getAttribute('data-price');
-                const cardName = cardItem.getAttribute('data-name') || cardItem.querySelector('.bank-name')?.innerText || "Card";
-                const price = parseInt(priceAttr);
-                
-                if (price && !isNaN(price)) {
-                    showToast(`🔄 Opening UPI app for ₹${price} (${cardName})...`, false);
-                    initiateUPIPayment(price, cardName);
-                } else {
-                    showToast("❌ Price not found", true);
-                }
+        // Attach click handlers after cards are generated
+        setTimeout(() => {
+            const buyButtons = document.querySelectorAll('.upi-btn');
+            buyButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const cardItem = this.closest('.card-item');
+                    if (!cardItem) return;
+                    const priceAttr = cardItem.getAttribute('data-price');
+                    const cardName = cardItem.getAttribute('data-name') || cardItem.querySelector('.bank-name')?.innerText || "Card";
+                    const price = parseInt(priceAttr);
+                    if (price && !isNaN(price)) {
+                        showToast(`🔄 Opening UPI app for ₹${price} (${cardName})...`, false);
+                        initiateUPIPayment(price, cardName);
+                    } else {
+                        showToast("❌ Price not found", true);
+                    }
+                });
             });
-        });
+        }, 100);
         
         // ============================================================
         // FILTER FUNCTIONALITY
         // ============================================================
         const filters = document.querySelectorAll('.filter-item');
-        const allCards = document.querySelectorAll('.card-item');
         
         function filterCards(type) {
+            const allCards = document.querySelectorAll('.card-item');
             allCards.forEach(card => {
                 const network = card.getAttribute('data-network');
                 if (type === 'all') {
@@ -836,10 +718,7 @@
             });
         });
         
-        console.log("✓ VISA, MASTERCARD, RUPAY — 8 cards each = 24 total cards");
-        console.log("✓ Same prices & balances across all networks");
-        console.log("✓ Each card has unique number, expiry, CVV");
-        console.log("✓ UPI: unabntelegrampalka@okhdfcbank | Amount auto-select");
+        console.log("✅ Premium UI | 24 Cards | VISA + MASTERCARD + RUPAY | UPI: unabntelegrampalka@okhdfcbank");
     </script>
 </body>
 </html>
