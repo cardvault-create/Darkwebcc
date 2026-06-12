@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Card Vault | Terminal</title>
+    <title>Card Vault – Terminal</title>
     <style>
         * {
             margin: 0;
@@ -12,527 +12,506 @@
         }
 
         body {
-            background: #050a12;
-            font-family: 'Inter', 'Segoe UI', 'SF Mono', 'Courier New', monospace;
-            padding: 2rem 1.2rem;
+            background: #0b0f17;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', 'Inter', monospace;
+            padding: 2rem 1.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
 
-        .vault-container {
-            max-width: 1100px;
+        /* main container - clean terminal style */
+        .vault {
+            max-width: 860px;
             width: 100%;
             margin: 0 auto;
+            background: #0e121c;
+            border-radius: 1.25rem;
+            border: 1px solid #2a3346;
+            padding: 1.8rem 2rem 2rem 2rem;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.6);
         }
 
-        /* main vault panel - exactly as screenshot */
-        .vault-panel {
-            background: #0c111e;
-            border-radius: 1.8rem;
-            border: 1px solid #253c54;
-            box-shadow: 0 20px 35px -12px black;
-            overflow: hidden;
-        }
-
-        .vault-content {
-            padding: 1.8rem 2rem;
-        }
-
-        /* card vault title */
+        /* exact heading style */
         .vault-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #eef5ff;
-            letter-spacing: -0.3px;
-            margin-bottom: 1.3rem;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #eef3ff;
+            letter-spacing: -0.2px;
+            font-family: 'SF Mono', 'Courier New', monospace;
+            margin-bottom: 1.2rem;
+            border-left: 3px solid #3e7fb4;
+            padding-left: 0.9rem;
         }
 
-        /* top meta row - secure account removed, only UID + unverified registry + node */
-        .meta-strip {
+        /* uid + node line exactly as screenshot */
+        .meta-line {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            border-bottom: 1px dashed #1f3145;
-            padding-bottom: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .uid-badge {
-            background: #030a13;
-            padding: 0.3rem 1.2rem;
-            border-radius: 2rem;
-            font-family: monospace;
-            font-weight: 600;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            background: #070b12;
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            border: 0.5px solid #232b3b;
+            margin-bottom: 1.2rem;
             font-size: 0.8rem;
-            color: #86bbff;
-            border: 1px solid #2f4b70;
         }
 
-        /* secure account tag COMPLETELY REMOVED - as requested */
-
-        .node-info {
-            background: #060e18;
-            padding: 0.25rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.75rem;
-            color: #bbd4ff;
-        }
-
-        .unverified {
-            color: #ffae6a;
-            border-left: 1px solid #ffae6a;
-            padding-left: 0.6rem;
-            margin-left: 0.5rem;
-        }
-
-        /* filter row - all, visa, mastercard, rupay */
-        .filter-row {
-            display: flex;
-            gap: 2rem;
-            margin: 1.5rem 0 1.5rem 0;
-            border-bottom: 1px solid #1f3145;
-            padding-bottom: 0.6rem;
-        }
-
-        .filter-item {
-            font-weight: 600;
-            font-size: 0.9rem;
-            font-family: monospace;
-            color: #8aa2c2;
-            cursor: default;
+        .uid {
+            color: #89befc;
+            font-weight: 500;
             letter-spacing: 0.2px;
         }
 
-        .filter-item.active {
-            color: #4fc3ff;
-            border-bottom: 2px solid #4fc3ff;
-            padding-bottom: 0.4rem;
+        .node-reg {
+            color: #a9bedb;
         }
 
-        /* stats row as per screenshot - optional but keeping original style */
+        .unverified {
+            color: #ffb259;
+            margin-left: 0.5rem;
+            border-left: 1px solid #ffb25980;
+            padding-left: 0.5rem;
+        }
+
+        /* filter row — all caps, minimal */
+        .filter-row {
+            display: flex;
+            gap: 1.4rem;
+            margin: 1.2rem 0 1rem 0;
+            border-bottom: 1px solid #2a3348;
+            padding-bottom: 0.6rem;
+        }
+
+        .filter {
+            font-weight: 500;
+            font-size: 0.85rem;
+            font-family: monospace;
+            color: #8da0bd;
+            letter-spacing: 0.2px;
+        }
+
+        .filter.active {
+            color: #62d0ff;
+            border-bottom: 2px solid #62d0ff;
+            padding-bottom: 0.3rem;
+        }
+
+        /* stats double row */
         .stats-row {
             display: flex;
             gap: 2rem;
-            margin-bottom: 2.2rem;
-            flex-wrap: wrap;
+            margin: 1.5rem 0 2rem 0;
         }
 
-        .stat-card {
-            background: #050b14;
-            border-radius: 1.3rem;
-            padding: 0.5rem 1.4rem;
-            border: 0.5px solid #21354b;
+        .stat-block {
+            background: #080d16;
+            border-radius: 1rem;
+            padding: 0.5rem 1.2rem;
+            border: 0.5px solid #253042;
         }
 
         .stat-label {
             font-size: 0.65rem;
             text-transform: uppercase;
-            color: #768fb0;
-            letter-spacing: 1px;
+            color: #7d93b3;
+            letter-spacing: 0.8px;
         }
 
-        .stat-value {
+        .stat-number {
             font-size: 1.7rem;
-            font-weight: 700;
+            font-weight: 600;
             color: #ffffff;
             line-height: 1.2;
+            font-family: monospace;
         }
 
-        /* cards list - exactly two cards like screenshot */
-        .cards-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
+        /* card style — terminal minimal */
+        .card-entry {
+            background: #0c111c;
+            border: 1px solid #283349;
+            border-radius: 1.2rem;
+            padding: 1rem 1.2rem 1rem 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* individual card style */
-        .card-block {
-            background: linear-gradient(145deg, #111826 0%, #0c111c 100%);
-            border-radius: 1.6rem;
-            border: 1px solid #2a415c;
-            transition: 0.1s ease;
-        }
-
-        .card-header-row {
+        .card-header-simple {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem 0.3rem 1.5rem;
+            align-items: baseline;
+            margin-bottom: 0.6rem;
         }
 
-        .network-name {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .network-badge {
-            background: #0d253b;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
+        .visa-badge {
+            background: #102433;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
             font-size: 0.7rem;
-            font-weight: 700;
-            color: #b3dbff;
-        }
-
-        .bank-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #f0f5ff;
-        }
-
-        .card-number-area {
-            padding: 0.4rem 1.5rem;
-            font-family: 'SF Mono', monospace;
-        }
-
-        .card-number {
-            background: #030a12;
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border-radius: 1rem;
-            font-size: 1.2rem;
             font-weight: 600;
-            letter-spacing: 1.5px;
-            color: #e6f0ff;
-            border: 0.5px solid #2f4d72;
+            color: #b8dbff;
         }
 
-        .expiry-cvv-line {
-            display: flex;
-            gap: 2rem;
-            padding: 0.3rem 1.5rem;
-            font-size: 0.8rem;
-        }
-
-        .expiry-line span:first-child, .cvv-line span:first-child {
-            color: #7f9bc2;
-            margin-right: 0.4rem;
-        }
-
-        .balance-area {
-            padding: 0.3rem 1.5rem;
+        .bank-name {
             font-weight: 700;
-            font-size: 0.9rem;
-            color: #caffb0;
-            background: #07131f60;
-            width: fit-content;
-            border-radius: 2rem;
-            margin: 0.2rem 1.5rem;
+            font-size: 1rem;
+            color: #deecff;
+            margin-left: 0.5rem;
         }
 
-        .stock-row {
+        .card-number-monospace {
+            font-family: 'SF Mono', monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            background: #03080f;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 1rem;
+            color: #ddf0ff;
+            border: 0.5px solid #2c405b;
+            margin: 0.5rem 0;
+        }
+
+        .details-row {
+            display: flex;
+            gap: 1.8rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0 0.5rem 0;
+            color: #b2c7e5;
+        }
+
+        .details-row span {
+            color: #7c96bb;
+            margin-right: 0.3rem;
+        }
+
+        .balance {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #c3ffa8;
+            background: #0d1725;
+            display: inline-block;
+            padding: 0.15rem 0.7rem;
+            border-radius: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .stock-line {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 1.5rem;
-            background: #030a14;
-            margin-top: 0.7rem;
-            border-top: 1px solid #1d3147;
-            border-bottom: 1px solid #1d3147;
-            font-size: 0.75rem;
-            font-weight: 600;
+            margin: 0.8rem 0 0.6rem 0;
+            padding-top: 0.5rem;
+            border-top: 0.5px dashed #263249;
+            font-size: 0.7rem;
             text-transform: uppercase;
+            color: #7f96b5;
         }
 
-        .stock-badge {
-            padding: 0.2rem 1rem;
-            border-radius: 2rem;
+        .stock-status {
             font-weight: 700;
         }
 
-        .stock-out {
-            background: #2a1a17;
-            color: #ff9580;
+        .outstock {
+            color: #ff977e;
+            background: #2c1916;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
         }
 
-        .stock-limited {
-            background: #2f2618;
-            color: #ffc477;
+        .limitedstock {
+            color: #ffbf6e;
+            background: #2f2519;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
         }
 
-        .action-row {
+        .action-bar {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            gap: 1.5rem;
-            padding: 1rem 1.5rem 1.3rem 1.5rem;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
         }
 
-        .price-tag {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #e2ffcf;
-        }
-
-        .buy-button {
-            background: linear-gradient(100deg, #0b5c7c, #083e58);
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 2rem;
+        .price {
+            font-size: 1.3rem;
             font-weight: 700;
-            font-size: 0.8rem;
-            color: white;
+            color: #e3ffcd;
+        }
+
+        .buy-btn {
+            background: #0f3f57;
+            border: none;
+            padding: 0.3rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.75rem;
             font-family: monospace;
+            color: white;
             cursor: pointer;
             transition: 0.2s;
-            border: 0.5px solid #479ac9;
+            border: 0.5px solid #4290bb;
         }
 
-        .buy-button:disabled {
-            background: #262f3c;
-            border-color: #4c6279;
+        .buy-btn:disabled {
+            background: #262e3b;
+            border-color: #525f74;
             cursor: not-allowed;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
-        .soldout-text {
-            background: #2a1c1a;
-            padding: 0.4rem 1.2rem;
+        .soldout-tag {
+            background: #251b1a;
+            padding: 0.25rem 1rem;
             border-radius: 2rem;
-            font-weight: 700;
             font-size: 0.7rem;
-            color: #ffb7a2;
+            font-weight: 600;
+            color: #ffaa97;
         }
 
-        @media (max-width: 650px) {
-            .vault-content {
-                padding: 1.2rem;
+        .toast-msg {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d1f28;
+            border: 1px solid #3bc9ff;
+            border-radius: 3rem;
+            padding: 0.5rem 1.2rem;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: white;
+            z-index: 999;
+            white-space: nowrap;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        hr {
+            border-color: #26344a;
+            margin: 0.2rem 0;
+        }
+
+        @media (max-width: 680px) {
+            .vault {
+                padding: 1rem;
             }
-            .card-number {
-                font-size: 0.9rem;
+            .card-number-monospace {
+                font-size: 0.8rem;
             }
             .filter-row {
-                gap: 1rem;
+                gap: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="vault-container">
-    <!-- main vault card - exactly as screenshot, secure account removed -->
-    <div class="vault-panel">
-        <div class="vault-content">
-            <!-- CARD VAULT title -->
-            <div class="vault-title">CARD VAULT</div>
+<div class="vault">
+    <!-- CARD VAULT heading -->
+    <div class="vault-title">CARD VAULT</div>
 
-            <!-- UID + unverified registry + node (secure account hata diya) -->
-            <div class="meta-strip">
-                <div class="uid-badge">UID-549953</div>
-                <div class="node-info">NODE: GLOBAL-01 <span class="unverified">UNVERIFIED REGISTRY</span></div>
-            </div>
+    <!-- UID + NODE (secure account removed) -->
+    <div class="meta-line">
+        <span class="uid">UID-549953</span>
+        <span class="node-reg">NODE: GLOBAL-01 <span class="unverified">| UNVERIFIED REGISTRY</span></span>
+    </div>
 
-            <!-- filter options all / visa / mastercard / rupay (exact as screenshot) -->
-            <div class="filter-row">
-                <span class="filter-item active">ALL</span>
-                <span class="filter-item">VISA</span>
-                <span class="filter-item">MASTERCARD</span>
-                <span class="filter-item">RUPAY</span>
-            </div>
+    <!-- filter row exactly as given -->
+    <div class="filter-row">
+        <span class="filter active">ALL</span>
+        <span class="filter">VISA</span>
+        <span class="filter">MASTERCARD</span>
+        <span class="filter">RUPAY</span>
+    </div>
 
-            <!-- stats row - terminal users and 30d network traffic -->
-            <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-label">TERMINAL USERS</div>
-                    <div class="stat-value">143</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">30D NETWORK TRAFFIC</div>
-                    <div class="stat-value">12,450+</div>
-                </div>
-            </div>
-
-            <!-- two cards EXACTLY like screenshot: SBI GOLD (out of stock) and HDFC PREMIUM (buy now) -->
-            <div class="cards-list">
-                <!-- CARD 1: SBI GOLD - OUT OF STOCK, BAL: ₹2,500, price ₹223 -->
-                <div class="card-block" data-card="sbi">
-                    <div class="card-header-row">
-                        <div class="network-name">
-                            <span class="network-badge">VISA</span>
-                            <span class="bank-title">SBI GOLD</span>
-                        </div>
-                        <div>💳</div>
-                    </div>
-                    <div class="card-number-area">
-                        <span class="card-number">5224 6388 2281 4758</span>
-                    </div>
-                    <div class="expiry-cvv-line">
-                        <div class="expiry-line"><span>EXP:</span> <strong>08/29</strong></div>
-                        <div class="cvv-line"><span>CVV:</span> <strong>*****</strong></div>
-                    </div>
-                    <div class="balance-area">BAL: ₹2,500</div>
-                    <div class="stock-row">
-                        <span>STOCK PROTOCOL</span>
-                        <span class="stock-badge stock-out">OUT OF STOCK</span>
-                    </div>
-                    <div class="action-row">
-                        <div class="price-tag">₹223</div>
-                        <button class="buy-button" disabled>SOLD OUT</button>
-                    </div>
-                </div>
-
-                <!-- CARD 2: HDFC PREMIUM - BAL: ₹2,520, price ₹155, stock only 8 left (interactive) -->
-                <div class="card-block" data-card="hdfc">
-                    <div class="card-header-row">
-                        <div class="network-name">
-                            <span class="network-badge">VISA</span>
-                            <span class="bank-title">HDFC PREMIUM</span>
-                        </div>
-                        <div>💎</div>
-                    </div>
-                    <div class="card-number-area">
-                        <span class="card-number">4532 6388 2281 5506</span>
-                    </div>
-                    <div class="expiry-cvv-line">
-                        <div class="expiry-line"><span>EXP:</span> <strong>08/29</strong></div>
-                        <div class="cvv-line"><span>CVV:</span> <strong>*****</strong></div>
-                    </div>
-                    <div class="balance-area">BAL: ₹2,520</div>
-                    <div class="stock-row">
-                        <span>STOCK PROTOCOL</span>
-                        <span class="stock-badge stock-limited" id="hdfcStockStatus">ONLY 8 LEFT</span>
-                    </div>
-                    <div class="action-row">
-                        <div class="price-tag">₹155</div>
-                        <button class="buy-button" id="hdfcBuyNowBtn">BUY NOW</button>
-                    </div>
-                </div>
-            </div>
+    <!-- stats: terminal users & 3d network traffic -->
+    <div class="stats-row">
+        <div class="stat-block">
+            <div class="stat-label">TERMINAL USERS</div>
+            <div class="stat-number">143</div>
+        </div>
+        <div class="stat-block">
+            <div class="stat-label">3D NETWORK TRAFFIC</div>
+            <div class="stat-number">12,450+</div>
         </div>
     </div>
-    <!-- micro footer -->
-    <div style="text-align: center; margin-top: 1.4rem; font-size: 0.6rem; color: #2c5577; font-family: monospace;">● encrypted vault ● realtime stock sync</div>
+
+    <!-- CARD 1: SBI GOLD (exact style) -->
+    <div class="card-entry" id="cardSbi">
+        <div class="card-header-simple">
+            <div>
+                <span class="visa-badge">VISA</span>
+                <span class="bank-name">SBI GOLD</span>
+            </div>
+            <div>💳</div>
+        </div>
+        <div>
+            <span class="card-number-monospace">5224 | 6388 | 2281 | 4758</span>
+        </div>
+        <div class="details-row">
+            <div><span>EXP:</span> 08/29</div>
+            <div><span>CVV:</span> ******</div>
+        </div>
+        <div class="balance">BAL: ₹2,500</div>
+        <div class="stock-line">
+            <span>——— STOCK PROTOCOL ———</span>
+            <span class="stock-status outstock">OUT OF STOCK</span>
+        </div>
+        <div class="action-bar">
+            <div class="price">₹223</div>
+            <button class="buy-btn" disabled>SOLD OUT</button>
+        </div>
+    </div>
+
+    <!-- CARD 2: HDFC PREMIUM (exact style, limited stock 8 left) -->
+    <div class="card-entry" id="cardHdfc">
+        <div class="card-header-simple">
+            <div>
+                <span class="visa-badge">VISA</span>
+                <span class="bank-name">HDFC PREMIUM</span>
+            </div>
+            <div>💎</div>
+        </div>
+        <div>
+            <span class="card-number-monospace">4532 | 6388 | 2281 | 5506</span>
+        </div>
+        <div class="details-row">
+            <div><span>EXP:</span> 08/29</div>
+            <div><span>CVV:</span> ******</div>
+        </div>
+        <div class="balance">BAL: ₹2,520</div>
+        <div class="stock-line">
+            <span>——— STOCK PROTOCOL ———</span>
+            <span class="stock-status limitedstock" id="hdfcStockLabel">ONLY 8 LEFT</span>
+        </div>
+        <div class="action-bar">
+            <div class="price">₹155</div>
+            <button class="buy-btn" id="hdfcBuyButton">BUY NOW</button>
+        </div>
+    </div>
+
+    <!-- small notification area text (like screenshot: Showing VISA cards...) -->
+    <div style="margin-top: 1.2rem; text-align: center; font-size: 0.7rem; color: #608bbf; font-family: monospace; border-top: 0.5px solid #26344a; padding-top: 0.8rem;" id="filterMessage">
+        Showing VISA cards: SBI GOLD & HDFC PREMIUM
+    </div>
 </div>
 
 <script>
-    // exactly same style as screenshot with proper interactive stock for HDFC card
-    // first card SBI GOLD remains sold out forever, price ₹223, balance ₹2500 exactly.
-    // second card HDFC PREMIUM: stock starts from 8, shows "ONLY 8 LEFT", Buy Now decreases stock, when 0 becomes sold out.
-    // SECURE ACCOUNT text已经完全移除
+    // exactly like screenshot: interactive stock for HDFC, sold out for first
+    let hdfcStockCount = 8;
+    const stockSpan = document.getElementById('hdfcStockLabel');
+    const buyHdfc = document.getElementById('hdfcBuyButton');
+    const filterMsgDiv = document.getElementById('filterMessage');
 
-    let hdfcRemaining = 8;
-    const stockSpan = document.getElementById('hdfcStockStatus');
-    const buyButton = document.getElementById('hdfcBuyNowBtn');
-
-    // toast function to show purchase alerts
-    function showToast(message, isError = false) {
-        let existingToast = document.querySelector('.vault-toast-msg');
-        if (existingToast) existingToast.remove();
-        const toastDiv = document.createElement('div');
-        toastDiv.className = 'vault-toast-msg';
-        toastDiv.innerText = message;
-        toastDiv.style.position = 'fixed';
-        toastDiv.style.bottom = '30px';
-        toastDiv.style.left = '50%';
-        toastDiv.style.transform = 'translateX(-50%)';
-        toastDiv.style.backgroundColor = isError ? '#2f1e1c' : '#0c2f3a';
-        toastDiv.style.backdropFilter = 'blur(12px)';
-        toastDiv.style.border = `1px solid ${isError ? '#ff8e78' : '#3bc9ff'}`;
-        toastDiv.style.color = 'white';
-        toastDiv.style.padding = '0.6rem 1.5rem';
-        toastDiv.style.borderRadius = '3rem';
-        toastDiv.style.fontFamily = 'monospace';
-        toastDiv.style.fontSize = '0.8rem';
-        toastDiv.style.fontWeight = '500';
-        toastDiv.style.zIndex = '9999';
-        toastDiv.style.boxShadow = '0 5px 15px black';
-        toastDiv.style.whiteSpace = 'nowrap';
-        document.body.appendChild(toastDiv);
+    function showTerminalToast(msg, isError = false) {
+        let oldToast = document.querySelector('.toast-msg');
+        if(oldToast) oldToast.remove();
+        let toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.innerText = msg;
+        toast.style.backgroundColor = isError ? '#2c1a1a' : '#0e2a33';
+        toast.style.borderColor = isError ? '#ff9a82' : '#3bc9ff';
+        document.body.appendChild(toast);
         setTimeout(() => {
-            toastDiv.style.opacity = '0';
-            setTimeout(() => toastDiv.remove(), 500);
-        }, 2600);
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 400);
+        }, 2700);
     }
 
-    function updateHdfcUI() {
-        if (hdfcRemaining <= 0) {
+    function updateHdfcStockUI() {
+        if (hdfcStockCount <= 0) {
             stockSpan.innerText = 'OUT OF STOCK';
-            stockSpan.classList.remove('stock-limited');
-            stockSpan.classList.add('stock-out');
-            if (buyButton) {
-                buyButton.disabled = true;
-                buyButton.innerText = 'SOLD OUT';
-                buyButton.style.opacity = '0.7';
-                buyButton.style.cursor = 'not-allowed';
+            stockSpan.classList.remove('limitedstock');
+            stockSpan.classList.add('outstock');
+            if (buyHdfc) {
+                buyHdfc.disabled = true;
+                buyHdfc.innerText = 'SOLD OUT';
+                buyHdfc.style.opacity = '0.6';
             }
         } else {
-            stockSpan.innerText = `ONLY ${hdfcRemaining} LEFT`;
-            stockSpan.classList.add('stock-limited');
-            stockSpan.classList.remove('stock-out');
-            if (buyButton && buyButton.disabled) {
-                buyButton.disabled = false;
-                buyButton.innerText = 'BUY NOW';
-                buyButton.style.opacity = '1';
-                buyButton.style.cursor = 'pointer';
+            stockSpan.innerText = `ONLY ${hdfcStockCount} LEFT`;
+            stockSpan.classList.add('limitedstock');
+            stockSpan.classList.remove('outstock');
+            if (buyHdfc && buyHdfc.disabled) {
+                buyHdfc.disabled = false;
+                buyHdfc.innerText = 'BUY NOW';
+                buyHdfc.style.opacity = '1';
             }
         }
     }
 
-    // Buy now logic for HDFC card
-    if (buyButton) {
-        buyButton.addEventListener('click', (e) => {
+    // BUY NOW logic for HDFC card
+    if (buyHdfc) {
+        buyHdfc.addEventListener('click', (e) => {
             e.preventDefault();
-            if (hdfcRemaining <= 0) {
-                showToast('❌ HDFC PREMIUM is out of stock!', true);
+            if (hdfcStockCount <= 0) {
+                showTerminalToast('❌ HDFC PREMIUM out of stock!', true);
                 return;
             }
-            hdfcRemaining--;
-            updateHdfcUI();
-            showToast(`✅ Purchased HDFC PREMIUM (₹155) — Remaining: ${hdfcRemaining > 0 ? hdfcRemaining : '0'}`, false);
-            if (hdfcRemaining === 0) {
-                showToast('⚠️ Last card sold out! HDFC PREMIUM is now unavailable.', false);
+            hdfcStockCount--;
+            updateHdfcStockUI();
+            showTerminalToast(`✅ Purchased HDFC PREMIUM (₹155) · Remaining: ${hdfcStockCount > 0 ? hdfcStockCount : '0'}`, false);
+            if (hdfcStockCount === 0) {
+                showTerminalToast('⚠️ Last card sold out — HDFC PREMIUM unavailable', false);
             }
         });
     }
 
-    // ensure first card is completely disabled and showing correct price 223 + balance 2500
-    const firstCard = document.querySelector('.card-block[data-card="sbi"]');
+    // Ensure first card exactly SOLD OUT and balance 2500 + price 223
+    const firstCard = document.getElementById('cardSbi');
     if (firstCard) {
-        const balanceSpan = firstCard.querySelector('.balance-area');
-        if (balanceSpan && !balanceSpan.innerText.includes('2,500')) balanceSpan.innerText = 'BAL: ₹2,500';
-        const priceSpan = firstCard.querySelector('.price-tag');
+        const balSpan = firstCard.querySelector('.balance');
+        if (balSpan && !balSpan.innerText.includes('2,500')) balSpan.innerText = 'BAL: ₹2,500';
+        const priceSpan = firstCard.querySelector('.price');
         if (priceSpan && priceSpan.innerText !== '₹223') priceSpan.innerText = '₹223';
-        const btn = firstCard.querySelector('.buy-button');
-        if (btn) {
-            btn.disabled = true;
-            btn.innerText = 'SOLD OUT';
+        const btnFirst = firstCard.querySelector('.buy-btn');
+        if (btnFirst) {
+            btnFirst.disabled = true;
+            btnFirst.innerText = 'SOLD OUT';
         }
     }
 
-    // second card final check: balance 2,520 and price 155 already set
-    const secondCardBalance = document.querySelector('.card-block[data-card="hdfc"] .balance-area');
-    if (secondCardBalance && !secondCardBalance.innerText.includes('2,520')) secondCardBalance.innerText = 'BAL: ₹2,520';
-    const secondPrice = document.querySelector('.card-block[data-card="hdfc"] .price-tag');
-    if (secondPrice && secondPrice.innerText !== '₹155') secondPrice.innerText = '₹155';
+    // second card exact price and balance fix
+    const secondCard = document.getElementById('cardHdfc');
+    if (secondCard) {
+        const bal2 = secondCard.querySelector('.balance');
+        if (bal2 && !bal2.innerText.includes('2,520')) bal2.innerText = 'BAL: ₹2,520';
+        const price2 = secondCard.querySelector('.price');
+        if (price2 && price2.innerText !== '₹155') price2.innerText = '₹155';
+    }
 
-    // initial stock UI sync
-    updateHdfcUI();
-
-    // FILTER INTERACTION (visual only, matching screenshot style)
-    const filterElements = document.querySelectorAll('.filter-item');
-    filterElements.forEach(filter => {
-        filter.addEventListener('click', function() {
-            filterElements.forEach(f => f.classList.remove('active'));
+    // Filter simulation — exactly matches screenshot (showing VISA cards text)
+    const filters = document.querySelectorAll('.filter');
+    filters.forEach(flt => {
+        flt.addEventListener('click', function() {
+            filters.forEach(f => f.classList.remove('active'));
             this.classList.add('active');
-            const filterName = this.innerText;
-            if (filterName === 'VISA') {
-                showToast('💳 Showing VISA cards: SBI GOLD & HDFC PREMIUM', false);
-            } else if (filterName === 'MASTERCARD') {
-                showToast('🔹 No Mastercard cards in current vault', false);
-            } else if (filterName === 'RUPAY') {
-                showToast('🔸 No RuPay cards in current vault', false);
+            const filterVal = this.innerText;
+            if (filterVal === 'VISA') {
+                filterMsgDiv.innerText = 'Showing VISA cards: SBI GOLD & HDFC PREMIUM';
+                showTerminalToast('💳 VISA cards: SBI GOLD & HDFC PREMIUM', false);
+            } else if (filterVal === 'MASTERCARD') {
+                filterMsgDiv.innerText = 'No Mastercard cards in current vault';
+                showTerminalToast('🔹 No Mastercard cards in vault', false);
+            } else if (filterVal === 'RUPAY') {
+                filterMsgDiv.innerText = 'No RuPay cards in current vault';
+                showTerminalToast('🔸 No RuPay cards available', false);
             } else {
-                showToast('🏦 Displaying all available cards', false);
+                filterMsgDiv.innerText = 'Showing all available cards (SBI GOLD, HDFC PREMIUM)';
+                showTerminalToast('🏦 Displaying all cards', false);
             }
         });
     });
 
-    // console log for confirmation
-    console.log('Card Vault — SECURE ACCOUNT removed, exact screenshot style with first card price ₹223, balance ₹2500, SOLD OUT | second card dynamic stock.');
+    // initial stock update
+    updateHdfcStockUI();
+
+    // extra precision: CVV shows ****** exactly as image
+    // also spacing and "——— STOCK PROTOCOL ———" matches
+    console.log('✓ Card Vault — exact replica: secure account removed, terminal style intact, price ₹223 & balance ₹2500 on first card, stock interactive.');
 </script>
 </body>
 </html>
