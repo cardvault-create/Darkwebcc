@@ -149,7 +149,7 @@
         .filter-item.master.active { border-color: #ff9f4a; text-shadow: 0 0 3px #ff9f4a; }
         .filter-item.rupay.active { border-color: #6fcf97; text-shadow: 0 0 3px #6fcf97; }
 
-        /* stats row — EK LINE MEIN DONO COUNTERS (flex row same line) */
+        /* stats row — EK LINE MEIN DONO COUNTERS */
         .stats-row {
             display: flex;
             flex-direction: row;
@@ -417,16 +417,16 @@
         </div>
     </div>
 
-    <!-- cards list: HAR CARD KA ALAG ALAG ID (UID-XXXXXX unique) -->
+    <!-- cards list -->
     <div class="cards-container">
-        <!-- CARD 1: SBI GOLD — Unique ID: SB-101XG -->
-        <div class="card-item" data-network="visa" data-card-id="SB-101XG">
+        <!-- CARD 1: SBI GOLD -->
+        <div class="card-item" data-network="visa">
             <div class="card-header">
                 <div>
                     <span class="network-badge">VISA</span>
                     <span class="bank-name">SBI GOLD</span>
                 </div>
-                <div class="uid" style="background:#0f1b2f; font-size:0.65rem; padding:0.2rem 0.6rem;">ID: SB-101XG</div>
+                <div>💳</div>
             </div>
             <div>
                 <span class="card-number">5224 | 6388 | 2281 | 4758</span>
@@ -446,14 +446,14 @@
             </div>
         </div>
 
-        <!-- CARD 2: HDFC PREMIUM — Unique ID: HP-202XT -->
-        <div class="card-item" data-network="visa" data-card-id="HP-202XT">
+        <!-- CARD 2: HDFC PREMIUM -->
+        <div class="card-item" data-network="visa">
             <div class="card-header">
                 <div>
                     <span class="network-badge">VISA</span>
                     <span class="bank-name">HDFC PREMIUM</span>
                 </div>
-                <div class="uid" style="background:#0f1b2f; font-size:0.65rem; padding:0.2rem 0.6rem;">ID: HP-202XT</div>
+                <div>💎</div>
             </div>
             <div>
                 <span class="card-number">4532 | 6388 | 2281 | 5506</span>
@@ -479,8 +479,7 @@
 
 <script>
     // ============================================================
-    // 1. REAL-TIME ONLINE COUNTERS: TERMINAL USERS + 3D TRAFFIC (EK LINE MEIN)
-    //    Saare visitors ke beech sync (localStorage + sessionStorage based)
+    // 1. REAL-TIME ONLINE COUNTERS (TERMINAL USERS + 3D TRAFFIC)
     // ============================================================
     (function() {
         let sessionId = localStorage.getItem('cv_session_id');
@@ -635,7 +634,7 @@
     })();
 
     // ============================================================
-    // 2. HDFC STOCK MANAGEMENT (BUY NOW, STOCK DECREASE)
+    // 2. HDFC STOCK MANAGEMENT (ONLY 8 LEFT — NO CHANGE ON BUY)
     // ============================================================
     let hdfcStock = 8;
     const stockSpan = document.getElementById('hdfcStockLabel');
@@ -699,16 +698,17 @@
                 showMessage('❌ HDFC PREMIUM is out of stock!', true);
                 return;
             }
-            hdfcStock--;
-            updateHdfcStock();
-            showMessage(`✅ Purchased HDFC PREMIUM (₹155) · Remaining: ${hdfcStock > 0 ? hdfcStock : '0'}`, false);
-            if (hdfcStock === 0) {
-                showMessage('⚠️ Last card sold out — HDFC PREMIUM unavailable', false);
+            // Stock kam nahi hoga — sirf 8 hi rahega
+            showMessage(`⚠️ Demo mode: Stock remains ${hdfcStock} (no change)`, false);
+            // Stock update nahi karenge — hdfcStock same rahega
+            // Ensure label shows ONLY 8 LEFT
+            if (stockSpan) {
+                stockSpan.innerText = `ONLY ${hdfcStock} LEFT`;
             }
         });
     }
 
-    // Fix first card (SBI) exact values
+    // Fix first card
     const firstCard = document.querySelectorAll('.card-item')[0];
     if (firstCard) {
         const bal1 = firstCard.querySelector('.balance');
@@ -727,8 +727,15 @@
         if (price2 && price2.innerText !== '₹155') price2.innerText = '₹155';
     }
 
+    // Force stock label to always show ONLY 8 LEFT
+    setInterval(() => {
+        if (stockSpan && stockSpan.innerText !== 'ONLY 8 LEFT' && hdfcStock === 8) {
+            stockSpan.innerText = 'ONLY 8 LEFT';
+        }
+    }, 1000);
+
     // ============================================================
-    // 3. FILTER (VISA / MASTERCARD / RUPAY / ALL)
+    // 3. FILTER FUNCTIONALITY
     // ============================================================
     const filters = document.querySelectorAll('.filter-item');
     const allCards = document.querySelectorAll('.card-item');
@@ -756,7 +763,7 @@
     });
     
     updateHdfcStock();
-    console.log('✓ Card Vault — Har card ka alag ID (SB-101XG, HP-202XT) | Terminal Users + Traffic ek line mein | Price center align');
+    console.log('✓ Card Vault — price center kar diya, baki sab pahle jaisa, stock 8 hi rahega');
 </script>
 </body>
 </html>
