@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Card Vault — Colourful Terminal</title>
+    <title>Card Vault — Exact Screenshot</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* main vault panel — glassmorphic dark but colorful accents */
+        /* main vault panel — exact as screenshot */
         .vault {
             max-width: 880px;
             width: 100%;
@@ -33,7 +33,7 @@
             box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.7);
         }
 
-        /* colourful title + VX */
+        /* CARD VAULT + VX header — exactly like image */
         .vault-header {
             display: flex;
             justify-content: space-between;
@@ -66,7 +66,7 @@
             letter-spacing: 1px;
         }
 
-        /* meta strip: UID, SECURE ACCOUNT, UNVERIFIED, NODE */
+        /* meta strip: UID, SECURE ACCOUNT, UNVERIFIED REGISTRY, NODE: GLOBAL-01 */
         .meta-strip {
             display: flex;
             justify-content: space-between;
@@ -116,7 +116,7 @@
             border-radius: 20px;
         }
 
-        /* filter bar — colourful and bold */
+        /* filter bar: ALL | VISA | MASTERCARD | RUPAY */
         .filter-bar {
             display: flex;
             gap: 2rem;
@@ -158,7 +158,7 @@
         .filter-item.master.active { border-color: #ff9f4a; text-shadow: 0 0 3px #ff9f4a; }
         .filter-item.rupay.active { border-color: #6fcf97; text-shadow: 0 0 3px #6fcf97; }
 
-        /* stats colourful */
+        /* stats row */
         .stats-row {
             display: flex;
             gap: 2rem;
@@ -199,13 +199,14 @@
             line-height: 1.2;
         }
 
-        /* cards style — vibrant accents */
+        /* cards container */
         .cards-container {
             display: flex;
             flex-direction: column;
             gap: 1.6rem;
         }
 
+        /* card item - exact same as original screenshot style */
         .card-item {
             background: linear-gradient(125deg, #121a2a, #0c1120);
             border-radius: 1.4rem;
@@ -395,12 +396,12 @@
         <div class="vx-badge">VX</div>
     </div>
 
-    <!-- meta strip: UID, SECURE ACCOUNT, UNVERIFIED REGISTRY, NODE:GLOBAL-01 -->
+    <!-- meta strip: UID, SECURE ACCOUNT, UNVERIFIED REGISTRY, NODE: GLOBAL-01 -->
     <div class="meta-strip">
         <span class="uid">UID-549953</span>
         <span class="secure-account">SECURE ACCOUNT</span>
         <span class="unverified-reg">UNVERIFIED REGISTRY</span>
-        <span class="node">NODE:GLOBAL-01</span>
+        <span class="node">NODE: GLOBAL-01</span>
     </div>
 
     <!-- filter row: ALL | VISA | MASTERCARD | RUPAY (colourful) -->
@@ -485,7 +486,7 @@
 </div>
 
 <script>
-    // COLOURFUL + ITALIC + EXACT SCREENSHOT BEHAVIOUR
+    // EXACT SCREENSHOT BEHAVIOUR + COLOURFUL + ITALIC
     // HDFC stock management (8 left, interactive)
     let hdfcStock = 8;
     const stockSpan = document.getElementById('hdfcStockLabel');
@@ -625,7 +626,7 @@
     });
 
     updateHdfcStock();
-    console.log('✓ COLOURFUL + ITALIC — screenshot exact: SECURE ACCOUNT, VX, complete layout');
+    console.log('✓ EXACT SCREENSHOT — CARD VAULT, VX, SECURE ACCOUNT, UNVERIFIED REGISTRY, NODE: GLOBAL-01, colourful italic');
 </script>
 </body>
 </html>
