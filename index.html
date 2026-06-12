@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Card Vault — Premium Edition | 24 Cards</title>
+    <title>Card Vault — Ultra Premium | 24 Cards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,19 +13,15 @@
         }
 
         body {
-            background: radial-gradient(circle at 10% 20%, #0a0c18, #020408);
-            font-family: 'Inter', 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Courier New', monospace;
-            padding: 2rem 1.2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: radial-gradient(ellipse at 20% 30%, #0a0c1a, #010105);
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Premium Animated Emoji Background */
-        .emoji-bg {
+        /* Premium Animated Particles Background */
+        .particles-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -35,328 +32,481 @@
             overflow: hidden;
         }
 
-        .emoji-top {
+        .particle {
             position: absolute;
-            font-size: 2rem;
-            animation: fallDown linear infinite;
-            opacity: 0.3;
-            filter: blur(0.5px);
+            background: radial-gradient(circle, rgba(66,212,255,0.2) 0%, rgba(66,212,255,0) 70%);
+            border-radius: 50%;
+            animation: floatParticle linear infinite;
         }
 
-        .emoji-bottom {
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Floating emoji animation */
+        .floating-emoji {
             position: absolute;
-            font-size: 2rem;
-            animation: riseUp linear infinite;
-            opacity: 0.3;
-            filter: blur(0.5px);
+            font-size: 1.5rem;
+            animation: floatEmoji linear infinite;
+            opacity: 0.15;
+            filter: blur(0.8px);
+            pointer-events: none;
         }
 
-        @keyframes fallDown {
-            0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.4; }
-            100% { transform: translateY(120vh) rotate(360deg); opacity: 0.1; }
+        @keyframes floatEmoji {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-20vh) rotate(360deg); }
         }
 
-        @keyframes riseUp {
-            0% { transform: translateY(120vh) rotate(0deg); opacity: 0.4; }
-            100% { transform: translateY(-20vh) rotate(-360deg); opacity: 0.1; }
-        }
-
-        .emoji-top-1 { left: 5%; animation-duration: 6s; animation-delay: 0s; }
-        .emoji-top-2 { left: 15%; animation-duration: 8s; animation-delay: 1s; }
-        .emoji-top-3 { left: 25%; animation-duration: 7s; animation-delay: 2s; }
-        .emoji-top-4 { left: 35%; animation-duration: 9s; animation-delay: 0.5s; }
-        .emoji-top-5 { left: 45%; animation-duration: 6.5s; animation-delay: 3s; }
-        .emoji-top-6 { left: 55%; animation-duration: 8.5s; animation-delay: 1.5s; }
-        .emoji-top-7 { left: 65%; animation-duration: 7.5s; animation-delay: 4s; }
-        .emoji-top-8 { left: 75%; animation-duration: 9.5s; animation-delay: 2.5s; }
-        .emoji-top-9 { left: 85%; animation-duration: 6s; animation-delay: 3.5s; }
-        .emoji-top-10 { left: 95%; animation-duration: 8s; animation-delay: 0.8s; }
-        .emoji-top-11 { left: 12%; animation-duration: 7.2s; animation-delay: 5s; }
-        .emoji-top-12 { left: 42%; animation-duration: 6.8s; animation-delay: 2.2s; }
-        .emoji-top-13 { left: 72%; animation-duration: 8.2s; animation-delay: 4.5s; }
-
-        .emoji-bottom-1 { left: 8%; animation-duration: 7s; animation-delay: 0s; }
-        .emoji-bottom-2 { left: 18%; animation-duration: 9s; animation-delay: 1.5s; }
-        .emoji-bottom-3 { left: 28%; animation-duration: 6.5s; animation-delay: 2s; }
-        .emoji-bottom-4 { left: 38%; animation-duration: 8s; animation-delay: 0.3s; }
-        .emoji-bottom-5 { left: 48%; animation-duration: 7.5s; animation-delay: 3s; }
-        .emoji-bottom-6 { left: 58%; animation-duration: 9.5s; animation-delay: 1s; }
-        .emoji-bottom-7 { left: 68%; animation-duration: 6s; animation-delay: 4s; }
-        .emoji-bottom-8 { left: 78%; animation-duration: 8.5s; animation-delay: 2.5s; }
-        .emoji-bottom-9 { left: 88%; animation-duration: 7s; animation-delay: 1.8s; }
-        .emoji-bottom-10 { left: 98%; animation-duration: 9s; animation-delay: 0.5s; }
-        .emoji-bottom-11 { left: 22%; animation-duration: 7.8s; animation-delay: 3.2s; }
-        .emoji-bottom-12 { left: 52%; animation-duration: 6.3s; animation-delay: 5.5s; }
-        .emoji-bottom-13 { left: 82%; animation-duration: 8.8s; animation-delay: 2.8s; }
-
-        /* Premium Vault Container */
+        /* Main Container */
         .vault {
-            max-width: 1000px;
+            max-width: 1100px;
             width: 100%;
             margin: 0 auto;
-            background: rgba(15, 20, 34, 0.75);
-            backdrop-filter: blur(12px);
-            border-radius: 2rem;
-            border: 1px solid rgba(66, 212, 255, 0.25);
-            padding: 2rem 2rem 2rem 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(66, 212, 255, 0.1) inset;
+            padding: 2rem 1.5rem;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        .vault-header {
+        /* Premium Header */
+        .premium-header {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1.5rem;
+            align-items: center;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .vault-title {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FFFFFF, #9bc5ff, #74d4ff);
+        .logo-section h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A5D8FF 40%, #7BDFFF 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: -0.5px;
-            font-style: italic;
-            text-shadow: 0 0 10px rgba(66, 212, 255, 0.3);
         }
 
-        .vx-badge {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #f0b27a;
-            background: rgba(255, 140, 50, 0.2);
-            padding: 0.3rem 0.9rem;
-            border-radius: 1rem;
-            border: 1px solid #ffa559;
-            font-style: italic;
-            backdrop-filter: blur(4px);
+        .logo-section p {
+            font-size: 0.7rem;
+            color: #5a7794;
+            letter-spacing: 1px;
+            margin-top: 2px;
         }
 
-        .meta-strip {
+        .vx-badge-premium {
+            background: linear-gradient(135deg, rgba(255,165,89,0.2), rgba(255,200,120,0.1));
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255,165,89,0.4);
+            font-weight: 600;
+            color: #ffc48a;
+            font-size: 0.9rem;
+        }
+
+        /* Glass Meta Strip */
+        .glass-meta {
+            background: rgba(10, 15, 28, 0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(66, 212, 255, 0.15);
+            padding: 0.8rem 1.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
-            background: rgba(8, 13, 28, 0.6);
-            backdrop-filter: blur(8px);
-            padding: 0.8rem 1.5rem;
-            border-radius: 1.2rem;
-            border: 0.5px solid rgba(61, 76, 112, 0.5);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
-        .uid {
+        .uid-premium {
+            font-family: 'SF Mono', monospace;
+            font-weight: 600;
             color: #7eb6ff;
-            font-weight: 700;
-            font-style: italic;
-            background: rgba(14, 21, 40, 0.8);
-            padding: 0.3rem 0.9rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.3rem 1rem;
             border-radius: 2rem;
-            font-family: monospace;
-            letter-spacing: 0.5px;
-            border: 0.5px solid rgba(126, 182, 255, 0.3);
+            font-size: 0.85rem;
+            border: 0.5px solid rgba(126,182,255,0.3);
         }
-        .secure-account { color: #ffd966; font-weight: 700; font-style: italic; background: rgba(42, 36, 22, 0.8); padding: 0.3rem 1rem; border-radius: 2rem; border-left: 3px solid #ffcd7e; backdrop-filter: blur(4px); }
-        .unverified-reg { color: #ffaa66; font-style: italic; background: rgba(31, 27, 18, 0.8); padding: 0.3rem 0.9rem; border-radius: 2rem; backdrop-filter: blur(4px); }
-        .node { color: #b3d4ff; font-style: italic; font-weight: 500; background: rgba(12, 19, 36, 0.8); padding: 0.3rem 0.9rem; border-radius: 2rem; }
 
-        .top-users-bar {
+        .badge-group {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 1rem;
-        }
-
-        .users-mini {
-            background: rgba(11, 17, 32, 0.7);
-            backdrop-filter: blur(8px);
-            border-radius: 2rem;
-            padding: 0.4rem 1.3rem;
-            border-left: 3px solid #42c5ff;
-            display: inline-flex;
-            align-items: baseline;
-            gap: 0.6rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .users-mini-label { font-size: 0.65rem; text-transform: uppercase; color: #9eb2d4; letter-spacing: 1.5px; font-style: italic; font-weight: 500; }
-        .users-mini-number { font-size: 1.3rem; font-weight: 800; background: linear-gradient(145deg, #ffffff, #bdd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .users-mini-online { font-size: 0.5rem; background: #1f3a2c; color: #6aff9e; padding: 0.2rem 0.5rem; border-radius: 2rem; }
-
-        .filter-bar {
-            display: flex;
-            gap: 2rem;
-            margin: 0.5rem 0 1.5rem 0;
-            border-bottom: 1px solid rgba(51, 65, 92, 0.5);
-            padding-bottom: 0.7rem;
-        }
-
-        .filter-item {
-            font-weight: 700;
-            font-size: 0.95rem;
-            font-family: monospace;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: 0.2s;
-            padding: 0.2rem 0;
-        }
-        .filter-item.all { color: #ffffff; text-shadow: 0 0 3px #ffffff80; }
-        .filter-item.visa { color: #5fb2ff; }
-        .filter-item.master { color: #ff9f4a; }
-        .filter-item.rupay { color: #6fcf97; }
-        .filter-item.active { border-bottom: 3px solid; transform: translateY(-1px); }
-        .filter-item.all.active { border-color: #ffffff; text-shadow: 0 0 5px #ffffff; }
-        .filter-item.visa.active { border-color: #5fb2ff; text-shadow: 0 0 5px #5fb2ff; }
-        .filter-item.master.active { border-color: #ff9f4a; text-shadow: 0 0 5px #ff9f4a; }
-        .filter-item.rupay.active { border-color: #6fcf97; text-shadow: 0 0 5px #6fcf97; }
-
-        .stats-row {
-            display: flex;
-            flex-direction: row;
-            gap: 2rem;
-            margin: 0.5rem 0 2rem 0;
-            align-items: center;
+            gap: 0.8rem;
             flex-wrap: wrap;
         }
 
-        .stat-card {
-            background: rgba(11, 17, 32, 0.6);
-            backdrop-filter: blur(8px);
-            border-radius: 1.3rem;
-            padding: 0.6rem 1.6rem;
-            border-left: 4px solid #ffaa4a;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            min-width: 220px;
-        }
-        .stat-label { font-size: 0.7rem; text-transform: uppercase; color: #9eb2d4; letter-spacing: 1.5px; font-style: italic; font-weight: 500; }
-        .stat-number { font-size: 2rem; font-weight: 800; background: linear-gradient(145deg, #ffffff, #bdd4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .online-badge { font-size: 0.6rem; background: #1f3a2c; color: #6aff9e; padding: 0.2rem 0.6rem; border-radius: 2rem; display: inline-block; margin-left: 0.6rem; vertical-align: middle; font-style: normal; }
-
-        .cards-container { display: flex; flex-direction: column; gap: 1.5rem; }
-        .card-item {
-            background: linear-gradient(135deg, rgba(18, 26, 42, 0.9), rgba(12, 17, 32, 0.95));
+        .badge {
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: rgba(0,0,0,0.3);
             backdrop-filter: blur(4px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(60, 79, 116, 0.5);
-            padding: 1.3rem 1.6rem 1.4rem 1.6rem;
-            box-shadow: 0 12px 25px -10px rgba(0,0,0,0.4);
-            transition: all 0.25s ease;
         }
-        .card-item:hover {
-            transform: translateY(-3px);
+
+        .badge-secure { color: #ffd966; border: 0.5px solid rgba(255,217,102,0.3); }
+        .badge-unverified { color: #ffaa66; border: 0.5px solid rgba(255,170,102,0.3); }
+        .badge-node { color: #b3d4ff; border: 0.5px solid rgba(179,212,255,0.3); }
+
+        /* Stats Row Premium */
+        .stats-premium {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .users-card {
+            background: linear-gradient(135deg, rgba(66,197,255,0.08), rgba(66,197,255,0.02));
+            backdrop-filter: blur(12px);
+            border-radius: 1.2rem;
+            padding: 0.5rem 1.3rem;
+            border-left: 3px solid #42c5ff;
+            display: flex;
+            align-items: baseline;
+            gap: 0.8rem;
+        }
+        .users-card-label { font-size: 0.65rem; text-transform: uppercase; color: #8aa9cc; letter-spacing: 1.5px; font-weight: 500; }
+        .users-card-number { font-size: 1.6rem; font-weight: 700; background: linear-gradient(135deg, #fff, #42c5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        .traffic-card {
+            background: linear-gradient(135deg, rgba(255,170,74,0.08), rgba(255,170,74,0.02));
+            backdrop-filter: blur(12px);
+            border-radius: 1.2rem;
+            padding: 0.5rem 1.3rem;
+            border-left: 3px solid #ffaa4a;
+            display: flex;
+            align-items: baseline;
+            gap: 0.8rem;
+        }
+        .traffic-card-label { font-size: 0.65rem; text-transform: uppercase; color: #ffaa4a; letter-spacing: 1.5px; font-weight: 500; }
+        .traffic-card-number { font-size: 1.6rem; font-weight: 700; background: linear-gradient(135deg, #fff, #ffaa4a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        /* Premium Filter Bar */
+        .filter-premium {
+            display: flex;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(66, 212, 255, 0.15);
+            padding-bottom: 0.8rem;
+        }
+        .filter-premium-item {
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 0.3rem 0;
+            position: relative;
+            color: #6a88a8;
+        }
+        .filter-premium-item.active {
+            color: #ffffff;
+        }
+        .filter-premium-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -0.85rem;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #5fb2ff, #42c5ff);
+            border-radius: 2px;
+        }
+        .filter-premium-item.visa.active { color: #5fb2ff; }
+        .filter-premium-item.master.active { color: #ff9f4a; }
+        .filter-premium-item.rupay.active { color: #6fcf97; }
+
+        /* Premium Cards Grid */
+        .cards-premium {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        /* Ultra Premium Card Design */
+        .card-premium {
+            background: linear-gradient(135deg, rgba(18, 26, 45, 0.85), rgba(10, 15, 28, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            border: 1px solid rgba(66, 212, 255, 0.2);
+            padding: 1.5rem 1.8rem;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(66,212,255,0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .card-premium:hover::before {
+            left: 100%;
+        }
+
+        .card-premium:hover {
+            transform: translateY(-4px);
             border-color: rgba(66, 212, 255, 0.5);
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(66,212,255,0.2) inset;
         }
-        .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.8rem; }
-        .network-badge { background: rgba(19, 37, 61, 0.8); padding: 0.25rem 1rem; border-radius: 2rem; font-size: 0.7rem; font-weight: 800; color: #b2dbff; letter-spacing: 0.5px; backdrop-filter: blur(2px); }
-        .bank-name { font-size: 1.25rem; font-weight: 800; color: #f2f6ff; margin-left: 0.7rem; font-style: italic; text-shadow: 0 0 3px rgba(95, 158, 255, 0.3); }
-        .card-number { font-family: 'SF Mono', 'Courier New', monospace; font-size: 1rem; letter-spacing: 1.5px; background: rgba(3, 10, 24, 0.7); display: inline-block; padding: 0.35rem 1rem; border-radius: 1rem; color: #e5f0ff; border: 0.5px solid #43688f; margin: 0.7rem 0 0.6rem 0; font-weight: 500; backdrop-filter: blur(2px); }
-        .details { display: flex; gap: 2rem; margin: 0.5rem 0 0.4rem 0; font-size: 0.8rem; color: #bdd6ff; font-style: italic; }
-        .details span { color: #ffcb8e; margin-right: 0.4rem; font-style: normal; font-weight: 600; }
-        .balance { font-weight: 800; font-size: 0.95rem; color: #c6ffa3; background: rgba(12, 26, 40, 0.6); display: inline-block; padding: 0.25rem 0.9rem; border-radius: 1rem; margin: 0.4rem 0; font-style: italic; backdrop-filter: blur(2px); }
-        .stock-line { display: flex; justify-content: space-between; align-items: center; margin: 1rem 0 0.8rem 0; padding-top: 0.5rem; border-top: 1px dashed rgba(57, 80, 117, 0.5); font-size: 0.7rem; text-transform: uppercase; color: #a2b9df; font-weight: 600; letter-spacing: 0.5px; }
-        .stock-status { font-weight: 800; padding: 0.25rem 1.1rem; border-radius: 2rem; backdrop-filter: blur(2px); }
-        .stock-out { color: #ffa084; background: rgba(46, 26, 23, 0.7); border-left: 3px solid #ff6f52; }
-        .stock-instock { color: #8bffa5; background: rgba(26, 47, 34, 0.7); border-left: 3px solid #6aff9e; }
-        .action-area { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
-        .price { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FCE898, #D4FFB0); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; text-shadow: 0 0 5px rgba(255, 220, 100, 0.3); }
-        .buy-btn {
-            background: linear-gradient(95deg, #136e94, #0a4462);
-            border: none;
-            padding: 0.75rem 2.2rem;
-            border-radius: 2.5rem;
-            font-weight: 800;
+
+        .card-header-premium {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .network-group {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .network-chip {
+            padding: 0.25rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: rgba(19, 37, 61, 0.8);
+            color: #b2dbff;
+        }
+
+        .bank-name-premium {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .card-number-premium {
+            font-family: 'SF Mono', 'Courier New', monospace;
             font-size: 1rem;
-            font-family: monospace;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.3);
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 1rem;
+            color: #e5f0ff;
+            border: 0.5px solid rgba(67, 104, 143, 0.5);
+            margin: 0.7rem 0;
+            font-weight: 500;
+        }
+
+        .details-premium {
+            display: flex;
+            gap: 2rem;
+            margin: 0.5rem 0;
+            font-size: 0.8rem;
+            color: #8aa9cc;
+        }
+
+        .details-premium span {
+            color: #ffcb8e;
+            margin-right: 0.3rem;
+            font-weight: 600;
+        }
+
+        .balance-premium {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #b9ffa3;
+            background: rgba(12, 26, 40, 0.5);
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            border-radius: 1rem;
+            margin: 0.4rem 0;
+        }
+
+        .stock-premium {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px dashed rgba(57, 80, 117, 0.4);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #7e9bc2;
+            font-weight: 600;
+        }
+
+        .stock-badge {
+            padding: 0.25rem 1rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+
+        .stock-out { background: rgba(46, 26, 23, 0.7); color: #ffa084; border-left: 2px solid #ff6f52; }
+        .stock-in { background: rgba(26, 47, 34, 0.7); color: #8bffa5; border-left: 2px solid #6aff9e; }
+
+        .action-premium {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .price-premium {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FCE898, #D4FFB0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .btn-premium {
+            background: linear-gradient(105deg, #136e94, #0a4462);
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 3rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
             color: white;
             cursor: pointer;
             transition: all 0.25s ease;
-            border: 0.5px solid #5db4e0;
+            border: 0.5px solid rgba(93, 180, 224, 0.5);
             min-width: 130px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-        .buy-btn:hover { transform: scale(1.03); background: linear-gradient(95deg, #1a7ea8, #0e5577); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
-        .buy-btn:disabled { background: #2a3346; border-color: #6a7c9e; cursor: not-allowed; opacity: 0.6; transform: none; }
+
+        .btn-premium:hover:not(:disabled) {
+            transform: scale(1.02);
+            background: linear-gradient(105deg, #1a7ea8, #0e5577);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border-color: #5db4e0;
+        }
+
+        .btn-premium:disabled {
+            background: #2a3346;
+            border-color: #6a7c9e;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
 
         @media (max-width: 700px) {
-            .vault { padding: 1.2rem; }
-            .filter-bar { gap: 1.2rem; }
-            .buy-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; min-width: 100px; }
-            .price { font-size: 1.4rem; }
-            .emoji-top, .emoji-bottom { font-size: 1.2rem; }
-            .card-number { font-size: 0.85rem; }
+            .vault { padding: 1rem; }
+            .filter-premium { gap: 1.2rem; }
+            .btn-premium { padding: 0.5rem 1.2rem; font-size: 0.75rem; min-width: 100px; }
+            .price-premium { font-size: 1.4rem; }
+            .card-premium { padding: 1rem; }
+            .card-number-premium { font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
-    <div class="emoji-bg">
-        <div class="emoji-top emoji-top-1">🫧</div><div class="emoji-top emoji-top-2">🍂</div><div class="emoji-top emoji-top-3">❄️</div>
-        <div class="emoji-top emoji-top-4">🌈</div><div class="emoji-top emoji-top-5">🏞️</div><div class="emoji-top emoji-top-6">🍓</div>
-        <div class="emoji-top emoji-top-7">🛸</div><div class="emoji-top emoji-top-8">✈️</div><div class="emoji-top emoji-top-9">🫧</div>
-        <div class="emoji-top emoji-top-10">🍂</div><div class="emoji-top emoji-top-11">❄️</div><div class="emoji-top emoji-top-12">🌈</div>
-        <div class="emoji-top emoji-top-13">🏞️</div>
-        <div class="emoji-bottom emoji-bottom-1">🪙</div><div class="emoji-bottom emoji-bottom-2">㊗️</div><div class="emoji-bottom emoji-bottom-3">🏁</div>
-        <div class="emoji-bottom emoji-bottom-4">🧿</div><div class="emoji-bottom emoji-bottom-5">🧬</div><div class="emoji-bottom emoji-bottom-6">🌠</div>
-        <div class="emoji-bottom emoji-bottom-7">🌌</div><div class="emoji-bottom emoji-bottom-8">🪩</div><div class="emoji-bottom emoji-bottom-9">🪙</div>
-        <div class="emoji-bottom emoji-bottom-10">㊗️</div><div class="emoji-bottom emoji-bottom-11">🏁</div><div class="emoji-bottom emoji-bottom-12">🧿</div>
-        <div class="emoji-bottom emoji-bottom-13">🧬</div>
-    </div>
+    <div class="particles-bg" id="particlesBg"></div>
+    <div class="floating-emojis" id="floatingEmojis"></div>
 
     <div class="vault">
-        <div class="vault-header">
-            <div class="vault-title">CARD VAULT</div>
-            <div class="vx-badge">VX</div>
+        <div class="premium-header">
+            <div class="logo-section">
+                <h1>CARD VAULT</h1>
+                <p>SECURE TERMINAL</p>
+            </div>
+            <div class="vx-badge-premium">⚡ VX | PRO</div>
         </div>
 
-        <div class="meta-strip">
-            <span class="uid" id="dynamicUID">UID-549953</span>
-            <span class="secure-account">SECURE ACCOUNT</span>
-            <span class="unverified-reg">UNVERIFIED REGISTRY</span>
-            <span class="node">NODE: GLOBAL-01</span>
-        </div>
-
-        <div class="top-users-bar">
-            <div class="users-mini">
-                <span class="users-mini-label">TERMINAL USERS</span>
-                <span class="users-mini-number" id="terminalUsersMini">0</span>
-                <span class="users-mini-online">● LIVE</span>
+        <div class="glass-meta">
+            <div class="uid-premium" id="dynamicUID">UID-549953</div>
+            <div class="badge-group">
+                <span class="badge badge-secure">🔒 SECURE ACCOUNT</span>
+                <span class="badge badge-unverified">⚠️ UNVERIFIED REGISTRY</span>
+                <span class="badge badge-node">🌐 NODE: GLOBAL-01</span>
             </div>
         </div>
 
-        <div class="filter-bar">
-            <span class="filter-item all active" data-filter="all">ALL</span>
-            <span class="filter-item visa" data-filter="visa">VISA</span>
-            <span class="filter-item master" data-filter="mastercard">MASTERCARD</span>
-            <span class="filter-item rupay" data-filter="rupay">RUPAY</span>
-        </div>
-
-        <div class="stats-row">
-            <div class="stat-card traffic">
-                <div class="stat-label">3D NETWORK TRAFFIC <span class="online-badge" id="trafficIndicator">● SYNC</span></div>
-                <div class="stat-number" id="trafficCount">12,450+</div>
+        <div class="stats-premium">
+            <div class="users-card">
+                <span class="users-card-label">TERMINAL USERS</span>
+                <span class="users-card-number" id="terminalUsersMini">0</span>
+                <span style="font-size:0.6rem; color:#6aff9e;">● LIVE</span>
+            </div>
+            <div class="traffic-card">
+                <span class="traffic-card-label">3D NETWORK TRAFFIC</span>
+                <span class="traffic-card-number" id="trafficCount">12,450+</span>
+                <span style="font-size:0.6rem; color:#6aff9e;">● SYNC</span>
             </div>
         </div>
 
-        <div class="cards-container" id="cardsContainer"></div>
+        <div class="filter-premium">
+            <span class="filter-premium-item all active" data-filter="all">ALL</span>
+            <span class="filter-premium-item visa" data-filter="visa">VISA</span>
+            <span class="filter-premium-item master" data-filter="mastercard">MASTERCARD</span>
+            <span class="filter-premium-item rupay" data-filter="rupay">RUPAY</span>
+        </div>
+
+        <div class="cards-premium" id="cardsContainer"></div>
     </div>
 
     <script>
         // ============================================================
-        // CARD DATA - 8 cards per network = 24 total
+        // ANIMATED BACKGROUND - PARTICLES & EMOJIS
+        // ============================================================
+        function createParticles() {
+            const container = document.getElementById('particlesBg');
+            for (let i = 0; i < 60; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 80 + 20;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = Math.random() * 8 + 5 + 's';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.opacity = Math.random() * 0.3;
+                container.appendChild(particle);
+            }
+        }
+
+        function createFloatingEmojis() {
+            const container = document.getElementById('floatingEmojis');
+            const emojis = ['🫧', '🍂', '❄️', '🌈', '🏞️', '🍓', '🛸', '✈️', '🪙', '㊗️', '🏁', '🧿', '🧬', '🌠', '🌌', '🪩'];
+            for (let i = 0; i < 40; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'floating-emoji';
+                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = Math.random() * 100 + '%';
+                emoji.style.fontSize = Math.random() * 1.5 + 0.8 + 'rem';
+                emoji.style.animationDuration = Math.random() * 12 + 8 + 's';
+                emoji.style.animationDelay = Math.random() * 15 + 's';
+                emoji.style.opacity = Math.random() * 0.2 + 0.05;
+                container.appendChild(emoji);
+            }
+        }
+
+        createParticles();
+        createFloatingEmojis();
+
+        // ============================================================
+        // CARD DATA
         // ============================================================
         const cardNames = [
             "SBI GOLD", "HDFC PREMIUM", "ICICI PLATINUM", "AXIS REWARDS",
             "YES BANK ELITE", "KOTAK SIGNATURE", "INDUSIND LEGEND", "CITI PREMIER"
         ];
-        
         const prices = [263, 299, 393, 585, 856, 1150, 1780, 2000];
         const balances = [2550, 2978, 6989, 9850, 14450, 22590, 38990, 60000];
-        
-        // VISA cards
+
         const visaCards = [
             { number: "5224 | 6388 | 2281 | 4758", exp: "08/29", cvv: "***" },
             { number: "4987 | 1234 | 5678 | 9012", exp: "11/27", cvv: "***" },
@@ -367,8 +517,7 @@
             { number: "4789 | 1234 | 9876 | 5432", exp: "01/30", cvv: "***" },
             { number: "5123 | 4567 | 8901 | 2345", exp: "12/31", cvv: "***" }
         ];
-        
-        // MASTERCARD cards
+
         const masterCards = [
             { number: "5321 | 9876 | 5432 | 1098", exp: "10/30", cvv: "***" },
             { number: "5456 | 7890 | 1234 | 5678", exp: "02/28", cvv: "***" },
@@ -379,8 +528,7 @@
             { number: "5901 | 2345 | 6789 | 0123", exp: "11/30", cvv: "***" },
             { number: "6012 | 3456 | 7890 | 1234", exp: "09/31", cvv: "***" }
         ];
-        
-        // RUPAY cards
+
         const rupayCards = [
             { number: "6123 | 4567 | 8901 | 2345", exp: "03/29", cvv: "***" },
             { number: "6234 | 5678 | 9012 | 3456", exp: "06/28", cvv: "***" },
@@ -391,15 +539,15 @@
             { number: "6789 | 0123 | 4567 | 8901", exp: "02/30", cvv: "***" },
             { number: "6890 | 1234 | 5678 | 9012", exp: "07/31", cvv: "***" }
         ];
-        
+
         const networks = [
-            { name: "VISA", key: "visa", badgeStyle: "", icon: "💳", color: "#5fb2ff" },
-            { name: "MASTERCARD", key: "mastercard", badgeStyle: "background:#2f2a1a; color:#ffbc6e;", icon: "💠", color: "#ff9f4a" },
-            { name: "RUPAY", key: "rupay", badgeStyle: "background:#1a3a2a; color:#8bffa5;", icon: "🪙", color: "#6fcf97" }
+            { name: "VISA", key: "visa", badgeStyle: "", icon: "💳", chipStyle: "" },
+            { name: "MASTERCARD", key: "mastercard", badgeStyle: "background:#2f2a1a; color:#ffbc6e;", icon: "💠", chipStyle: "background:#2f2a1a; color:#ffbc6e;" },
+            { name: "RUPAY", key: "rupay", badgeStyle: "background:#1a3a2a; color:#8bffa5;", icon: "🪙", chipStyle: "background:#1a3a2a; color:#8bffa5;" }
         ];
-        
+
         const cardsData = [visaCards, masterCards, rupayCards];
-        
+
         function generateAllCards() {
             const container = document.getElementById('cardsContainer');
             container.innerHTML = '';
@@ -409,15 +557,14 @@
                 const cardDetails = cardsData[netIdx];
                 
                 for (let i = 0; i < cardNames.length; i++) {
-                    const isFirstCard = (i === 0);
-                    const isSoldOut = isFirstCard;
+                    const isSoldOut = (i === 0);
                     const price = prices[i];
                     const balance = balances[i];
                     const cardName = cardNames[i];
                     const cardInfo = cardDetails[i];
                     
                     const cardDiv = document.createElement('div');
-                    cardDiv.className = 'card-item';
+                    cardDiv.className = 'card-premium';
                     cardDiv.setAttribute('data-network', network.key);
                     if (!isSoldOut) {
                         cardDiv.setAttribute('data-price', price);
@@ -425,48 +572,44 @@
                     }
                     
                     cardDiv.innerHTML = `
-                        <div class="card-header">
-                            <div>
-                                <span class="network-badge" style="${network.badgeStyle}">${network.name}</span>
-                                <span class="bank-name">${cardName}</span>
+                        <div class="card-header-premium">
+                            <div class="network-group">
+                                <span class="network-chip" style="${network.badgeStyle}">${network.name}</span>
+                                <span class="bank-name-premium">${cardName}</span>
                             </div>
-                            <div>${network.icon}</div>
+                            <div style="font-size:1.3rem;">${network.icon}</div>
                         </div>
-                        <div><span class="card-number">${cardInfo.number}</span></div>
-                        <div class="details">
+                        <div><span class="card-number-premium">${cardInfo.number}</span></div>
+                        <div class="details-premium">
                             <div><span>EXP:</span> ${cardInfo.exp}</div>
                             <div><span>CVV:</span> ***</div>
                         </div>
-                        <div class="balance">BAL: ₹${balance.toLocaleString()}</div>
-                        <div class="stock-line">
+                        <div class="balance-premium">BAL: ₹${balance.toLocaleString()}</div>
+                        <div class="stock-premium">
                             <span>STOCK PROTOCOL</span>
-                            <span class="stock-status ${isSoldOut ? 'stock-out' : 'stock-instock'}">${isSoldOut ? 'OUT OF STOCK' : 'IN STOCK'}</span>
+                            <span class="stock-badge ${isSoldOut ? 'stock-out' : 'stock-in'}">${isSoldOut ? 'OUT OF STOCK' : 'IN STOCK'}</span>
                         </div>
-                        <div class="action-area">
-                            <div class="price">₹${price}</div>
-                            <button class="buy-btn ${!isSoldOut ? 'upi-btn' : ''}" ${isSoldOut ? 'disabled' : ''}>${isSoldOut ? 'SOLD OUT' : 'BUY NOW'}</button>
+                        <div class="action-premium">
+                            <div class="price-premium">₹${price}</div>
+                            <button class="btn-premium ${!isSoldOut ? 'upi-btn' : ''}" ${isSoldOut ? 'disabled' : ''}>${isSoldOut ? 'SOLD OUT' : 'BUY NOW'}</button>
                         </div>
                     `;
-                    
                     container.appendChild(cardDiv);
                 }
             }
         }
-        
+
         generateAllCards();
-        
+
         // ============================================================
-        // UNIQUE UID PER USER
+        // UNIQUE UID
         // ============================================================
         function generateUniqueUID() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let result = 'UID-';
-            for (let i = 0; i < 8; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
+            for (let i = 0; i < 8; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
             return result;
         }
-
         let storedUID = localStorage.getItem('user_unique_uid');
         if (!storedUID) {
             storedUID = generateUniqueUID();
@@ -475,7 +618,7 @@
         document.getElementById('dynamicUID').innerText = storedUID;
 
         // ============================================================
-        // REAL-TIME ONLINE USERS + AUTO TRAFFIC
+        // REAL-TIME USERS & TRAFFIC
         // ============================================================
         (function() {
             let sessionId = localStorage.getItem('cv_session_id');
@@ -483,16 +626,12 @@
                 sessionId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
                 localStorage.setItem('cv_session_id', sessionId);
             }
-
             let activeUsers = new Set();
             
             function loadActiveUsers() {
                 const stored = localStorage.getItem('cv_active_users');
                 if (stored) {
-                    try {
-                        const arr = JSON.parse(stored);
-                        activeUsers = new Set(arr);
-                    } catch(e) {}
+                    try { activeUsers = new Set(JSON.parse(stored)); } catch(e) {}
                 }
                 if (!activeUsers.has(sessionId)) {
                     activeUsers.add(sessionId);
@@ -500,148 +639,67 @@
                 }
                 return activeUsers.size;
             }
-
-            function saveActiveUsers() {
-                const arr = Array.from(activeUsers);
-                localStorage.setItem('cv_active_users', JSON.stringify(arr));
-            }
-
+            function saveActiveUsers() { localStorage.setItem('cv_active_users', JSON.stringify(Array.from(activeUsers))); }
             function cleanupInactiveSessions() {
                 const now = Date.now();
                 localStorage.setItem('cv_last_heartbeat_' + sessionId, now.toString());
                 const allKeys = Object.keys(localStorage);
-                const staleSessions = [];
                 for (let key of allKeys) {
                     if (key.startsWith('cv_last_heartbeat_')) {
                         const sid = key.replace('cv_last_heartbeat_', '');
                         const lastTime = localStorage.getItem(key);
-                        if (lastTime && (now - parseInt(lastTime)) > 35000) {
-                            staleSessions.push(sid);
+                        if (lastTime && (now - parseInt(lastTime)) > 35000 && activeUsers.has(sid)) {
+                            activeUsers.delete(sid);
+                            localStorage.removeItem('cv_last_heartbeat_' + sid);
+                            saveActiveUsers();
                         }
                     }
                 }
-                let changed = false;
-                for (let sid of staleSessions) {
-                    if (activeUsers.has(sid)) {
-                        activeUsers.delete(sid);
-                        changed = true;
-                    }
-                    localStorage.removeItem('cv_last_heartbeat_' + sid);
-                }
-                if (changed) saveActiveUsers();
             }
-
-            let baseTraffic = 12450;
-            let trafficCounter = baseTraffic;
+            let trafficCounter = 12450;
             const terminalSpan = document.getElementById('terminalUsersMini');
             const trafficSpan = document.getElementById('trafficCount');
-            
             function updateDisplays() {
                 const userCount = activeUsers.size;
-                if (terminalSpan) {
-                    terminalSpan.innerText = userCount;
-                    terminalSpan.style.transform = 'scale(1.05)';
-                    setTimeout(() => { if(terminalSpan) terminalSpan.style.transform = ''; }, 200);
-                }
+                if (terminalSpan) terminalSpan.innerText = userCount;
                 const change = Math.floor(Math.random() * 15) - 5;
-                trafficCounter = trafficCounter + change;
-                if (trafficCounter < baseTraffic - 500) trafficCounter = baseTraffic - 200;
-                if (trafficCounter > baseTraffic + 5000) trafficCounter = baseTraffic + 3000;
-                if (trafficSpan) {
-                    let displayVal = trafficCounter;
-                    if (displayVal > 10000) {
-                        trafficSpan.innerText = displayVal.toLocaleString() + '+';
-                    } else {
-                        trafficSpan.innerText = displayVal;
-                    }
-                    trafficSpan.style.transform = 'scale(1.02)';
-                    setTimeout(() => { if(trafficSpan) trafficSpan.style.transform = ''; }, 200);
-                }
+                trafficCounter = Math.max(12000, Math.min(18000, trafficCounter + change));
+                if (trafficSpan) trafficSpan.innerText = trafficCounter.toLocaleString() + '+';
             }
-            
             loadActiveUsers();
             cleanupInactiveSessions();
-            
-            setInterval(() => {
-                cleanupInactiveSessions();
-                updateDisplays();
-            }, 4000);
-            
+            setInterval(() => { cleanupInactiveSessions(); updateDisplays(); }, 4000);
             window.addEventListener('storage', (e) => {
                 if (e.key === 'cv_active_users') {
-                    const newData = e.newValue;
-                    if (newData) {
-                        try {
-                            const arr = JSON.parse(newData);
-                            activeUsers = new Set(arr);
-                            if (!activeUsers.has(sessionId)) {
-                                activeUsers.add(sessionId);
-                                saveActiveUsers();
-                            }
-                            updateDisplays();
-                        } catch(e) {}
-                    }
-                }
-                if (e.key && e.key.startsWith('cv_last_heartbeat_')) {
-                    cleanupInactiveSessions();
-                    updateDisplays();
+                    try { activeUsers = new Set(JSON.parse(e.newValue)); if (!activeUsers.has(sessionId)) { activeUsers.add(sessionId); saveActiveUsers(); } updateDisplays(); } catch(e) {}
                 }
             });
-            
             setInterval(() => {
                 if (Math.random() < 0.3) {
                     const fakeId = 'temp_' + Date.now() + '_' + Math.random();
-                    if (!activeUsers.has(fakeId)) {
-                        activeUsers.add(fakeId);
-                        saveActiveUsers();
-                        updateDisplays();
-                        setTimeout(() => {
-                            if (activeUsers.has(fakeId)) {
-                                activeUsers.delete(fakeId);
-                                saveActiveUsers();
-                                updateDisplays();
-                            }
-                        }, 30000 + Math.random() * 15000);
-                    }
+                    activeUsers.add(fakeId);
+                    saveActiveUsers();
+                    updateDisplays();
+                    setTimeout(() => { if (activeUsers.has(fakeId)) { activeUsers.delete(fakeId); saveActiveUsers(); updateDisplays(); } }, 30000);
                 }
             }, 10000);
-            
-            setInterval(() => updateDisplays(), 3500);
             updateDisplays();
-            
-            const trafficIndicator = document.getElementById('trafficIndicator');
-            if (trafficIndicator) {
-                setInterval(() => {
-                    trafficIndicator.style.opacity = '0.7';
-                    setTimeout(() => { if(trafficIndicator) trafficIndicator.style.opacity = '1'; }, 500);
-                }, 2000);
-            }
         })();
 
         // ============================================================
-        // UPI PAYMENT INTEGRATION
+        // UPI PAYMENT
         // ============================================================
         const UPI_ID = "unabntelegrampalka@okhdfcbank";
-        const UPI_NAME = "Card Vault Store";
-        const UPI_NOTE = "Card Purchase";
-        
         function initiateUPIPayment(amount, cardName) {
-            if (!amount || amount <= 0) {
-                showToast("❌ Invalid amount", true);
-                return;
-            }
-            const upiURI = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent(UPI_NOTE + " - " + cardName)}`;
+            const upiURI = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=Card%20Vault%20Store&am=${amount}&cu=INR&tn=Card%20Purchase%20-%20${cardName}`;
             window.location.href = upiURI;
-            setTimeout(() => {
-                showToast(`💰 Please complete payment of ₹${amount} for ${cardName} in your UPI app`, false);
-            }, 500);
+            setTimeout(() => showToast(`💰 Please complete payment of ₹${amount} for ${cardName}`, false), 500);
         }
-        
         function showToast(msg, isError = false) {
-            let oldToast = document.querySelector('.custom-toast-card');
+            let oldToast = document.querySelector('.custom-toast');
             if(oldToast) oldToast.remove();
             let toast = document.createElement('div');
-            toast.className = 'custom-toast-card';
+            toast.className = 'custom-toast';
             toast.innerText = msg;
             toast.style.position = 'fixed';
             toast.style.bottom = '25px';
@@ -659,66 +717,40 @@
             toast.style.whiteSpace = 'nowrap';
             toast.style.fontFamily = 'monospace';
             document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 3000);
-            }, 3000);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 3000); }, 3000);
         }
-        
-        // Attach click handlers after cards are generated
         setTimeout(() => {
-            const buyButtons = document.querySelectorAll('.upi-btn');
-            buyButtons.forEach(btn => {
+            document.querySelectorAll('.upi-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const cardItem = this.closest('.card-item');
-                    if (!cardItem) return;
-                    const priceAttr = cardItem.getAttribute('data-price');
-                    const cardName = cardItem.getAttribute('data-name') || cardItem.querySelector('.bank-name')?.innerText || "Card";
-                    const price = parseInt(priceAttr);
-                    if (price && !isNaN(price)) {
-                        showToast(`🔄 Opening UPI app for ₹${price} (${cardName})...`, false);
-                        initiateUPIPayment(price, cardName);
-                    } else {
-                        showToast("❌ Price not found", true);
-                    }
+                    const card = this.closest('.card-premium');
+                    const price = card.getAttribute('data-price');
+                    const name = card.getAttribute('data-name');
+                    if (price && name) initiateUPIPayment(parseInt(price), name);
+                    else showToast("❌ Error", true);
                 });
             });
         }, 100);
-        
+
         // ============================================================
-        // FILTER FUNCTIONALITY
+        // FILTER
         // ============================================================
-        const filters = document.querySelectorAll('.filter-item');
-        
+        const filters = document.querySelectorAll('.filter-premium-item');
         function filterCards(type) {
-            const allCards = document.querySelectorAll('.card-item');
-            allCards.forEach(card => {
+            document.querySelectorAll('.card-premium').forEach(card => {
                 const network = card.getAttribute('data-network');
-                if (type === 'all') {
-                    card.style.display = '';
-                } else if (type === 'visa' && network === 'visa') {
-                    card.style.display = '';
-                } else if (type === 'mastercard' && network === 'mastercard') {
-                    card.style.display = '';
-                } else if (type === 'rupay' && network === 'rupay') {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
+                if (type === 'all') card.style.display = '';
+                else if (type === network) card.style.display = '';
+                else card.style.display = 'none';
             });
         }
-        
         filters.forEach(filter => {
             filter.addEventListener('click', function() {
                 filters.forEach(f => f.classList.remove('active'));
                 this.classList.add('active');
-                let filterType = this.getAttribute('data-filter');
-                filterCards(filterType);
+                filterCards(this.getAttribute('data-filter'));
             });
         });
-        
-        console.log("✅ Premium UI | 24 Cards | VISA + MASTERCARD + RUPAY | UPI: unabntelegrampalka@okhdfcbank");
     </script>
 </body>
 </html>
