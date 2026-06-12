@@ -21,7 +21,6 @@
             min-height: 100vh;
         }
 
-        /* main vault panel */
         .vault {
             max-width: 880px;
             width: 100%;
@@ -33,7 +32,6 @@
             box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.7);
         }
 
-        /* header */
         .vault-header {
             display: flex;
             justify-content: space-between;
@@ -66,7 +64,6 @@
             letter-spacing: 1px;
         }
 
-        /* meta strip */
         .meta-strip {
             display: flex;
             justify-content: space-between;
@@ -116,7 +113,6 @@
             border-radius: 20px;
         }
 
-        /* TERMINAL USERS — UPAR CHOTA BOX (ALL ke upar) */
         .top-users-bar {
             display: flex;
             justify-content: flex-end;
@@ -160,7 +156,6 @@
             border-radius: 2rem;
         }
 
-        /* filter bar */
         .filter-bar {
             display: flex;
             gap: 2rem;
@@ -193,7 +188,6 @@
         .filter-item.master.active { border-color: #ff9f4a; text-shadow: 0 0 3px #ff9f4a; }
         .filter-item.rupay.active { border-color: #6fcf97; text-shadow: 0 0 3px #6fcf97; }
 
-        /* stats row — SIRF 3D NETWORK TRAFFIC (Terminal users upar shift kar diya) */
         .stats-row {
             display: flex;
             flex-direction: row;
@@ -245,7 +239,6 @@
             font-style: normal;
         }
 
-        /* cards container */
         .cards-container {
             display: flex;
             flex-direction: column;
@@ -360,18 +353,24 @@
             border-left: 3px solid #ffad4a;
         }
 
-        /* ACTION AREA — PRICE CENTER KAR DIYA */
+        .stock-instock {
+            color: #8bffa5;
+            background: #1a2f22;
+            border-left: 3px solid #6aff9e;
+        }
+
+        /* BUTTON BADE KAR DIYE - ACTION AREA */
         .action-area {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1.3rem;
-            margin-top: 0.5rem;
+            gap: 1.8rem;
+            margin-top: 0.8rem;
             flex-wrap: wrap;
         }
 
         .price {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 800;
             background: linear-gradient(135deg, #FCE898, #D4FFB0);
             -webkit-background-clip: text;
@@ -381,19 +380,21 @@
             text-align: center;
         }
 
+        /* BADE BUTTONS */
         .buy-btn {
             background: linear-gradient(95deg, #136e94, #0a4462);
             border: none;
-            padding: 0.4rem 1.3rem;
-            border-radius: 2rem;
+            padding: 0.7rem 2rem;
+            border-radius: 2.5rem;
             font-weight: 800;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             font-family: monospace;
             color: white;
             cursor: pointer;
             transition: 0.2s;
             border: 0.5px solid #5db4e0;
-            box-shadow: 0 2px 6px #0a446280;
+            box-shadow: 0 2px 8px #0a446280;
+            min-width: 110px;
         }
 
         .buy-btn:disabled {
@@ -421,18 +422,18 @@
             .filter-bar { gap: 1rem; }
             .stats-row { flex-direction: row; gap: 1rem; }
             .stat-card { min-width: 160px; }
+            .buy-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; min-width: 90px; }
+            .price { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
 <div class="vault">
-    <!-- header -->
     <div class="vault-header">
         <div class="vault-title">CARD VAULT</div>
         <div class="vx-badge">VX</div>
     </div>
 
-    <!-- meta strip -->
     <div class="meta-strip">
         <span class="uid">UID-549953</span>
         <span class="secure-account">SECURE ACCOUNT</span>
@@ -440,7 +441,6 @@
         <span class="node">NODE: GLOBAL-01</span>
     </div>
 
-    <!-- TERMINAL USERS — UPAR CHOTA BOX (ALL ke upar) -->
     <div class="top-users-bar">
         <div class="users-mini">
             <span class="users-mini-label">TERMINAL USERS</span>
@@ -449,7 +449,6 @@
         </div>
     </div>
 
-    <!-- filter bar -->
     <div class="filter-bar">
         <span class="filter-item all active" data-filter="all">ALL</span>
         <span class="filter-item visa" data-filter="visa">VISA</span>
@@ -457,7 +456,6 @@
         <span class="filter-item rupay" data-filter="rupay">RUPAY</span>
     </div>
 
-    <!-- stats row: SIRF 3D NETWORK TRAFFIC (Terminal users upar shift kar diya) -->
     <div class="stats-row">
         <div class="stat-card traffic">
             <div class="stat-label">3D NETWORK TRAFFIC <span class="online-badge" id="trafficIndicator">● SYNC</span></div>
@@ -465,9 +463,8 @@
         </div>
     </div>
 
-    <!-- cards list -->
     <div class="cards-container">
-        <!-- CARD 1: SBI GOLD -->
+        <!-- CARD 1: SBI GOLD (VISA) -->
         <div class="card-item" data-network="visa">
             <div class="card-header">
                 <div>
@@ -481,7 +478,7 @@
             </div>
             <div class="details">
                 <div><span>EXP:</span> 08/29</div>
-                <div><span>CVV:</span> ******</div>
+                <div><span>CVV:</span> ***</div>
             </div>
             <div class="balance">BAL: ₹2,500</div>
             <div class="stock-line">
@@ -494,7 +491,7 @@
             </div>
         </div>
 
-        <!-- CARD 2: HDFC PREMIUM -->
+        <!-- CARD 2: HDFC PREMIUM (VISA) -->
         <div class="card-item" data-network="visa">
             <div class="card-header">
                 <div>
@@ -507,8 +504,8 @@
                 <span class="card-number">4532 | 6388 | 2281 | 5506</span>
             </div>
             <div class="details">
-                <div><span>EXP:</span> 08/29</div>
-                <div><span>CVV:</span> ******</div>
+                <div><span>EXP:</span> 12/30</div>
+                <div><span>CVV:</span> *****</div>
             </div>
             <div class="balance">BAL: ₹2,520</div>
             <div class="stock-line">
@@ -520,9 +517,36 @@
                 <button class="buy-btn" id="hdfcBuyButton">BUY NOW</button>
             </div>
         </div>
+
+        <!-- CARD 3: ICICI PLATINUM (MASTERCARD) -->
+        <div class="card-item" data-network="mastercard">
+            <div class="card-header">
+                <div>
+                    <span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span>
+                    <span class="bank-name">ICICI PLATINUM</span>
+                </div>
+                <div>💠</div>
+            </div>
+            <div>
+                <span class="card-number">5423 | 7890 | 1234 | 5678</span>
+            </div>
+            <div class="details">
+                <div><span>EXP:</span> 03/28</div>
+                <div><span>CVV:</span> ****</div>
+            </div>
+            <div class="balance">BAL: ₹3,750</div>
+            <div class="stock-line">
+                <span>STOCK PROTOCOL</span>
+                <span class="stock-status stock-instock">IN STOCK</span>
+            </div>
+            <div class="action-area">
+                <div class="price">₹299</div>
+                <button class="buy-btn" id="mastercardBuyButton">BUY NOW</button>
+            </div>
+        </div>
     </div>
 
-    <div class="filter-status" id="filterStatusMsg">◆ ACTIVE: ALL CARDS (REAL-TIME COUNTERS) ◆</div>
+    <div class="filter-status" id="filterStatusMsg">◆ ACTIVE: ALL CARDS (VISA + MASTERCARD) ◆</div>
 </div>
 
 <script>
@@ -675,11 +699,13 @@
     })();
 
     // ============================================================
-    // 2. HDFC STOCK MANAGEMENT (ONLY 8 LEFT)
+    // 2. STOCK MANAGEMENT (HDFC: 8, ICICI: IN STOCK)
     // ============================================================
     let hdfcStock = 8;
-    const stockSpan = document.getElementById('hdfcStockLabel');
+    let iciciStock = 15;
+    const hdfcStockSpan = document.getElementById('hdfcStockLabel');
     const buyHdfc = document.getElementById('hdfcBuyButton');
+    const buyMastercard = document.getElementById('mastercardBuyButton');
     const filterMsgDiv = document.getElementById('filterStatusMsg');
 
     function showMessage(msg, isError = false) {
@@ -710,39 +736,29 @@
         }, 2600);
     }
 
+    // HDFC Buy button (stock remains 8 - demo mode)
     if (buyHdfc) {
         buyHdfc.addEventListener('click', (e) => {
             e.preventDefault();
-            showMessage(`⚠️ Demo mode: Stock remains ${hdfcStock} (no change)`, false);
-            if (stockSpan) {
-                stockSpan.innerText = `ONLY ${hdfcStock} LEFT`;
+            showMessage(`⚠️ Demo mode: HDFC stock remains ${hdfcStock} (no change)`, false);
+            if (hdfcStockSpan) {
+                hdfcStockSpan.innerText = `ONLY ${hdfcStock} LEFT`;
             }
         });
     }
 
-    // Fix first card
-    const firstCard = document.querySelectorAll('.card-item')[0];
-    if (firstCard) {
-        const bal1 = firstCard.querySelector('.balance');
-        if (bal1 && !bal1.innerText.includes('2,500')) bal1.innerText = 'BAL: ₹2,500';
-        const price1 = firstCard.querySelector('.price');
-        if (price1 && price1.innerText !== '₹223') price1.innerText = '₹223';
-        const btn1 = firstCard.querySelector('.buy-btn');
-        if (btn1) { btn1.disabled = true; btn1.innerText = 'SOLD OUT'; }
+    // MASTERCARD Buy button (stock remains IN STOCK - demo mode)
+    if (buyMastercard) {
+        buyMastercard.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMessage(`⚠️ Demo mode: ICICI PLATINUM stock remains ${iciciStock} (no change)`, false);
+        });
     }
 
-    const secondCard = document.querySelectorAll('.card-item')[1];
-    if (secondCard) {
-        const bal2 = secondCard.querySelector('.balance');
-        if (bal2 && !bal2.innerText.includes('2,520')) bal2.innerText = 'BAL: ₹2,520';
-        const price2 = secondCard.querySelector('.price');
-        if (price2 && price2.innerText !== '₹155') price2.innerText = '₹155';
-    }
-
-    // Force stock label to always show ONLY 8 LEFT
+    // Force HDFC stock label to always show ONLY 8 LEFT
     setInterval(() => {
-        if (stockSpan && stockSpan.innerText !== 'ONLY 8 LEFT' && hdfcStock === 8) {
-            stockSpan.innerText = 'ONLY 8 LEFT';
+        if (hdfcStockSpan && hdfcStockSpan.innerText !== 'ONLY 8 LEFT' && hdfcStock === 8) {
+            hdfcStockSpan.innerText = 'ONLY 8 LEFT';
         }
     }, 1000);
 
@@ -751,30 +767,47 @@
     // ============================================================
     const filters = document.querySelectorAll('.filter-item');
     const allCards = document.querySelectorAll('.card-item');
+    
     function filterCards(type) {
         allCards.forEach(card => {
             const network = card.getAttribute('data-network');
-            if (type === 'all') card.style.display = '';
-            else if (type === 'visa' && network === 'visa') card.style.display = '';
-            else if (type === 'mastercard' && network === 'mastercard') card.style.display = '';
-            else if (type === 'rupay' && network === 'rupay') card.style.display = '';
-            else card.style.display = 'none';
+            if (type === 'all') {
+                card.style.display = '';
+            } else if (type === 'visa' && network === 'visa') {
+                card.style.display = '';
+            } else if (type === 'mastercard' && network === 'mastercard') {
+                card.style.display = '';
+            } else if (type === 'rupay' && network === 'rupay') {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
         });
     }
+    
     filters.forEach(filter => {
         filter.addEventListener('click', function() {
             filters.forEach(f => f.classList.remove('active'));
             this.classList.add('active');
             let filterType = this.getAttribute('data-filter');
             filterCards(filterType);
-            if (filterType === 'all') filterMsgDiv.innerHTML = '◆ ACTIVE: ALL CARDS (REAL-TIME COUNTERS) ◆';
-            else if (filterType === 'visa') filterMsgDiv.innerHTML = '◆ ACTIVE: VISA CARDS (SBI GOLD, HDFC PREMIUM) ◆';
-            else if (filterType === 'mastercard') filterMsgDiv.innerHTML = '◆ ACTIVE: MASTERCARD — no cards yet ◆';
-            else if (filterType === 'rupay') filterMsgDiv.innerHTML = '◆ ACTIVE: RUPAY — no cards yet ◆';
+            if (filterType === 'all') {
+                filterMsgDiv.innerHTML = '◆ ACTIVE: ALL CARDS (VISA + MASTERCARD) ◆';
+                showMessage('🏦 Showing all cards', false);
+            } else if (filterType === 'visa') {
+                filterMsgDiv.innerHTML = '◆ ACTIVE: VISA CARDS (SBI GOLD, HDFC PREMIUM) ◆';
+                showMessage('💳 VISA cards: SBI GOLD & HDFC PREMIUM', false);
+            } else if (filterType === 'mastercard') {
+                filterMsgDiv.innerHTML = '◆ ACTIVE: MASTERCARD (ICICI PLATINUM) ◆';
+                showMessage('💠 MASTERCARD: ICICI PLATINUM', false);
+            } else if (filterType === 'rupay') {
+                filterMsgDiv.innerHTML = '◆ ACTIVE: RUPAY — no cards yet ◆';
+                showMessage('🔸 No RuPay cards available', false);
+            }
         });
     });
     
-    console.log('✓ Terminal users upar chota box, neeche wala remove, price center, stock 8 fixed');
+    console.log('✓ Buy Now / Sold Out buttons bade kar diye, price ka text balance kar diya');
 </script>
 </body>
 </html>
