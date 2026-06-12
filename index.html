@@ -116,11 +116,55 @@
             border-radius: 20px;
         }
 
+        /* TERMINAL USERS — UPAR CHOTA BOX (ALL ke upar) */
+        .top-users-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .users-mini {
+            background: #0b1120;
+            border-radius: 2rem;
+            padding: 0.3rem 1.2rem;
+            border-left: 3px solid #42c5ff;
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .users-mini-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: #9eb2d4;
+            letter-spacing: 1px;
+            font-style: italic;
+        }
+
+        .users-mini-number {
+            font-size: 1.2rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #ffffff, #bdd4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+        }
+
+        .users-mini-online {
+            font-size: 0.5rem;
+            background: #1f3a2c;
+            color: #6aff9e;
+            padding: 0.15rem 0.4rem;
+            border-radius: 2rem;
+        }
+
         /* filter bar */
         .filter-bar {
             display: flex;
             gap: 2rem;
-            margin: 1.5rem 0 1.8rem 0;
+            margin: 0.5rem 0 1.2rem 0;
             border-bottom: 1px solid #33415c;
             padding-bottom: 0.6rem;
         }
@@ -149,12 +193,12 @@
         .filter-item.master.active { border-color: #ff9f4a; text-shadow: 0 0 3px #ff9f4a; }
         .filter-item.rupay.active { border-color: #6fcf97; text-shadow: 0 0 3px #6fcf97; }
 
-        /* stats row — EK LINE MEIN DONO COUNTERS */
+        /* stats row — SIRF 3D NETWORK TRAFFIC (Terminal users upar shift kar diya) */
         .stats-row {
             display: flex;
             flex-direction: row;
             gap: 2rem;
-            margin: 1.5rem 0 2rem 0;
+            margin: 0.5rem 0 2rem 0;
             align-items: center;
             justify-content: flex-start;
             flex-wrap: wrap;
@@ -169,7 +213,6 @@
             min-width: 200px;
         }
 
-        .stat-card.users { border-left-color: #42c5ff; }
         .stat-card.traffic { border-left-color: #ffaa4a; }
 
         .stat-label {
@@ -397,6 +440,15 @@
         <span class="node">NODE: GLOBAL-01</span>
     </div>
 
+    <!-- TERMINAL USERS — UPAR CHOTA BOX (ALL ke upar) -->
+    <div class="top-users-bar">
+        <div class="users-mini">
+            <span class="users-mini-label">TERMINAL USERS</span>
+            <span class="users-mini-number" id="terminalUsersMini">143</span>
+            <span class="users-mini-online">● LIVE</span>
+        </div>
+    </div>
+
     <!-- filter bar -->
     <div class="filter-bar">
         <span class="filter-item all active" data-filter="all">ALL</span>
@@ -405,12 +457,8 @@
         <span class="filter-item rupay" data-filter="rupay">RUPAY</span>
     </div>
 
-    <!-- stats row: TERMINAL USERS + 3D NETWORK TRAFFIC (EK LINE MEIN) -->
+    <!-- stats row: SIRF 3D NETWORK TRAFFIC (Terminal users upar shift kar diya) -->
     <div class="stats-row">
-        <div class="stat-card users">
-            <div class="stat-label">TERMINAL USERS <span class="online-badge" id="onlineIndicator">● LIVE</span></div>
-            <div class="stat-number" id="terminalUsersCount">143</div>
-        </div>
         <div class="stat-card traffic">
             <div class="stat-label">3D NETWORK TRAFFIC <span class="online-badge" id="trafficIndicator">● SYNC</span></div>
             <div class="stat-number" id="trafficCount">12,450+</div>
@@ -539,15 +587,15 @@
 
         let baseTraffic = 12450;
         let trafficCounter = baseTraffic;
-        const terminalSpan = document.getElementById('terminalUsersCount');
+        const terminalMiniSpan = document.getElementById('terminalUsersMini');
         const trafficSpan = document.getElementById('trafficCount');
         
         function updateDisplays() {
             const userCount = activeUsers.size;
-            if (terminalSpan) {
-                terminalSpan.innerText = userCount;
-                terminalSpan.style.transform = 'scale(1.05)';
-                setTimeout(() => { if(terminalSpan) terminalSpan.style.transform = ''; }, 200);
+            if (terminalMiniSpan) {
+                terminalMiniSpan.innerText = userCount;
+                terminalMiniSpan.style.transform = 'scale(1.05)';
+                setTimeout(() => { if(terminalMiniSpan) terminalMiniSpan.style.transform = ''; }, 200);
             }
             const increment = Math.floor(Math.random() * (userCount + 2)) + 1;
             trafficCounter = trafficCounter + increment;
@@ -617,14 +665,7 @@
         
         updateDisplays();
         
-        const onlineIndicator = document.getElementById('onlineIndicator');
         const trafficIndicator = document.getElementById('trafficIndicator');
-        if (onlineIndicator) {
-            setInterval(() => {
-                onlineIndicator.style.opacity = '0.7';
-                setTimeout(() => { if(onlineIndicator) onlineIndicator.style.opacity = '1'; }, 500);
-            }, 2000);
-        }
         if (trafficIndicator) {
             setInterval(() => {
                 trafficIndicator.style.opacity = '0.7';
@@ -634,7 +675,7 @@
     })();
 
     // ============================================================
-    // 2. HDFC STOCK MANAGEMENT (ONLY 8 LEFT — NO CHANGE ON BUY)
+    // 2. HDFC STOCK MANAGEMENT (ONLY 8 LEFT)
     // ============================================================
     let hdfcStock = 8;
     const stockSpan = document.getElementById('hdfcStockLabel');
@@ -669,39 +710,10 @@
         }, 2600);
     }
 
-    function updateHdfcStock() {
-        if (hdfcStock <= 0) {
-            stockSpan.innerText = 'OUT OF STOCK';
-            stockSpan.classList.remove('stock-limited');
-            stockSpan.classList.add('stock-out');
-            if (buyHdfc) {
-                buyHdfc.disabled = true;
-                buyHdfc.innerText = 'SOLD OUT';
-                buyHdfc.style.opacity = '0.6';
-            }
-        } else {
-            stockSpan.innerText = `ONLY ${hdfcStock} LEFT`;
-            stockSpan.classList.add('stock-limited');
-            stockSpan.classList.remove('stock-out');
-            if (buyHdfc && buyHdfc.disabled) {
-                buyHdfc.disabled = false;
-                buyHdfc.innerText = 'BUY NOW';
-                buyHdfc.style.opacity = '1';
-            }
-        }
-    }
-
     if (buyHdfc) {
         buyHdfc.addEventListener('click', (e) => {
             e.preventDefault();
-            if (hdfcStock <= 0) {
-                showMessage('❌ HDFC PREMIUM is out of stock!', true);
-                return;
-            }
-            // Stock kam nahi hoga — sirf 8 hi rahega
             showMessage(`⚠️ Demo mode: Stock remains ${hdfcStock} (no change)`, false);
-            // Stock update nahi karenge — hdfcStock same rahega
-            // Ensure label shows ONLY 8 LEFT
             if (stockSpan) {
                 stockSpan.innerText = `ONLY ${hdfcStock} LEFT`;
             }
@@ -762,8 +774,7 @@
         });
     });
     
-    updateHdfcStock();
-    console.log('✓ Card Vault — price center kar diya, baki sab pahle jaisa, stock 8 hi rahega');
+    console.log('✓ Terminal users upar chota box, neeche wala remove, price center, stock 8 fixed');
 </script>
 </body>
 </html>
