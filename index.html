@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Card Vault — All Cards Sold Out | ₹223 Each</title>
+    <title>Card Vault — One Sold Out + Live UPI Payment</title>
     <style>
         * {
             margin: 0;
@@ -236,10 +236,11 @@
         .stock-line { display: flex; justify-content: space-between; align-items: center; margin: 0.9rem 0 0.7rem 0; padding-top: 0.4rem; border-top: 1px dashed #395075; font-size: 0.7rem; text-transform: uppercase; color: #a2b9df; font-weight: 600; }
         .stock-status { font-weight: 800; padding: 0.2rem 1rem; border-radius: 2rem; }
         .stock-out { color: #ffa084; background: #2e1a17; border-left: 3px solid #ff6f52; }
+        .stock-instock { color: #8bffa5; background: #1a2f22; border-left: 3px solid #6aff9e; }
         .action-area { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 0.8rem; flex-wrap: wrap; }
         .price { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FCE898, #D4FFB0); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; }
         .buy-btn {
-            background: #2a3346;
+            background: linear-gradient(95deg, #136e94, #0a4462);
             border: none;
             padding: 0.75rem 2.2rem;
             border-radius: 2.5rem;
@@ -247,11 +248,13 @@
             font-size: 1rem;
             font-family: monospace;
             color: white;
-            cursor: not-allowed;
-            border: 0.5px solid #6a7c9e;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 0.5px solid #5db4e0;
             min-width: 120px;
-            opacity: 0.7;
         }
+        .buy-btn:hover { transform: scale(1.02); background: linear-gradient(95deg, #1a7ea8, #0e5577); }
+        .buy-btn:disabled { background: #2a3346; border-color: #6a7c9e; cursor: not-allowed; opacity: 0.6; }
         .filter-status { margin-top: 1.2rem; text-align: center; font-size: 0.7rem; color: #88b4f0; font-style: italic; background: #0c1324; padding: 0.4rem; border-radius: 2rem; font-family: monospace; border: 0.5px solid #41587e; }
 
         @media (max-width: 700px) {
@@ -313,7 +316,7 @@
         </div>
 
         <div class="cards-container">
-            <!-- CARD 1: SBI GOLD (VISA) - SOLD OUT, ₹223 -->
+            <!-- CARD 1: SBI GOLD (VISA) - SOLD OUT - TOP PAR -->
             <div class="card-item" data-network="visa">
                 <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">SBI GOLD</span></div><div>💳</div></div>
                 <div><span class="card-number">5224 | 6388 | 2281 | 4758</span></div>
@@ -323,38 +326,38 @@
                 <div class="action-area"><div class="price">₹223</div><button class="buy-btn" disabled>SOLD OUT</button></div>
             </div>
 
-            <!-- CARD 2: HDFC PREMIUM (VISA) - SOLD OUT, ₹223, alag card number, expiry, cvv -->
-            <div class="card-item" data-network="visa">
+            <!-- CARD 2: HDFC PREMIUM (VISA) - BUY NOW WORK - ₹155 -->
+            <div class="card-item" data-network="visa" data-price="155" data-name="HDFC PREMIUM">
                 <div class="card-header"><div><span class="network-badge">VISA</span><span class="bank-name">HDFC PREMIUM</span></div><div>💎</div></div>
-                <div><span class="card-number">4987 | 1234 | 5678 | 9012</span></div>
-                <div class="details"><div><span>EXP:</span> 11/27</div><div><span>CVV:</span> 789</div></div>
+                <div><span class="card-number">4532 | 6388 | 2281 | 5506</span></div>
+                <div class="details"><div><span>EXP:</span> 12/30</div><div><span>CVV:</span> *****</div></div>
                 <div class="balance">BAL: ₹2,520</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
-                <div class="action-area"><div class="price">₹223</div><button class="buy-btn" disabled>SOLD OUT</button></div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
+                <div class="action-area"><div class="price">₹155</div><button class="buy-btn upi-btn">BUY NOW</button></div>
             </div>
 
-            <!-- CARD 3: ICICI PLATINUM (MASTERCARD) - SOLD OUT, ₹223, alag card number, expiry, cvv -->
-            <div class="card-item" data-network="mastercard">
+            <!-- CARD 3: ICICI PLATINUM (MASTERCARD) - BUY NOW WORK - ₹299 -->
+            <div class="card-item" data-network="mastercard" data-price="299" data-name="ICICI PLATINUM">
                 <div class="card-header"><div><span class="network-badge" style="background:#2f2a1a; color:#ffbc6e;">MASTERCARD</span><span class="bank-name">ICICI PLATINUM</span></div><div>💠</div></div>
-                <div><span class="card-number">5588 | 7766 | 4433 | 2211</span></div>
-                <div class="details"><div><span>EXP:</span> 05/26</div><div><span>CVV:</span> 456</div></div>
+                <div><span class="card-number">5423 | 7890 | 1234 | 5678</span></div>
+                <div class="details"><div><span>EXP:</span> 03/28</div><div><span>CVV:</span> ****</div></div>
                 <div class="balance">BAL: ₹3,750</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
-                <div class="action-area"><div class="price">₹223</div><button class="buy-btn" disabled>SOLD OUT</button></div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
+                <div class="action-area"><div class="price">₹299</div><button class="buy-btn upi-btn">BUY NOW</button></div>
             </div>
 
-            <!-- CARD 4: YES BANK ELITE (RUPAY) - SOLD OUT, ₹223, alag card number, expiry, cvv -->
-            <div class="card-item" data-network="rupay">
+            <!-- CARD 4: YES BANK ELITE (RUPAY) - BUY NOW WORK - ₹199 -->
+            <div class="card-item" data-network="rupay" data-price="199" data-name="YES BANK ELITE">
                 <div class="card-header"><div><span class="network-badge" style="background:#1a3a2a; color:#8bffa5;">RUPAY</span><span class="bank-name">YES BANK ELITE</span></div><div>🪙</div></div>
-                <div><span class="card-number">6072 | 1122 | 3344 | 5566</span></div>
-                <div class="details"><div><span>EXP:</span> 09/28</div><div><span>CVV:</span> 321</div></div>
+                <div><span class="card-number">6072 | 8899 | 3344 | 7788</span></div>
+                <div class="details"><div><span>EXP:</span> 06/27</div><div><span>CVV:</span> ******</div></div>
                 <div class="balance">BAL: ₹4,200</div>
-                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-out">OUT OF STOCK</span></div>
-                <div class="action-area"><div class="price">₹223</div><button class="buy-btn" disabled>SOLD OUT</button></div>
+                <div class="stock-line"><span>STOCK PROTOCOL</span><span class="stock-status stock-instock">IN STOCK</span></div>
+                <div class="action-area"><div class="price">₹199</div><button class="buy-btn upi-btn">BUY NOW</button></div>
             </div>
         </div>
 
-        <div class="filter-status" id="filterStatusMsg">◆ ACTIVE: ALL CARDS (VISA + MASTERCARD + RUPAY) ◆ ALL SOLD OUT ◆ ₹223 EACH ◆</div>
+        <div class="filter-status" id="filterStatusMsg">◆ ACTIVE: ALL CARDS ◆ SBI GOLD (SOLD OUT) ◆ OTHERS: LIVE UPI PAYMENT ◆</div>
     </div>
 
     <script>
@@ -503,6 +506,83 @@
         })();
 
         // ============================================================
+        // REAL UPI PAYMENT INTEGRATION (Only for BUY NOW buttons)
+        // UPI ID: unabntelegrampalka@okhdfcbank
+        // Amount auto-select from data-price attribute
+        // ============================================================
+        
+        const UPI_ID = "unabntelegrampalka@okhdfcbank";
+        const UPI_NAME = "Card Vault Store";
+        const UPI_NOTE = "Card Purchase";
+        
+        function initiateUPIPayment(amount, cardName) {
+            if (!amount || amount <= 0) {
+                showToast("❌ Invalid amount", true);
+                return;
+            }
+            
+            // UPI Intent URI (works with all UPI apps: Google Pay, PhonePe, Paytm, etc.)
+            const upiURI = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent(UPI_NOTE + " - " + cardName)}`;
+            
+            // Open UPI app
+            window.location.href = upiURI;
+            
+            // Fallback message
+            setTimeout(() => {
+                showToast(`💰 Please complete payment of ₹${amount} for ${cardName} in your UPI app`, false);
+            }, 500);
+        }
+        
+        function showToast(msg, isError = false) {
+            let oldToast = document.querySelector('.custom-toast-card');
+            if(oldToast) oldToast.remove();
+            let toast = document.createElement('div');
+            toast.className = 'custom-toast-card';
+            toast.innerText = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '25px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = isError ? '#2c1b19' : '#0e2c3a';
+            toast.style.border = `1px solid ${isError ? '#ff8b72' : '#3bc9ff'}`;
+            toast.style.color = '#fff';
+            toast.style.padding = '0.6rem 1.5rem';
+            toast.style.borderRadius = '2rem';
+            toast.style.fontSize = '0.8rem';
+            toast.style.fontWeight = 'bold';
+            toast.style.zIndex = '9999';
+            toast.style.backdropFilter = 'blur(8px)';
+            toast.style.whiteSpace = 'nowrap';
+            toast.style.fontFamily = 'monospace';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 3000);
+            }, 3000);
+        }
+        
+        // Attach click handlers to all BUY NOW buttons (except disabled SOLD OUT)
+        const buyButtons = document.querySelectorAll('.upi-btn');
+        buyButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const cardItem = this.closest('.card-item');
+                if (!cardItem) return;
+                
+                const priceAttr = cardItem.getAttribute('data-price');
+                const cardName = cardItem.getAttribute('data-name') || cardItem.querySelector('.bank-name')?.innerText || "Card";
+                const price = parseInt(priceAttr);
+                
+                if (price && !isNaN(price)) {
+                    showToast(`🔄 Opening UPI app for ₹${price} (${cardName})...`, false);
+                    initiateUPIPayment(price, cardName);
+                } else {
+                    showToast("❌ Price not found", true);
+                }
+            });
+        });
+        
+        // ============================================================
         // FILTER: ALL, VISA, MASTERCARD, RUPAY
         // ============================================================
         const filters = document.querySelectorAll('.filter-item');
@@ -532,14 +612,16 @@
                 this.classList.add('active');
                 let filterType = this.getAttribute('data-filter');
                 filterCards(filterType);
-                if (filterType === 'all') filterMsgDiv.innerHTML = '◆ ACTIVE: ALL CARDS (VISA + MASTERCARD + RUPAY) ◆ ALL SOLD OUT ◆ ₹223 EACH ◆';
-                else if (filterType === 'visa') filterMsgDiv.innerHTML = '◆ ACTIVE: VISA CARDS (SBI GOLD, HDFC PREMIUM) ◆ SOLD OUT ◆ ₹223 ◆';
-                else if (filterType === 'mastercard') filterMsgDiv.innerHTML = '◆ ACTIVE: MASTERCARD (ICICI PLATINUM) ◆ SOLD OUT ◆ ₹223 ◆';
-                else if (filterType === 'rupay') filterMsgDiv.innerHTML = '◆ ACTIVE: RUPAY (YES BANK ELITE) ◆ SOLD OUT ◆ ₹223 ◆';
+                if (filterType === 'all') filterMsgDiv.innerHTML = '◆ ACTIVE: ALL CARDS ◆ SBI GOLD (SOLD OUT) ◆ OTHERS: LIVE UPI PAYMENT ◆';
+                else if (filterType === 'visa') filterMsgDiv.innerHTML = '◆ ACTIVE: VISA CARDS (SBI GOLD SOLD OUT, HDFC LIVE UPI) ◆';
+                else if (filterType === 'mastercard') filterMsgDiv.innerHTML = '◆ ACTIVE: MASTERCARD (ICICI PLATINUM LIVE UPI) ◆';
+                else if (filterType === 'rupay') filterMsgDiv.innerHTML = '◆ ACTIVE: RUPAY (YES BANK ELITE LIVE UPI) ◆';
             });
         });
         
-        console.log("✓ All cards price ₹223 | All cards SOLD OUT | Each card has unique number, expiry, CVV");
+        console.log("✓ Real UPI Payment Active | UPI ID: unabntelegrampalka@okhdfcbank");
+        console.log("✓ SBI GOLD: ₹223 SOLD OUT | HDFC: ₹155 | ICICI: ₹299 | YES: ₹199");
+        console.log("✓ All UPI apps auto-open on click");
     </script>
 </body>
 </html>
